@@ -1,0 +1,3 @@
+<!--pages/personal/personal.wxml-->
+<text>个人中心</text>
+<van-button round type="info">圆形按钮</van-button>

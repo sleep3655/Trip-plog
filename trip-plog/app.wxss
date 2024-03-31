@@ -1,0 +1,51 @@
+/**app.wxss**/
+/**app.wxss**/
+view,
+text {
+	box-sizing: border-box;
+}
+page {
+	--themeColor: #73d5ad;
+	--globalColor: #333333;
+	--focusColor: #4c4d4e;
+	--descColor: #7e8081;
+	--greyColor: #8e8e8e;
+	--subColor: #b1b2b3;
+	--lightColor: #e4e4e4;
+	--globalbgColor1: #e3e4e5;
+	--globalbgColor2: #f6f7f8;
+	--globalbgColor3: #ffffff;
+}
+
+/* 全局设置 */
+.pubTitle {
+	text-align: center;
+}
+
+.pubTitle .en {
+	font-size: 86rpx;
+	/* 加粗 */
+	font-weight: 900;
+	/* 全大写 */
+	text-transform: uppercase;
+	color: var(--globalColor);
+	/* 透明度 */
+	opacity: 0.1;
+}
+
+.pubTitle .cn {
+	font-size: 56rpx;
+	font-weight: 900;
+	/* 穿过上层的introduction */
+	transform: translateY(-60rpx);
+	color: var(--globalColor);
+}
+
+.pubTitle .line {
+	width: 100rpx;
+	height: 5rpx;
+	background-color: var(--globalColor);
+	opacity: 0.6;
+	display: inline-block;
+	transform: translateY(-40rpx);
+}

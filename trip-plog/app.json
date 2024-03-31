@@ -1,0 +1,45 @@
+{
+	"pages": [
+		"pages/home/home",
+		"pages/record/record",
+		"pages/personal/personal"
+	],
+	"window": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "旅游日志",
+		"navigationBarBackgroundColor": "#ffffff"
+	},
+	"tabBar": {
+		"color": "#8a8a8a",
+		"selectedColor": "#ff491c",
+		"list": [
+			{
+				"pagePath": "pages/home/home",
+				"text": "游记列表",
+				"iconPath": "static/images/底部菜单图标/01游记列表_灰暗.png",
+				"selectedIconPath": "static/images/底部菜单图标/01游记列表.png"
+			},
+			{
+				"pagePath": "pages/record/record",
+				"iconPath": "static/images/底部菜单图标/添加.png",
+				"selectedIconPath": "static/images/底部菜单图标/添加.png"
+			},
+			{
+				"pagePath": "pages/personal/personal",
+				"text": "个人中心",
+				"iconPath": "static/images/底部菜单图标/03个人中心_灰暗.png",
+				"selectedIconPath": "static/images/底部菜单图标/03个人中心.png"
+			}
+		]
+	},
+	"componentFramework": "glass-easel",
+	"sitemapLocation": "sitemap.json",
+	"lazyCodeLoading": "requiredComponents",
+	"usingComponents": {
+		"van-icon": "@vant/weapp/icon/index",
+		"van-button": "@vant/weapp/button/index",
+		"van-search": "@vant/weapp/search/index",
+		"van-row": "@vant/weapp/row/index",
+		"van-col": "@vant/weapp/col/index"
+	}
+}
