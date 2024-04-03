@@ -52,7 +52,7 @@ Page({
 
             setTimeout(() => {
                 wx.navigateTo({
-                    url: '/pages/myPage/myPage'
+                    url: '/pages/personal/personal'
                 })
             }, 1000)
         } else if (result.statusCode === 401) {
