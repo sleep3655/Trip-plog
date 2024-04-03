@@ -1,0 +1,13 @@
+<navigation-bar title="登录" back="{{false}}" color="black" background="#FFF"></navigation-bar>
+<view class="body">
+    <view class="container0">
+        <image src="https://bpic.588ku.com/element_water_img/19/04/28/24cac99631f2615132ebba6a3a0433d8.jpg" mode="" class="logo" />
+        <text class="logoTxt">绿皮书，你的旅游指南</text>
+    </view>
+    <view class="container">
+        <input class="input" type="text" placeholder="请输入用户名" bindinput="getUsername"></input>
+        <input class="input" type="password" placeholder="请输入密码" bindinput="getPassword"></input>
+        <text class="toregister" bind:tap="toRegister">去注册</text>
+        <button type="primary" class="login-btn" bindtap="submit">登录</button>
+    </view>
+</view>

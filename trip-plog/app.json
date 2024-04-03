@@ -2,7 +2,10 @@
 	"pages": [
 		"pages/home/home",
 		"pages/record/record",
-		"pages/personal/personal"
+        "pages/personal/personal",  
+        "pages/login/login",
+        "pages/register/register",
+        "pages/myPage/myPage"
 	],
 	"window": {
 		"navigationBarTextStyle": "black",
