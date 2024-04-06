@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 const { v4 } = require('uuid');
 const axios = require('axios');
-const { User } = require('./model');// 导入数据库模型
+const { User, Plog } = require('./model')
 
 port = 3001
 
@@ -56,12 +56,7 @@ app.post('/register', async (req, res) => {
     console.log('用户注册成功！');
     res.status(200);
 });
-// 创建新用户
-//     const newUser = new User({ username, password, openid, avatarUrl });
-//     await newUser.save();
-//     console.log('用户注册成功！');
-//     res.sendStatus(200);
-// })
+
 
 
 // 登录_zqx
@@ -88,6 +83,51 @@ app.get('/getUserInfo', async (req, res) => {
     const avatarUrl = result[0].avatarUrl;
     console.log(avatarUrl)
     res.send({ username, avatarUrl });
+});
+
+
+// 上传游记
+app.post('/publish', upload.array('file'), async (req, res) => {
+    const { openid, title, content, location, cost, date, time } = req.body;
+    const files = req.files; // 获取上传的文件
+
+    // 处理文件
+    const photoUrls = files.map(file => file.filename); // 获取文件名列表
+
+    try {
+        // 查找是否存在已有的游记对象
+        const existingPlog = await Plog.findOne({ openid, title, content, location, cost, date });
+        if (existingPlog) {
+            // 如果已存在游记对象，则更新 photourl 字段
+            existingPlog.photourl = existingPlog.photourl.concat(photoUrls); // 将新的文件名列表合并到已有的 photourl 中
+            console.log(photoUrls)
+            await existingPlog.save();
+
+            // 返回响应
+            res.send('文件上传成功');
+        } else {
+            // 如果不存在游记对象，则创建新的游记对象
+            const newPlog = new Plog({
+                openid,
+                title,
+                content,
+                location,
+                cost,
+                date,
+                time,
+                photourl: photoUrls,
+                status: '待审核' // 设置审核状态为 '待审核'
+            });
+            await newPlog.save(); // 等待保存操作完成
+
+            // 返回响应
+            res.send('文件上传成功');
+        }
+    } catch (error) {
+        // 处理保存过程中出现的错误
+        console.error('保存游记到数据库失败', error);
+        res.status(500).send('保存游记到数据库失败');
+    }
 });
 
 
