@@ -127,24 +127,7 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    async onLoad(options) {
-        const openid = wx.getStorageSync('openid');
-
-        if (!openid) {
-            const {
-                code
-            } = await wx.login();
-            const params1 = {
-                code
-            };
-            const result1 = await ajax('/login', 'GET', params1);
-            const {
-                data
-            } = result1;
-            if (data !== "error") {
-                wx.setStorageSync('openid', data);
-            }
-        }
+  onLoad(options) {
         
     },
 

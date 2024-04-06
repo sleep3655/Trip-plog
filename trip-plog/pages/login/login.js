@@ -13,6 +13,7 @@ Page({
     data: {
         username: '',
         password: '',
+
     },
 
     getUsername(e) {
@@ -43,18 +44,23 @@ Page({
             username,
             password
         };
-        const result = await ajax('/login', 'POST', params)
+        
+        const result = await ajax('/toLogin', 'POST', params)
         if (result.statusCode === 200) {
-            wx.showToast({
-                title: '用户登录成功!',
-                icon: 'none'
-            })
+            wx.setStorageSync('login', true);
+            const userId = result.data.userId; 
+            wx.setStorageSync('userId', userId);
+            console.log('用户ID:', userId);
+            wx.switchTab({
+                url: '../personal/personal',
+                success: () => {
+                    wx.showToast({
+                        title: '登录成功!',
+                        icon: 'none'
+                    })
 
-            setTimeout(() => {
-                wx.navigateTo({
-                    url: '/pages/personal/personal'
-                })
-            }, 1000)
+                }
+            })
         } else if (result.statusCode === 401) {
             wx.showToast({
                 title: '用户名或密码不正确!',
@@ -71,29 +77,23 @@ Page({
      * 生命周期函数--监听页面加载
      */
     async onLoad(options) {
-        const openid = wx.getStorageSync('openid');
+        // const openid = wx.getStorageSync('openid');
+        // if (!openid) {
+        //     const {
+        //         code
+        //     } = await wx.login();
+        //     const params1 = {
+        //         code
+        //     };
+        //     const result1 = await ajax('/login', 'GET', params1);
+        //     const {
+        //         data
+        //     } = result1;
+        //     if (data !== "error") {
+        //         wx.setStorageSync('openid', data);
+        //     }
 
-        if (wx.getStorageSync('login_account')) {
-            wx.switchTab({
-                url: '../index/index',
-            })
-        } else {
-            if (!openid) {
-                const {
-                    code
-                } = await wx.login();
-                const params1 = {
-                    code
-                };
-                const result1 = await ajax('/login', 'GET', params1);
-                const {
-                    data
-                } = result1;
-                if (data !== "error") {
-                    wx.setStorageSync('openid', data);
-                }
-            }
-        }
+        // }
     },
 
     /**
