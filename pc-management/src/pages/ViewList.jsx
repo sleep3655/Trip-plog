@@ -4,7 +4,7 @@ import { Space, Table, Tag } from 'antd';
 
 const columns = [
   {
-    title: '姓名',
+    title: '昵称',
     dataIndex: 'name',
     key: 'name',
     render: (text) => <a>{text}</a>,
@@ -74,5 +74,5 @@ const data = [
     tags: ['教授','院士'],
   },
 ];
-const ListManagement = () => <Table columns={columns} dataSource={data} />;
-export default ListManagement;
+const ViewList = () => <Table columns={columns} dataSource={data} />;
+export default ViewList;
