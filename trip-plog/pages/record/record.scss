@@ -1,1 +1,73 @@
 /* pages/record/record.wxss */
+.container {
+  padding: 20px;
+
+  .title-input {
+    margin-bottom: 20px;
+  }
+
+ .content-input {
+    height: 200px !important;
+    // margin-bottom: 20px;
+  }
+  .cell-value {
+    text-align: left;
+  }
+  .calendar {
+    margin-bottom: 20px;
+  }
+
+  .option-input {
+    margin-bottom: 20px;
+  }
+
+  .image-container {
+    padding: 10px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .upload-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  .image-uploader {
+    // width: 150px;
+    // height: 150px;
+    background-color: #f7f8fa;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #999;
+    cursor: pointer;
+  }
+
+  .upload-text {
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .preview-container {
+    display: flex;
+  }
+  
+  .preview-image {
+    width: 120px;
+    height: 120px;
+    margin-right: 10px;
+    // margin-bottom: 10px;
+  }
+  
+  .publish-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+}
