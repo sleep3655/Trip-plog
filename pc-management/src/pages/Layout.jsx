@@ -1,6 +1,13 @@
 import React from "react";
-import { UserOutlined } from "@ant-design/icons";
-import { Breadcrumb, Layout as AntdLayout, Menu, theme } from "antd";
+import { UserOutlined, DownOutlined } from "@ant-design/icons";
+import {
+  Breadcrumb,
+  Layout as AntdLayout,
+  Menu,
+  theme,
+  Dropdown,
+  Space,
+} from "antd";
 // 引入css样式
 import styles from "./index.module.css";
 import { useNavigate } from "react-router-dom";
@@ -12,9 +19,22 @@ const Items = [
     icon: <UserOutlined />,
     label: "审核管理",
     children: [
-      { key: "/management/list", label: "待审核列表" },
-      { key: "/management/delete", label: "已删除游记" },
+      { key: "/management/list", label: "Plog合集" },
+      { key: "/management/view", label: "待审核ing" },
+      { key: "/management/delete", label: "回收站" },
     ],
+  },
+];
+
+// 登录用户
+const userItems = [
+  {
+    label: "用户中心",
+    key: "0",
+  },
+  {
+    label: "退出登录",
+    key: "1",
   },
 ];
 
@@ -32,10 +52,25 @@ export function Layout({ children }) {
       <Header
         style={{
           display: "flex",
+          justifyContent: "space-between",
           alignItems: "center",
         }}
       >
         <div className={styles.logo}>Trip-plog后台管理系统</div>
+        <span className={styles.user}>
+          <Dropdown
+            menu={{
+              items: userItems,
+            }}
+          >
+            <a onClick={(e) => e.preventDefault()}>
+              <Space>
+                用户名
+                <DownOutlined />
+              </Space>
+            </a>
+          </Dropdown>
+        </span>
       </Header>
       <AntdLayout>
         <Sider

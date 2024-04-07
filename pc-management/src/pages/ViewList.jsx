@@ -1,78 +1,84 @@
-import React from 'react';
-import { Space, Table, Tag } from 'antd';
-// import { useNavigate, Outlet } from "react-router-dom";
+import React, { useState } from 'react';
+import { Card } from 'antd';
 
-const columns = [
+// const tabList = [
+//   {
+//     key: 'tab1',
+//     tab: 'tab1',
+//   },
+//   {
+//     key: 'tab2',
+//     tab: 'tab2',
+//   },
+// ];
+// const contentList = {
+//   tab1: <p>content1</p>,
+//   tab2: <p>content2</p>,
+// };
+// 筛选
+const tabListNoTitle = [
   {
-    title: '昵称',
-    dataIndex: 'name',
-    key: 'name',
-    render: (text) => <a>{text}</a>,
+    key: 'view',
+    label: '待审核',
   },
   {
-    title: '年龄',
-    dataIndex: 'age',
-    key: 'age',
+    key: 'pass',
+    label: '已通过',
   },
   {
-    title: '电话',
-    dataIndex: 'phone',
-    key: 'phone',
-  },
-  {
-    title: '信息',
-    key: 'tags',
-    dataIndex: 'tags',
-    render: (_, { tags }) => (
-      <>
-        {tags.map((tag) => {
-          let color = tag.length > 5 ? 'geekblue' : 'green';
-          if (tag === '院士') {
-            color = 'volcano';
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
-    ),
-  },
-  {
-    title: '操作',
-    key: 'action',
-    render: (_, record) => (
-      <Space size="middle">
-        {/* <a>邀请 {record.name}</a> */}
-        <a >编辑</a>
-        <a>删除</a>
-      </Space>
-    ),
+    key: 'reject',
+    label: '已拒绝',
   },
 ];
-const data = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 20,
-    phone: '17268993404',
-    tags: ['学生', ],
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    age: 38,
-    phone: '18273638234',
-    tags: ['讲师','辅导员'],
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    age: 45,
-    phone: '19374620322',
-    tags: ['教授','院士'],
-  },
-];
-const ViewList = () => <Table columns={columns} dataSource={data} />;
+
+// 筛选内容
+const contentListNoTitle = {
+  view: <p>view content</p>,
+  pass: <p>pass content</p>,
+  reject: <p>reject content</p>,
+};
+
+
+const ViewList = () => {
+  const [activeTabKey1, setActiveTabKey1] = useState('tab1');
+  const [activeTabKey2, setActiveTabKey2] = useState('app');
+  const onTab1Change = (key) => {
+    setActiveTabKey1(key);
+  };
+  const onTab2Change = (key) => {
+    setActiveTabKey2(key);
+  };
+  return (
+    <>
+      {/* <Card
+        style={{
+          width: '100%',
+        }}
+        title="Card title"
+        extra={<a href="#">More</a>}
+        tabList={tabList}
+        activeTabKey={activeTabKey1}
+        onTabChange={onTab1Change}
+      >
+        {contentList[activeTabKey1]}
+      </Card> */}
+      <br />
+      <br />
+      <Card
+        style={{
+          width: '100%',
+        }}
+        tabList={tabListNoTitle}
+        activeTabKey={activeTabKey2}
+        // tabBarExtraContent={<a href="#">More</a>}
+        onTabChange={onTab2Change}
+        tabProps={{
+          size: 'middle',
+        }}
+      >
+        {contentListNoTitle[activeTabKey2]}
+      </Card>
+    </>
+  );
+};
 export default ViewList;
