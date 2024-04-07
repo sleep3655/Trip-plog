@@ -6,9 +6,8 @@
 		"pages/search/search",
 		"pages/search-list/search-list",
 		"pages/details/details",
-        "pages/login/login",
-        "pages/register/register"
-
+		"pages/login/login",
+		"pages/register/register"
 	],
 	"window": {
 		"navigationBarTextStyle": "black",
@@ -17,7 +16,7 @@
 	},
 	"tabBar": {
 		"color": "#8a8a8a",
-		"selectedColor": "#ff3d3f",
+		"selectedColor": "#1aad19",
 		"list": [
 			{
 				"pagePath": "pages/home/home",
@@ -42,10 +41,10 @@
 	"sitemapLocation": "sitemap.json",
 	"lazyCodeLoading": "requiredComponents",
 	"usingComponents": {
-	"van-icon": "@vant/weapp/icon/index",
-	"van-button": "@vant/weapp/button/index",
-	"van-search": "@vant/weapp/search/index",
-	"van-row": "@vant/weapp/row/index",
-	"van-col": "@vant/weapp/col/index"
-	 }
+		"van-icon": "@vant/weapp/icon/index",
+		"van-button": "@vant/weapp/button/index",
+		"van-search": "@vant/weapp/search/index",
+		"van-row": "@vant/weapp/row/index",
+		"van-col": "@vant/weapp/col/index"
+	}
 }

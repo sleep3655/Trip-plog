@@ -11,7 +11,7 @@ text {
 	box-sizing: border-box;
 }
 page {
-	--themeColor: #bfe0d3;
+	--themeColor: #1aad19;
 	--globalColor: #333333;
 	--focusColor: #4c4d4e;
 	--descColor: #7e8081;
