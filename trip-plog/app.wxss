@@ -1,11 +1,17 @@
-/**app.wxss**/
-/**app.wxss**/
+/* 全局配置 */
+.outer {
+	padding: 8rpx;
+	min-height: 100vh;
+	box-sizing: border-box;
+	border-radius: 50rpx;
+	background-color: #fff;
+}
 view,
 text {
 	box-sizing: border-box;
 }
 page {
-	--themeColor: #73d5ad;
+	--themeColor: #1aad19;
 	--globalColor: #333333;
 	--focusColor: #4c4d4e;
 	--descColor: #7e8081;

@@ -1,11 +1,4 @@
 <view class="outer">
-	<!--导航 -->
-	<view class="navBar">
-		<view class="nav">
-			<image src="/static/images/menu.png" />
-			<image src="/static/images/serch.png" bindtap="goToSearch"/>
-		</view>
-	</view>
 	<!-- 列表 -->
 	<view class="container">
 		<!-- 左右瀑布流 -->
@@ -42,19 +35,4 @@
 			</view>
 		</view>
 	</template>
-
-	<!-- 底部菜单 -->
-	<!-- <view class="tabBar">
-		<view class="tabBar-item">
-			<image src="/static/images/底部菜单图标/list.png" />
-			<text>游记列表</text>
-		</view>
-		<view class="tabBar-item">
-			<image src="/static/images/底部菜单图标/添加.png" />
-		</view>
-		<view class="tabBar-item">
-			<image src="/static/images/底部菜单图标/mine.png" />
-			<text>个人中心</text>
-		</view>
-	</view> -->
 </view>

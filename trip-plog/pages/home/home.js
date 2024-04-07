@@ -1,66 +1,61 @@
-// pages/home/home.js
+const db = wx.cloud.database()
 Page({
 
-  /**
-   * 页面的初始数据
-   */
-  data: {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad(options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
-  }
+	data: {
+		article: ''
+	},
+	onLoad(options) {
+		// 获取云数据库资源
+		db.collection('article').get().then(res => {
+			this.setData({
+				article: res.data
+			})
+			// console.log('获得日志内容', this.data.article);
+		}).catch(err => {//请求失败
+			console.log('请求失败', err)
+		})
+	},
+	// 跳转搜索页
+	goToSearch() {
+		wx.navigateTo({
+			url: '/pages/search/search'
+		})
+	},
+	// 跳转详情页
+	goToDetails(e) {
+		console.log("点击的日志id", e.currentTarget.dataset.id);
+		wx.navigateTo({
+			url: '/pages/details/details?id=' + e.currentTarget.dataset.id,
+		})
+		// 更新views
+		// 先获取当前的 views 值
+		db.collection('article').doc(e.currentTarget.dataset.id).get().then(res => {
+			const currentViews = res.data.views;
+			console.log("currentViews", currentViews);
+			// 更新 views 字段
+			db.collection('article').doc(e.currentTarget.dataset.id).update({
+				data: {
+					views: currentViews + 1
+				},
+				success: res => {
+					console.log('views 字段更新成功', res);
+					// 获取更新后的数据
+					db.collection('article').get().then(res => {
+						// 更新新的 article 字段并获取
+						this.setData({
+							article: res.data
+						})
+						console.log('article 字段更新成功', this.data.article)
+					}).catch(error => {
+						console.error('获取更新后的数据失败', error);
+					});
+				},
+				fail: error => {
+					console.error('views 字段更新失败', error);
+				}
+			});
+		}).catch(error => {
+			console.error('获取当前 views 值失败', error);
+		});
+	}
 })
