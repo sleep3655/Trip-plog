@@ -40,6 +40,15 @@ Page({
                 username: result.data.username,
                 avatarUrl: result.data.avatarUrl
             })
+
+            const publish = await ajax('/getMyPublish', 'GET', {userId: userId });
+            const {data} = publish
+            console.log(data)
+            this.setData({list: data})
+
+
+
+
         } else {
             wx.redirectTo({
                 url: '/pages/login/login'

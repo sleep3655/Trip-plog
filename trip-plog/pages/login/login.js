@@ -3,7 +3,7 @@ import {
 } from '../../utils/indexz'
 Page({
     toRegister() {
-        wx.redirectTo({
+        wx.navigateTo({
             url: '../register/register'
         })
     },
@@ -46,6 +46,7 @@ Page({
         };
         
         const result = await ajax('/toLogin', 'POST', params)
+        console.log(result);
         if (result.statusCode === 200) {
             wx.setStorageSync('login', true);
             const userId = result.data.userId; 

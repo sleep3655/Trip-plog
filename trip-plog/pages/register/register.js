@@ -1,4 +1,6 @@
-import {ajax} from '../../utils/indexz'
+import {
+    ajax
+} from '../../utils/indexz'
 Page({
     /**
      * 页面的初始数据
@@ -31,7 +33,7 @@ Page({
             confirmpwd: e.detail.value
         })
     },
-    
+
 
     uploadAvatar() {
         let {
@@ -43,7 +45,6 @@ Page({
             sourceType: ['album', 'camera'],
             sizeType: ['compressed'],
             camera: 'back',
-
             success: res => {
                 const tempFilePath = res.tempFiles[0].tempFilePath;
                 console.log(res)
@@ -52,8 +53,12 @@ Page({
                     filePath: tempFilePath,
                     name: 'file',
                     success: res => {
-                        const {data} = res
-                        let {path} = JSON.parse(data)[0]
+                        const {
+                            data
+                        } = res
+                        let {
+                            path
+                        } = JSON.parse(data)[0]
                         let _path = `http://localhost:3001/${path}`
                         _path = _path.replace(/\\/g, '/');
                         avatarUrl.unshift(_path)
@@ -68,9 +73,6 @@ Page({
             }
         })
     },
-
-
-
 
     async submit() {
         const {
@@ -96,39 +98,40 @@ Page({
         }
 
         const params = {
-            openid: wx.getStorageSync('openid'),
             username,
             password,
-            avatarUrl:avatarUrl[0] || 'https://img.yzcdn.cn/vant/cat.jpeg'
+            avatarUrl: avatarUrl[0] || 'https://img.yzcdn.cn/vant/cat.jpeg'
         };
 
         const result = await ajax('/register', 'POST', params)
-        if (result.statusCode === 200) {
+        console.log(result);
+        const { data } = result;
+        if (data === "Registered") {
+            // 这个账号已被注册
             wx.showToast({
-                title: '注册成功!',
-                icon: 'none'
-            })
-            setTimeout(() => {
-                wx.navigateTo({
-                    url: '/pages/login/login'
-                })
-            }, 1000)
-        } else if (result.statusCode === 401) {
-            wx.showToast({
-                title: '用户名已存在!',
-                icon: 'none'
+              title: '用户名已存在!',
+              icon: 'none'
             });
-        } else {
-            console.log('用户注册失败');
-            // TODO: 进行注册失败的逻辑处理
+            return
+        } else if (data === "success") {
+            // 注册成功
+            wx.redirectTo({
+              url: '../login/login',
+              success: () => {
+                  wx.showToast({
+                    title: '注册成功!',
+                    icon: 'none'
+                  })
+              }
+            })
         }
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
-  onLoad(options) {
-        
+    onLoad(options) {
+
     },
 
     /**
