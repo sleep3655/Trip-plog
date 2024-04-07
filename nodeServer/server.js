@@ -42,19 +42,18 @@ app.all("*", (req, res, next) => {
 
 // 注册_zqx
 app.post('/register', async (req, res) => {
-    const { username, password, openid, avatarUrl } = req.body;
+    const { username, password, avatarUrl } = req.body;
     const existingUser = await User.findOne({ username });
     if (existingUser) {
         console.log('用户名已存在');
-        return res.status(401); // 返回状态码 401 表示冲突（用户名已存在）
+        return res.send("Registered");
     }
     const uniqueId = v4();
-
     // 创建新用户，将唯一ID分配给用户_zqx
-    const newUser = new User({ id: uniqueId, username, password, openid, avatarUrl });
+    const newUser = new User({ userId: uniqueId, username, password, avatarUrl });
     await newUser.save();
     console.log('用户注册成功！');
-    res.status(200);
+    res.send("success");
 });
 
 
@@ -65,11 +64,11 @@ app.post('/toLogin', async (req, res) => {
     const user = await User.findOne({ username, password });
     if (user) {
         console.log('用户登录成功！');
-        // res.status(200);
-        const userId = user.id;
+        const userId = user.userId;
         res.status(200).json({ userId });
     } else {
         console.error('用户名或密码不正确。');
+        send("false")
         res.status(401);
     }
 });
@@ -78,7 +77,7 @@ app.post('/toLogin', async (req, res) => {
 app.get('/getUserInfo', async (req, res) => {
     const userId = req.query.userId;
     console.log(userId);
-    const result = await User.find({ id: userId })
+    const result = await User.find({ userId: userId })
     const username = result[0].username;
     const avatarUrl = result[0].avatarUrl;
     console.log(avatarUrl)
@@ -86,17 +85,27 @@ app.get('/getUserInfo', async (req, res) => {
 });
 
 
-// 上传游记
-app.post('/publish', upload.array('file'), async (req, res) => {
-    const { openid, title, content, location, cost, date, time } = req.body;
-    const files = req.files; // 获取上传的文件
+// 获取我的发布的数据_zqx
+app.get("/getMyPublish", async (req, res) => {
+    const userId = req.query.userId;
+    const result = await Plog.find({
+        userId
+    });
+    res.send(result);
+})
 
+// 上传游记_wqj
+app.post('/publish', upload.array('file'), async (req, res) => {
+    const { userId, title, content, location, cost, date, time } = req.body;
+    const files = req.files; // 获取上传的文件
+     console.log(userId)
     // 处理文件
     const photoUrls = files.map(file => file.filename); // 获取文件名列表
 
     try {
         // 查找是否存在已有的游记对象
-        const existingPlog = await Plog.findOne({ openid, title, content, location, cost, date });
+        const existingPlog = await Plog.findOne({ userId, title, content, location, cost, date });
+       
         if (existingPlog) {
             // 如果已存在游记对象，则更新 photourl 字段
             existingPlog.photourl = existingPlog.photourl.concat(photoUrls); // 将新的文件名列表合并到已有的 photourl 中
@@ -108,7 +117,7 @@ app.post('/publish', upload.array('file'), async (req, res) => {
         } else {
             // 如果不存在游记对象，则创建新的游记对象
             const newPlog = new Plog({
-                openid,
+                userId,
                 title,
                 content,
                 location,

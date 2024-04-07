@@ -1,34 +1,30 @@
 const mongoose = require('mongoose');
 
 // 连接 MongoDB 数据库
-// mongoose.connect('mongodb://localhost/trip')
-//     .then(() => {
-//         console.log("数据库连接成功");
-//     })
-//     .catch((err) => {
-//         console.log("数据库连接失败", err);
-//     })
-
-mongoose.connect('mongodb+srv://harumi:harumi1107@trip-plog.ayrpvnj.mongodb.net/trip?retryWrites=true&w=majority', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    dbName: 'trip' // 指定数据库为 'trip'
-})
+mongoose.connect('mongodb://localhost/trip')
     .then(() => {
         console.log("数据库连接成功");
     })
     .catch((err) => {
         console.log("数据库连接失败", err);
-    });
+    })
+
+// mongoose.connect('mongodb+srv://harumi:harumi1107@trip-plog.ayrpvnj.mongodb.net/trip?retryWrites=true&w=majority', {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//     dbName: 'trip' // 指定数据库为 'trip'
+// })
+//     .then(() => {
+//         console.log("数据库连接成功");
+//     })
+//     .catch((err) => {
+//         console.log("数据库连接失败", err);
+//     });
 
 const UserSchema = new mongoose.Schema({
-    id: {           // 用户ID
+    userId: {           // 用户ID
         type: String
     },
-    openid: {           // 用户ID
-        type: String
-    },
-
     username: {         // 用户名
         type: String
     },
@@ -42,7 +38,7 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', UserSchema)
 const plogSchema = new mongoose.Schema({
-    openid: {           // 用户ID
+    userId: {           // 用户ID
         type: String
     },
     title: {         // 游记标题

@@ -32,7 +32,7 @@ Page({
     contentError: false,
     locationError: false,
     costError: false,
-    openid:''
+    userId:''
   },
   showDatePicker() {
     this.setData({ showDatePicker: true });
@@ -200,10 +200,10 @@ Page({
       time: new Date().toISOString() // 当前时间
     }; 
     wx.getStorage({
-      key: 'openid',
+      key: 'userId',
       success: function(res) {
-        const openid = res.data;
-        formData.openid = openid;
+        const userId= res.data;
+        formData.userId = userId;
       }
     })
     console.log(formData)
