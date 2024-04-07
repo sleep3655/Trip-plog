@@ -1,0 +1,73 @@
+/* pages/search-list/search-list.wxss */
+// 列表
+.container {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 70rpx;
+
+	.box-left,
+	.box-right {
+		width: 49%;
+	}
+}
+
+// 盒子模型
+.item {
+	margin: 10rpx auto 20rpx;
+	background-color: #ffffff;
+	width: 98%;
+	border-radius: 20rpx;
+	overflow: hidden;
+
+	// 上方图片
+	.item-img {
+		// 配合widthfix撑满父级
+		width: 100%;
+	}
+
+	// 下方文字展示
+	.item-content-box {
+		font-size: 28rpx;
+		color: var(--globalColor);
+		padding: 20rpx;
+		box-sizing: border-box;
+
+		.item-title {
+			// 文字一行，溢出省略
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 1;
+			overflow: hidden;
+		}
+
+		.item-name {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin-top: 20rpx;
+			font-size: 22rpx;
+
+			// 头像、昵称
+			.flex-row {
+				display: flex;
+				align-items: center; //垂直居中
+				justify-content: flex-start; //对齐方式
+
+				.item-content-avatar {
+					width: 40rpx;
+					height: 40rpx;
+					border-radius: 50%;
+					margin-right: 15rpx;
+				}
+			}
+
+			// 浏览量
+			.item-views {
+				color: #c4c4c4;
+				// text-decoration: underline;
+				font-size: 26rpx;
+			}
+		}
+	}
+}

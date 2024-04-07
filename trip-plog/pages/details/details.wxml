@@ -1,0 +1,58 @@
+<view class="outer">
+	<!-- 轮播图 -->
+	<!-- <view class="carousel">
+		<image src="/static/images/嘉兴5.jpg" mode="aspectFill" />
+	</view> -->
+	<swiper class="carousel" indicator-dots="{{true}}" indicator-active-color="#BDA066" autoplay interval="1500" circular="{{true}}">
+		<swiper-item wx:for="{{article.thumbnail}}" wx:key="index">
+			<image src="{{item}}" mode="aspectFill" />
+		</swiper-item>
+	</swiper>
+	<!-- 文字 -->
+	<view class="content">
+		<!-- 用户 -->
+		<view class="user-box">
+			<!-- 标题 -->
+			<view class="title">
+				{{article.title}}
+			</view>
+			<!-- 用户信息 -->
+			<view class="user">
+				<view class="user-item">
+					<image src="{{article.head}}" mode="" />
+					<view class="user-info">
+						<view class="name">{{article.name}}
+						</view>
+						<view class="slogon">{{article.slogon}}</view>
+					</view>
+				</view>
+				<!-- 分享 -->
+				<view class="share">
+					<button class="share-btn" plain size="small" open-type="share" >
+						<van-icon name="share-o" />分享
+					</button>
+				</view>
+			</view>
+			<!-- 其他信息-->
+			<view class="otherInfo">
+				<view class="otherInfo-item">
+					<view class="otherInfo-tag">定位信息</view>
+					<view class="otherInfo-content">{{article.location}}</view>
+				</view>
+				<view class="otherInfo-item">
+					<view class="otherInfo-tag">出行时间</view>
+					<view class="otherInfo-content">{{article.date}}</view>
+				</view>
+				<view class="otherInfo-item">
+					<view class="otherInfo-tag">人均花费</view>
+					<view class="otherInfo-content">{{article.cost}}</view>
+				</view>
+			</view>
+			<!-- 内容描述 -->
+			<view class="description">
+				<!-- 富文本模式 -->
+				<rich-text nodes="{{article.description}}" />
+			</view>
+		</view>
+	</view>
+</view>

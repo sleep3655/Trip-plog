@@ -1,0 +1,13 @@
+<view class="body">
+    <view class="container0">
+        <image src="{{avatarUrl[0] || 'https://img.yzcdn.cn/vant/cat.jpeg'}}" mode="aspectFill" class="avatar" bindtap="uploadAvatar"></image>
+        <text class="change-avatar" bindtap="uploadAvatar">点击可更换头像</text>
+    </view>
+    <view class="container">
+        <input class="input" type="text" placeholder="请输入用户名" bindinput="getUsername"></input>
+        <input class="input" type="password" placeholder="请输入密码" bindinput="getPassword"></input>
+        <input class="input" type="password" placeholder="请再次确认密码" bindinput="getConfirmPwd"></input>
+        <text class="toregister" bindtap="toLogin">去登录</text>
+        <button type="primary" class="login-btn" bindtap="submit">注册</button>
+    </view>
+</view>

@@ -2,5 +2,5 @@
 	"usingComponents": {
 		"van-search": "@vant/weapp/search/index"
 	},
-	"navigationBarTitleText": "游记列表"
+	"navigationBarTitleText": "搜索"
 }

@@ -1,0 +1,13 @@
+<view class="item">
+    <image class="image" src="{{ data.image }}"></image>
+    <view class="content">
+        <text class="title">{{ data.title }}</text>
+        <text class="desc">{{ data.desc }}</text>
+        <text class="review">已通过</text>
+    </view>
+    
+</view>
+<view class="button">
+        <button class="delete"> 删除 </button>
+        <button class="edit"> 编辑 </button>
+</view> 

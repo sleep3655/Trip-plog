@@ -2,7 +2,10 @@
 	"pages": [
 		"pages/home/home",
 		"pages/record/record",
-		"pages/personal/personal"
+		"pages/personal/personal",
+		"pages/search/search",
+		"pages/search-list/search-list",
+		"pages/details/details"
 	],
 	"window": {
 		"navigationBarTextStyle": "black",
@@ -11,24 +14,24 @@
 	},
 	"tabBar": {
 		"color": "#8a8a8a",
-		"selectedColor": "#ff491c",
+		"selectedColor": "#ff3d3f",
 		"list": [
 			{
 				"pagePath": "pages/home/home",
 				"text": "游记列表",
-				"iconPath": "static/images/底部菜单图标/01游记列表_灰暗.png",
-				"selectedIconPath": "static/images/底部菜单图标/01游记列表.png"
+				"iconPath": "static/images/底部菜单图标/list.png",
+				"selectedIconPath": "static/images/底部菜单图标/list_selected.png"
 			},
 			{
 				"pagePath": "pages/record/record",
-				"iconPath": "static/images/底部菜单图标/添加.png",
-				"selectedIconPath": "static/images/底部菜单图标/添加.png"
+				"iconPath": "static/images/底部菜单图标/plus.png",
+				"selectedIconPath": "static/images/底部菜单图标/plus.png"
 			},
 			{
 				"pagePath": "pages/personal/personal",
 				"text": "个人中心",
-				"iconPath": "static/images/底部菜单图标/03个人中心_灰暗.png",
-				"selectedIconPath": "static/images/底部菜单图标/03个人中心.png"
+				"iconPath": "static/images/底部菜单图标/mine.png",
+				"selectedIconPath": "static/images/底部菜单图标/mine_selected.png"
 			}
 		]
 	},
@@ -37,9 +40,6 @@
 	"lazyCodeLoading": "requiredComponents",
 	"usingComponents": {
 		"van-icon": "@vant/weapp/icon/index",
-		"van-button": "@vant/weapp/button/index",
-		"van-search": "@vant/weapp/search/index",
-		"van-row": "@vant/weapp/row/index",
-		"van-col": "@vant/weapp/col/index"
+		"van-button": "@vant/weapp/button/index"
 	}
 }

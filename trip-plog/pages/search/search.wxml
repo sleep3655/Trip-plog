@@ -1,0 +1,39 @@
+<view class="outer">
+	<!-- <van-search value="{{ value }}" shape="round" background="var(--themeColor)" placeholder="请输入昵称或关键词" use-action-slot bind:change="onChange" bind:search="onSearch" bind:clear="onClear">
+	<view slot="action" bind:tap="onClick" style="padding: 0 30rpx;">搜索</view>
+</van-search> -->
+
+	<!-- 搜索框 -->
+	<view class="head flex-row">
+		<view class="head-input">
+			<image src="/static/images/serch.png" mode="" class="search-icon" />
+			<input type="text" placeholder="请输入昵称或标题关键词" placeholder-class="place-holder" bindcomfirm="handleInput" value="{{search}}" bindinput="searchCon" />
+		</view>
+		<view class="search-icon" catchtap="goToSearchlist">搜索</view>
+		<view class="clear-icon" catchtap="clearInput">取消</view>
+
+	</view>
+	<!-- 搜索记录 -->
+	<view class="record-box">
+		<!-- 热门搜索 -->
+		<view class="title">热门搜索</view>
+		<view class="flex-row list">
+			<block wx:for="{{hot_list}}" wx:key="index">
+				<view class="item color" data-index="{{index}}" catchtap="handleHotItem">{{item}} </view>
+			</block>
+		</view>
+		<!-- 历史搜索 -->
+		<view wx:if="{{his_list.length>0}}">
+			<view class="flex-row  histroy">
+				<view class="title">搜索历史</view>
+				<view catchtap="clearHistory" class="clear">清空历史</view>
+			</view>
+			<view class="flex-row list">
+				<block wx:for="{{his_list}}" wx:key="index">
+					<view class="item" data-index="{{index}}" catchtap="handleHisItem">{{item}}
+					</view>
+				</block>
+			</view>
+		</view>
+	</view>
+</view>
