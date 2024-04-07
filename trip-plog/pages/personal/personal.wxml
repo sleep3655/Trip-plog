@@ -1,11 +1,3 @@
-<view class="body">
-    <view class="info">
-        <!-- <image class="avatarUrl" src="https://img.yzcdn.cn/vant/cat.jpeg"></image>
-            <text class="username">wee</text> -->
-        <image class="avatarUrl" src="{{avatarUrl}}"></image>
-        <text class="username">{{username}}</text>
-    </view>
-    <view class="txt">
-        <ViewCard wx:for="{{ list }}" data="{{item}}" />
-    </view>
-</view>
+<!--pages/personal/personal.wxml-->
+<text>个人中心</text>
+<van-button round type="info" bind:tap="toLogin">圆形按钮</van-button>
