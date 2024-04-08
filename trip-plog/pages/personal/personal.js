@@ -11,16 +11,35 @@ Page({
         login: '',
         avatarUrl: '',
         username: '',
-        list: [{
-            image: "https://img.yzcdn.cn/vant/cat.jpeg",
-            title: "我是第一个",
-            desc: "2021年2月23日起，若小程序已在微信开放平台进行绑定，则通过wx.login接口获取的登录凭证可直接换取unionID2021年4月28日24时后发布的小程序新版本，无法通过wx.getUserInfo与获取用户个人信息（头像、昵称、性别与地区），将直接获取匿名数据（包括userInfo与encryptedData中的用户个人信息），获取加密后的openID与unionID数据的能力不做调整。此前发布的小程序版本不受影响，但如果要进行版本更新则需要进行适配。"
-        }, {
-            image: "https://img.yzcdn.cn/vant/cat.jpeg",
-            title: "我是第二个",
-            desc: "好累好困好像睡觉"
-        }],
+        list: [],
 
+    },
+    getUpdate(e) {
+        const info = e.detail;
+        console.log(info);
+        wx.navigateTo({
+            url: `../record/record?info=${JSON.stringify(info)}`,
+          });
+    },
+    async getDelete(e) {
+        const id = e.detail;
+        const { data } = await ajax('/deletePlog', 'POST', {
+            _id: id
+        })
+        if (data === "success") {
+            wx.showToast({
+              title: '删除成功!',
+              icon: 'none',
+              success: () => {
+                  this.onLoad();
+              }
+            })
+        } else {
+            wx.showToast({
+              title: '删除失败!',
+              icon: 'none'
+            })
+        }
     },
 
     /**
@@ -41,10 +60,16 @@ Page({
                 avatarUrl: result.data.avatarUrl
             })
 
-            const publish = await ajax('/getMyPublish', 'GET', {userId: userId });
-            const {data} = publish
+            const publish = await ajax('/getMyPublish', 'GET', {
+                userId: userId
+            });
+            const {
+                data
+            } = publish
             console.log(data)
-            this.setData({list: data})
+            this.setData({
+                list: data
+            })
 
 
 

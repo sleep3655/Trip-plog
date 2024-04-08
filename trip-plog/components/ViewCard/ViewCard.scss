@@ -55,10 +55,12 @@
     .edit {
         flex-basis: calc(50% - 10px);
         margin: 5px;
+        color: rgb(39, 109, 66);
     }
 
     .delete {
         flex-basis: calc(50% - 10px);
         margin: 5px;
+        color: rgb(161, 82, 82);
     }
 }

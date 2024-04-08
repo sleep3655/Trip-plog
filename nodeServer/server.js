@@ -40,6 +40,7 @@ app.all("*", (req, res, next) => {
 })
 
 
+
 // 注册_zqx
 app.post('/register', async (req, res) => {
     const { username, password, avatarUrl } = req.body;
@@ -91,21 +92,35 @@ app.get("/getMyPublish", async (req, res) => {
     const result = await Plog.find({
         userId
     });
+    console.log(result)
     res.send(result);
+})
+
+// 删除_zqx
+app.post("/deletePlog", async (req, res) => {
+    const { _id } = req.body
+    console.log(_id);
+    try {
+        await Plog.findByIdAndDelete(_id);
+        res.send("success")
+    } catch (error) {
+        res.send("error")
+        console.error(error)
+    }
 })
 
 // 上传游记_wqj
 app.post('/publish', upload.array('file'), async (req, res) => {
     const { userId, title, content, location, cost, date, time } = req.body;
     const files = req.files; // 获取上传的文件
-     console.log(userId)
+    console.log(userId)
     // 处理文件
-    const photoUrls = files.map(file => file.filename); // 获取文件名列表
+    const photoUrls = files.map(file => "http://localhost:3001/file/image/" + file.filename);
 
     try {
         // 查找是否存在已有的游记对象
         const existingPlog = await Plog.findOne({ userId, title, content, location, cost, date });
-       
+
         if (existingPlog) {
             // 如果已存在游记对象，则更新 photourl 字段
             existingPlog.photourl = existingPlog.photourl.concat(photoUrls); // 将新的文件名列表合并到已有的 photourl 中
