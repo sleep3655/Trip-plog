@@ -140,10 +140,10 @@ Page({
     });
   },
 
+
   handlePublish() {
     const { title, content, location, cost, date } = this.data;
     const { fileList } = this.data;
-    const plogid =this.data
 
     // 重置错误状态
     this.setData({
@@ -206,8 +206,7 @@ Page({
       location: location,
       cost: cost,
       date:date,
-      time: new Date().toISOString(), // 当前时间
-      plogid:plogid
+      time: new Date().toISOString() // 当前时间
     }; 
     wx.getStorage({
       key: 'userId',
@@ -233,6 +232,7 @@ Page({
               success: (res) => {
                 // 上传成功处理逻辑
                 console.log(`第 ${index} 个文件上传成功`, res);
+              
                 resolve();
               },
               fail: (err) => {
