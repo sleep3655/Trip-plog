@@ -42,7 +42,7 @@
 			</view>
 		</view>
 	</template>
-
+  <van-button round type="primary" color="linear-gradient(to right, #3acd39, #1aad19)" class="float-button" icon="plus" bindtap="goToRecord" />
 	<!-- 底部菜单 -->
 	<!-- <view class="tabBar">
 		<view class="tabBar-item">

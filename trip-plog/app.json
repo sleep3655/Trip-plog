@@ -24,11 +24,7 @@
 				"iconPath": "static/images/底部菜单图标/list.png",
 				"selectedIconPath": "static/images/底部菜单图标/list_selected.png"
 			},
-			{
-				"pagePath": "pages/record/record",
-				"iconPath": "static/images/底部菜单图标/plus.png",
-				"selectedIconPath": "static/images/底部菜单图标/plus.png"
-			},
+	
 			{
 				"pagePath": "pages/personal/personal",
 				"text": "个人中心",
@@ -41,10 +37,11 @@
 	"sitemapLocation": "sitemap.json",
 	"lazyCodeLoading": "requiredComponents",
 	"usingComponents": {
-		"van-icon": "@vant/weapp/icon/index",
-		"van-button": "@vant/weapp/button/index",
-		"van-search": "@vant/weapp/search/index",
-		"van-row": "@vant/weapp/row/index",
-		"van-col": "@vant/weapp/col/index"
+    "van-icon": "@vant/weapp/icon/index",
+    "van-button": "@vant/weapp/button/index",
+    "van-search": "@vant/weapp/search/index",
+    "van-row": "@vant/weapp/row/index",
+    "van-col": "@vant/weapp/col/index"
+   
 	}
 }

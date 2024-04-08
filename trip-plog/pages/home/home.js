@@ -57,5 +57,15 @@ Page({
 		}).catch(error => {
 			console.error('获取当前 views 值失败', error);
 		});
-	}
+  },
+    //跳转游记发布页
+    goToRecord: function() {
+      wx.navigateTo({
+        url: '/pages/record/record',
+        fail: function(err) {
+          console.error('跳转到record页失败', err);
+        }
+      });
+    },
+
 })

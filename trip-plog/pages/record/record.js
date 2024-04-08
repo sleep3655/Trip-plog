@@ -32,8 +32,11 @@ Page({
     contentError: false,
     locationError: false,
     costError: false,
-    userId:''
+    userId:'',
+    login:'',
+    plogid:''
   },
+
   showDatePicker() {
     this.setData({ showDatePicker: true });
   },
@@ -42,10 +45,10 @@ Page({
     return `${date.getMonth() + 1}/${date.getDate()}`;
   },
   confirmDate(event) {
-    const [start, end] = event.detail;
+    // const [start, end] = event.detail;
     this.setData({
       showDatePicker: false,
-      date: `${this.formatDate(start)} - ${this.formatDate(end)}`,
+      date: this.formatDate(event.detail),
     });
   },
   onCloseDatePicker() {
@@ -136,10 +139,11 @@ Page({
       costError: false  
     });
   },
-  
+
   handlePublish() {
     const { title, content, location, cost, date } = this.data;
     const { fileList } = this.data;
+    const plogid =this.data
 
     // 重置错误状态
     this.setData({
@@ -181,6 +185,12 @@ Page({
       });
       hasError = true;
     }
+       if (Array.isArray(fileList) && fileList.length === 0) {
+      this.setData({
+        dateError: true
+      });
+      hasError = true;
+    }
     if (hasError) {
       // 表单验证未通过，提示信息
       wx.showToast({
@@ -190,14 +200,14 @@ Page({
       return;
     }
     // 表单验证通过，向后端发送请求
-  
     const formData = {
       title: title,
       content: content,
       location: location,
       cost: cost,
       date:date,
-      time: new Date().toISOString() // 当前时间
+      time: new Date().toISOString(), // 当前时间
+      plogid:plogid
     }; 
     wx.getStorage({
       key: 'userId',
@@ -206,8 +216,6 @@ Page({
         formData.userId = userId;
       }
     })
-    console.log(formData)
-    console.log(fileList)
     const uploadPromises = fileList.map((file, index) => {
       return new Promise((resolve, reject) => {
         // 压缩图片
@@ -242,7 +250,7 @@ Page({
         });
       });
     });
-  
+
     // 等待所有文件上传完成
     Promise.all(uploadPromises)
       .then(() => {
@@ -263,6 +271,13 @@ Page({
           title: '发布成功',
           icon: 'success'
         });
+        //跳转到个人中心页面
+        wx.switchTab({
+          url: '/pages/personal/personal',
+          fail: function(err) {
+            console.error('跳转到record页失败', err);
+          }
+        });
       })
       .catch(() => {
         // 文件上传过程中出现错误
@@ -274,11 +289,20 @@ Page({
         });
       });
   },
+
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(options) {
-    this.setData({ fileList: this.data.fileList });
+  async onLoad(options) {
+    //检查是否登录
+    const login = wx.getStorageSync('login');
+    if (!login) {
+      wx.redirectTo({
+        url: '/pages/login/login'
+    });
+    } 
+    // this.setData({ fileList: this.data.fileList });
+    // wx.hideTabBar();
   },
 
   /**
