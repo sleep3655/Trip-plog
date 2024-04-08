@@ -46,7 +46,9 @@ Page({
      * 生命周期函数--监听页面加载
      */
 
-    async onLoad(options) {
+    // async onLoad(options) {
+    async onShow(options) {
+
         const login = wx.getStorageSync('login');
         const userId = wx.getStorageSync('userId');
         console.log(userId);
@@ -66,9 +68,10 @@ Page({
             const {
                 data
             } = publish
-            console.log(data)
+            const reversedData = data.reverse()
+
             this.setData({
-                list: data
+                list: reversedData
             })
 
 
@@ -90,9 +93,9 @@ Page({
     /**
      * 生命周期函数--监听页面显示
      */
-    onShow() {
+    // onShow() {
 
-    },
+    // },
 
     /**
      * 生命周期函数--监听页面隐藏

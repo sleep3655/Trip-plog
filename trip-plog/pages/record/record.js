@@ -43,9 +43,8 @@ Page({
         costError: false,
         userId: '',
         login: '',
-        Pinfo: [],
-
-        id:""
+        Pinfo: null,
+        id: ""
     },
 
     showDatePicker() {
@@ -106,22 +105,18 @@ Page({
         const {
             newList
         } = this.data;
-        console.log(fileList)
         const tempFilePath = file[0].tempFilePath;
         const fileManager = wx.getFileSystemManager();
         fileManager.saveFile({
             tempFilePath,
             success: (res) => {
                 const savedFilePath = res.savedFilePath;
-                console.log(savedFilePath);
                 fileList.push({
                     url: savedFilePath
                 });
                 newList.push({
                     url: savedFilePath
                 });
-                console.log(fileList)
-                console.log("newList",newList);
                 this.setData({
                     fileList
                 });
@@ -162,7 +157,6 @@ Page({
     },
     handleContentInput(event) {
         const value = event.detail;
-        console.log("content", value)
         this.setData({
             content: value,
             contentError: false // 清除内容错误提示
@@ -182,9 +176,6 @@ Page({
             costError: false
         });
     },
- 
-
-
     handlePublish() {
         const {
             title,
@@ -192,8 +183,9 @@ Page({
             location,
             cost,
             date,
-            id
+            id,
         } = this.data;
+        const userId = wx.getStorageSync('userId');
         const {
             fileList
         } = this.data;
@@ -262,78 +254,43 @@ Page({
             location: location,
             cost: cost,
             date: date,
-            time: new Date().toISOString() ,// 当前时间
-            id:id,
-            fileList
+            time: new Date().toISOString(), // 当前时间
+            id: id,
+            fileList,
+            userId: userId
         };
-        console.log("formData",formData);
-        wx.getStorage({
-            key: 'userId',
-            success: function (res) {
-                const userId = res.data;
-                formData.userId = userId;
-            }
-        })
-        // const uploadPromises = fileList.map((file, index) => {
-        //     return new Promise((resolve, reject) => {
-        //         // 压缩图片
-        //         wx.compressImage({
-        //             src: file.url,
-        //             quality: 80, // 设置压缩质量
-        //             success: (res) => {
-        //                 // 上传压缩后的图片
-        //                 wx.uploadFile({
-        //                     url: 'http://localhost:3001/publish', // 后端接口地址
-        //                     filePath: res.tempFilePath, // 使用压缩后的图片路径
-        //                     name: `file`,
-        //                     formData: formData,
-        //                     timeout: 60000, // 设置超时时间为 60 秒
-        //                     success: (res) => {
-        //                         // 上传成功处理逻辑
-        //                         console.log(`第 ${index} 个文件上传成功`, res);
-
-        //                         resolve();
-        //                     },
-        //                     fail: (err) => {
-        //                         // 上传失败处理逻辑
-        //                         console.error(`第 ${index} 个文件上传失败`, err);
-        //                         reject();
-        //                     }
-        //                 });
-        //             },
-        //             fail: (err) => {
-        //                 // 图片压缩失败处理逻辑
-        //                 console.error(`第 ${index} 张图片压缩失败`, err);
-        //                 reject();
-        //             }
-        //         });
-        //     });
-        // });
+        console.log("formData", formData);
+        // wx.getStorage({
+        //     key: 'userId',
+        //     success: function (res) {
+        //         const userId = res.data;
+        //         formData.userId = userId;
+        //     }
+        // })
 
         const uploadPromises = newList.map((file, index) => {
             return new Promise((resolve, reject) => {
-              // 上传图片
-              console.log("11",file.url);
-              wx.uploadFile({
-                url: 'http://localhost:3001/publish', // 后端接口地址
-                filePath: file.url, // 使用原始图片路径，不进行压缩
-
-                name: `file`,
-                formData: formData,
-                timeout: 60000, // 设置超时时间为 60 秒
-                success: (res) => {
-                  // 上传成功处理逻辑
-                  console.log(`第 ${index} 个文件上传成功`, res);
-                  resolve();
-                },
-                fail: (err) => {
-                  // 上传失败处理逻辑
-                  console.error(`第 ${index} 个文件上传失败`, err);
-                  reject();
-                }
-              });
+                // 上传图片
+                wx.uploadFile({
+                    url: 'http://localhost:3001/publish', // 后端接口地址
+                    filePath: file.url, // 使用原始图片路径，不进行压缩
+                    name: `file`,
+                    formData: formData,
+                    timeout: 60000, // 设置超时时间为 60 秒
+                    success: (res) => {
+                        // 上传成功处理逻辑
+                        console.log(`第 ${index} 个文件上传成功`, res);
+                        console.log("formData", formData)
+                        resolve();
+                    },
+                    fail: (err) => {
+                        // 上传失败处理逻辑
+                        console.error(`第 ${index} 个文件上传失败`, err);
+                        reject();
+                    }
+                });
             });
-          });
+        });
 
 
         // 等待所有文件上传完成
@@ -393,17 +350,19 @@ Page({
         if (info) {
             const Pinfo = JSON.parse(options.info);
             console.log(Pinfo);
-            console.log(Pinfo.photourl);
-            const transformedFileList = Pinfo.photourl.map(url => ({ url }));
-            console.log(transformedFileList);
-            const id=Pinfo._id
-
+            // console.log(Pinfo.photourl);
+            const transformedFileList = Pinfo.photourl.map(url => ({
+                url
+            }));
+            // console.log(transformedFileList);
+            const id = Pinfo._id
             const {
                 title,
                 content,
                 date,
                 location,
-                cost
+                cost,
+                userId
             } = Pinfo;
             this.setData({
                 title,
@@ -411,8 +370,9 @@ Page({
                 date,
                 location,
                 cost,
-                fileList:transformedFileList,
-                id
+                fileList: transformedFileList,
+                id,
+                userId
             });
 
         }
