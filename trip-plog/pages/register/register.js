@@ -109,20 +109,20 @@ Page({
         if (data === "Registered") {
             // 这个账号已被注册
             wx.showToast({
-              title: '用户名已存在!',
-              icon: 'none'
+                title: '用户名已存在!',
+                icon: 'none'
             });
             return
         } else if (data === "success") {
             // 注册成功
             wx.redirectTo({
-              url: '../login/login',
-              success: () => {
-                  wx.showToast({
-                    title: '注册成功!',
-                    icon: 'none'
-                  })
-              }
+                url: '../login/login',
+                success: () => {
+                    wx.showToast({
+                        title: '注册成功!',
+                        icon: 'none'
+                    })
+                }
             })
         }
     },
