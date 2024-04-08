@@ -1,5 +1,20 @@
 <!--pages/record/record.wxml-->
+
 <view class="container">
+  <view class="image-container">
+    <van-uploader
+      class="image-uploader"
+      bind:after-read="afterRead"
+      multiple="{{ true }}"
+      max-count="{{ 9 }}"
+      upload-text="上传图片"
+      image-fit="cover"
+      file-list="{{ fileList }}"
+      deletable="{{ true }}"
+      bind:delete="deleteImage"
+    />
+  </view>
+  
   <van-field
     class="title-input"
     placeholder="填写标题会有更多点赞哦~"
@@ -14,13 +29,12 @@
     bind:input="handleContentInput"
     value="{{content}}"
   />
-  <!-- <van-cell title="出游时间" value="{{ date }}" bind:click="showDatePicker" /> -->
+
   <van-cell title="出游时间" bind:tap="showDatePicker">
   <view class="cell-value">{{ date }}</view>
 </van-cell>
   <van-calendar
     show="{{ showDatePicker}}"
-    type="range"
     bind:close="onCloseDatePicker"
     bind:confirm="confirmDate"
   />
@@ -29,7 +43,6 @@
     value="{{ location }}"
     readonly
     label="出游地点"
-    placeholder="请选择出游地点"
     bind:tap="showLocationPicker"
   /> 
   <van-popup show="{{ showLocationPicker }}" round position="bottom">
@@ -41,32 +54,15 @@
       bind:change="handleLocationInput"
       bind:close="closeLocationPicker"
       bind:finish="finishLocationPicker"
-      
     />
   </van-popup>
 
-  <van-field
-    class="option-input"
-    label="人均花费"
-    placeholder="请输入人均花费"
-    bind:input="handleCostInput"
-    value="{{cost}}"
-  >  <view class="cell-value">{{ cost }}</view>
-  </van-field>
-  <view class="image-container">
-    <van-uploader
-      class="image-uploader"
-      bind:after-read="afterRead"
-      multiple="{{ true }}"
-      max-count="{{ 9 }}"
-      upload-text="上传图片"
-      image-fit="cover"
-      file-list="{{ fileList }}"
-      deletable="{{ true }}"
-      bind:delete="deleteImage"
-    />
-  </view>
-  <van-button class="publish-button" type="primary" bind:tap="handlePublish">
+  <van-field class="option-input" label="人均花费" bind:input="handleCostInput" value="{{cost}}">
+  <view class="cell-value">{{ cost }}</view>
+</van-field>
+  <view class="fixed-box">
+  <button class="publish-button" type="primary" round bind:tap="handlePublish" >
     发布游记
-  </van-button>
+  </button>
+</view>
 </view>

@@ -98,6 +98,18 @@
 	}
 }
 
+.float-button {
+  position: fixed;
+  right: 40rpx;
+  bottom: 20rpx;
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 // 底部tabbar
 // .tabBar {
 // 	width: 100%;
