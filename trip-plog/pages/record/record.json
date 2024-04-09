@@ -1,4 +1,6 @@
 {
+  "navigationBarTitleText": "游记发布",
+
   "usingComponents": {
     "van-field": "@vant/weapp/field/index",
     "van-uploader": "@vant/weapp/uploader/index",
@@ -6,5 +8,7 @@
     "van-calendar": "@vant/weapp/calendar/index",
     "van-cell": "@vant/weapp/cell/index",
     "van-cascader": "@vant/weapp/cascader/index"
+    
   }
+
 }

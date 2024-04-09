@@ -1,13 +1,13 @@
 <view class="item">
-    <image class="image" src="{{ data.image }}"></image>
-    <view class="content">
-        <text class="title">{{ data.title }}</text>
-        <text class="desc">{{ data.desc }}</text>
-        <text class="review">已通过</text>
-    </view>
-    
+    <image class="image" src="{{ data.photourl[0] ? data.photourl[0] : 'https://img.tukuppt.com/png_preview/00/04/81/SYZxWQlAr9.jpg!/fw/780' }}"></image>
+        <view class="content">
+            <text class="title">{{ data.title }}</text>
+            <text class="desc">{{ data.content }}</text>
+            <text class="review">{{ data.status }}</text>
+        </view>
+
 </view>
 <view class="button">
-        <button class="delete"> 删除 </button>
-        <button class="edit"> 编辑 </button>
-</view> 
+    <button class="edit"  catchtap="toUpdate"  data-info="{{ data }}"> 编辑 </button>
+    <button class="delete" catchtap="toDelete" data-id="{{ data._id }}"> 删除 </button>
+</view>

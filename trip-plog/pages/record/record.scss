@@ -1,14 +1,13 @@
 /* pages/record/record.wxss */
 .container {
-  padding: 20px;
-
+  padding: 2vw;
+  position: relative;
   .title-input {
-    margin-bottom: 20px;
+    margin-bottom: 2vw;
   }
 
  .content-input {
-    height: 200px !important;
-    // margin-bottom: 20px;
+    height: 150px !important;
   }
   .cell-value {
     text-align: left;
@@ -19,10 +18,11 @@
 
   .option-input {
     margin-bottom: 20px;
+
   }
 
   .image-container {
-    padding: 10px 8px;
+    padding: 2vw 9vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -33,12 +33,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-bottom: 10px;
   }
 
   .image-uploader {
-    // width: 150px;
-    // height: 150px;
+    padding: 1vw 3.5vw;
     background-color: #f7f8fa;
     border-radius: 8px;
     display: flex;
@@ -49,25 +47,31 @@
     cursor: pointer;
   }
 
-  .upload-text {
-    margin-top: 10px;
-    text-align: center;
+  .fixed-box {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 10px;
+    border-top: 1px solid #D3D3D3; /* 灰色线条 */
+    background-color: #FFFFFF;
+    
   }
-
-  .preview-container {
-    display: flex;
-  }
-  
-  .preview-image {
-    width: 120px;
-    height: 120px;
-    margin-right: 10px;
-    // margin-bottom: 10px;
-  }
-  
   .publish-button {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
+    width: 50%;
+    height: 5%;
+    border-radius: 10px; /* 调整边框圆角 */
+    font-size: 14px; /* 调整字体大小 */
+    background-color: #4dc24d
   }
+  // .publish-button {
+  //   position: fixed;
+  //   left: 50%;
+  //   transform: translateX(-50%);
+  //   bottom: 20px;
+  //   border-radius: 31rpx;
+  //   }
+
+  
+
 }

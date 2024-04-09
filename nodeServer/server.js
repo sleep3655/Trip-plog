@@ -6,6 +6,8 @@ const multer = require('multer');
 const { v4 } = require('uuid');
 const axios = require('axios');
 const { User, Plog } = require('./model')
+const { ObjectId } = mongoose.Types;
+
 
 port = 3001
 
@@ -38,6 +40,7 @@ app.all("*", (req, res, next) => {
 
     next();
 })
+
 
 
 // 注册_zqx
@@ -76,11 +79,10 @@ app.post('/toLogin', async (req, res) => {
 // 获取头像昵称_zqx
 app.get('/getUserInfo', async (req, res) => {
     const userId = req.query.userId;
-    console.log(userId);
+    // console.log("userId",userId);
     const result = await User.find({ userId: userId })
     const username = result[0].username;
     const avatarUrl = result[0].avatarUrl;
-    console.log(avatarUrl)
     res.send({ username, avatarUrl });
 });
 
@@ -91,52 +93,89 @@ app.get("/getMyPublish", async (req, res) => {
     const result = await Plog.find({
         userId
     });
+
     res.send(result);
+})
+
+// 删除_zqx
+app.post("/deletePlog", async (req, res) => {
+    const { _id } = req.body
+    console.log(_id);
+    try {
+        await Plog.findByIdAndDelete(_id);
+        res.send("success")
+    } catch (error) {
+        res.send("error")
+        console.error(error)
+    }
 })
 
 // 上传游记_wqj
 app.post('/publish', upload.array('file'), async (req, res) => {
-    const { userId, title, content, location, cost, date, time } = req.body;
-    const files = req.files; // 获取上传的文件
-     console.log(userId)
-    // 处理文件
-    const photoUrls = files.map(file => file.filename); // 获取文件名列表
+  const { id, userId, title, content, location, cost, date, time, fileList } = req.body;
+  const photoUrl_original = JSON.parse(fileList.replace(/'/g, "\""))
+    .filter(item => item.url.startsWith("http://localhost:3001"))
+    .map(item => item.url);
+  console.log("photoUrl_original",photoUrl_original);
 
-    try {
-        // 查找是否存在已有的游记对象
-        const existingPlog = await Plog.findOne({ userId, title, content, location, cost, date });
-       
-        if (existingPlog) {
-            // 如果已存在游记对象，则更新 photourl 字段
-            existingPlog.photourl = existingPlog.photourl.concat(photoUrls); // 将新的文件名列表合并到已有的 photourl 中
-            console.log(photoUrls)
-            await existingPlog.save();
+  const files = req.files; // 获取上传的文件
+  let photoUrls_new = []
+  // 处理文件
+  if(files){
+    photoUrls_new = files.map(file => "http://localhost:3001/file/image/" + file.filename);
+    
+}
+  const photoUrls = photoUrl_original.concat(photoUrls_new);
+  console.log("photoUrls", photoUrls);
+if (id === '') {
+    // 检查数据库中是否存在相同userId和time的数据
+    const existingPlog = await Plog.findOne({ userId, time });
 
-            // 返回响应
-            res.send('文件上传成功');
-        } else {
-            // 如果不存在游记对象，则创建新的游记对象
-            const newPlog = new Plog({
-                userId,
-                title,
-                content,
-                location,
-                cost,
-                date,
-                time,
-                photourl: photoUrls,
-                status: '待审核' // 设置审核状态为 '待审核'
-            });
-            await newPlog.save(); // 等待保存操作完成
-
-            // 返回响应
-            res.send('文件上传成功');
-        }
-    } catch (error) {
-        // 处理保存过程中出现的错误
-        console.error('保存游记到数据库失败', error);
-        res.status(500).send('保存游记到数据库失败');
+    if (existingPlog) {
+        // 如果存在相同userId和time的数据，则更新photourl
+        existingPlog.photourl.push(...photoUrls);
+        await existingPlog.save(); // 等待保存操作完成
+    } else {
+        // 如果不存在相同userId和time的数据，则创建新的游记对象
+        const newPlog = new Plog({
+            userId,
+            title,
+            content,
+            location,
+            cost,
+            date,
+            time,
+            photourl: photoUrls,
+            status: '待审核' // 设置审核状态为 '待审核'
+        });
+        await newPlog.save(); // 等待保存操作完成
     }
+}
+ else {
+    // 查找是否存在已有的游记对象
+  const existingPlog = await Plog.findById( {_id:id});
+if (existingPlog) {
+  await Plog.updateOne(
+    { _id: existingPlog._id },
+    {
+      $set: {
+        title: title,
+        content: content,
+        location: location,
+        cost: cost,
+        date: date,
+        time: time,
+        photourl: photoUrls,
+        status: '待审核'
+      }
+    }
+  );
+}
+  
+}
+
+  // 返回响应
+  res.send('文件上传成功');
 });
 
 
