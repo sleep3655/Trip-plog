@@ -1,13 +1,15 @@
-<view class="item">
-    <image class="image" src="{{ data.photourl[0] ? data.photourl[0] : 'https://img.tukuppt.com/png_preview/00/04/81/SYZxWQlAr9.jpg!/fw/780' }}"></image>
+<view class="body">
+    <view class="item">
+        <image class="image" src="{{ data.photourl[0] ? data.photourl[0] : 'https://img.tukuppt.com/png_preview/00/04/81/SYZxWQlAr9.jpg!/fw/780' }}"></image>
         <view class="content">
             <text class="title">{{ data.title }}</text>
             <text class="desc">{{ data.content }}</text>
-            <text class="review">{{ data.status }}</text>
+         
         </view>
-
-</view>
-<view class="button">
-    <button class="edit"  catchtap="toUpdate"  data-info="{{ data }}"> 编辑 </button>
-    <button class="delete" catchtap="toDelete" data-id="{{ data._id }}"> 删除 </button>
+    </view>
+    <view class="button">
+        <button class="edit" size="mini" catchtap="toUpdate" data-info="{{ data }}"> 编辑 </button>
+        <button class="delete" size="mini" catchtap="toDelete" data-id="{{ data._id }}"> 删除 </button>
+        <text class="review">{{ data.status }}</text>
+    </view>
 </view>

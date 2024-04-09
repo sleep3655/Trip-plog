@@ -1,66 +1,77 @@
-.item {
-    width: 100%;
-    display: flex;
-    padding: 20rpx;
-    margin: 20rpx;
+.body {
+    box-sizing: border-box;
+    border-bottom: 0.5px solid rgb(245, 241, 241);
+    padding-bottom: 10px;
 
-    .image {
-        width: 300rpx;
-        height: 250rpx;
-        min-width: 10rpx;
-        border-radius: 20rpx;
-    }
 
-    .content {
+    .item {
+        width: 100%;
         display: flex;
-        flex-direction: column;
-        margin-left: 10rpx;
-        justify-content: flex-start;
+        padding: 20rpx;
+        margin: 20rpx;
 
-        .title {
-            font-size: 20px;
-            padding: 10rpx;
+
+        .image {
+            width: 300rpx;
+            height: 250rpx;
+            min-width: 10rpx;
+            border-radius: 20rpx;
         }
 
-        .desc {
-            max-width: 400rpx;
-            color: #666;
-            font-size: 18px;
-            line-height: 1.5;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
-            overflow: hidden;
-            padding: 10rpx;
+        .content {
+            display: flex;
+            flex-direction: column;
+            margin-left: 10rpx;
+            justify-content: flex-start;
 
+            .title {
+                font-size: 20px;
+                padding: 10rpx;
+            }
+
+            .desc {
+                max-width: 400rpx;
+                color: #666;
+                font-size: 18px;
+                line-height: 1.5;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                overflow: hidden;
+                padding: 10rpx;
+
+            }
+        }
+    }
+
+    .button {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin-top: -30rpx;
+        margin-left: 50rpx;
+        margin-right: 50rpx;
+
+        box-sizing: border-box;
+
+
+        .edit {
+            margin: 5px;
+            color: rgb(39, 109, 66);
+        }
+
+        .delete {
+            margin: 5px;
+            color: rgb(161, 82, 82);
         }
 
         .review {
             margin-bottom: 10rpx;
-            margin-left: 250rpx;
+            margin-left: auto;
             color: #666;
             font-size: 36rpx;
 
 
         }
-    }
-}
-
-.button {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: -50rpx;
-
-    .edit {
-        flex-basis: calc(50% - 10px);
-        margin: 5px;
-        color: rgb(39, 109, 66);
-    }
-
-    .delete {
-        flex-basis: calc(50% - 10px);
-        margin: 5px;
-        color: rgb(161, 82, 82);
     }
 }

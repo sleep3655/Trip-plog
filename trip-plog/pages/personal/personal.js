@@ -14,30 +14,57 @@ Page({
         list: [],
 
     },
+    logout() {
+        wx.showModal({
+            title: '提示',
+            content: '确定退出吗?',
+            success: (res) => {
+                const {
+                    confirm
+                } = res;
+                if (confirm) {
+                    wx.removeStorageSync('login');
+                    wx.removeStorageSync('userId');
+                    this.setData({
+                        login: false
+                    })
+                    wx.redirectTo({
+                        url: '../login/login',
+                    })
+
+                }
+            }
+        })
+    },
+
+
+
     getUpdate(e) {
         const info = e.detail;
         console.log(info);
         wx.navigateTo({
             url: `../record/record?info=${JSON.stringify(info)}`,
-          });
+        });
     },
     async getDelete(e) {
         const id = e.detail;
-        const { data } = await ajax('/deletePlog', 'POST', {
+        const {
+            data
+        } = await ajax('/deletePlog', 'POST', {
             _id: id
         })
         if (data === "success") {
             wx.showToast({
-              title: '删除成功!',
-              icon: 'none',
-              success: () => {
-                  this.onLoad();
-              }
+                title: '删除成功!',
+                icon: 'none',
+                success: () => {
+                    this.onLoad();
+                }
             })
         } else {
             wx.showToast({
-              title: '删除失败!',
-              icon: 'none'
+                title: '删除失败!',
+                icon: 'none'
             })
         }
     },

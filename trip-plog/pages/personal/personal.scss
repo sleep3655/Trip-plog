@@ -3,29 +3,34 @@
     flex-direction: column;
     align-items: center;
 
-        .info {
-            background-color: rgb(241, 237, 237);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 40rpx 0;
-            width: 100%;
-    
-    
-            .avatarUrl {
-                width: 200rpx;
-                height: 200rpx;
-                border-radius: 50%;
-            }
-    
-            .username {
-                color: rgb(29, 28, 28);
-                margin-top: 30rpx;
-            }
+    .info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-top: 30rpx;
+        width: 100%;
+        background-image: url("https://tse4-mm.cn.bing.net/th/id/OIP-C.5SIRqCN_qPM4qxXinZDbTQHaEK?rs=1&pid=ImgDetMain");
+        background-size: cover;
+        background-position: center;
+        .out{
+            margin-left: auto;
+            margin-bottom: auto;
         }
-    
-    
-    
+
+        .avatarUrl {
+            width: 200rpx;
+            height: 200rpx;
+            border-radius: 50%;
+        }
+
+        .username {
+            color: rgb(29, 28, 28);
+            margin-top: 20rpx;
+        }
+    }
+
+
+
 
 }
