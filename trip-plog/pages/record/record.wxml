@@ -1,5 +1,4 @@
 <!--pages/record/record.wxml-->
-
 <view class="container">
   <view class="image-container">
     <van-uploader
@@ -30,6 +29,7 @@
     value="{{content}}"
   />
 
+
   <van-cell title="出游时间" bind:tap="showDatePicker">
   <view class="cell-value">{{ date }}</view>
 </van-cell>
@@ -37,6 +37,7 @@
     show="{{ showDatePicker}}"
     bind:close="onCloseDatePicker"
     bind:confirm="confirmDate"
+    color="#4dc24d"
   />
 
   <van-field
@@ -54,6 +55,8 @@
       bind:change="handleLocationInput"
       bind:close="closeLocationPicker"
       bind:finish="finishLocationPicker"
+      active-color="#4dc24d"
+      
     />
   </van-popup>
 
