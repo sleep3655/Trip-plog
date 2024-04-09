@@ -15,18 +15,18 @@ const { Header, Content, Sider } = AntdLayout;
 
 const Items = [
   {
-    key: "management",
+    key: "/management",
     icon: <UserOutlined />,
     label: "审核管理",
     children: [
-      { key: "/management/list", label: "Plog合集" },
+      // { key: "/management/list", label: "Plog合集" },
       { key: "/management/view", label: "待审核ing" },
       { key: "/management/delete", label: "回收站" },
     ],
   },
 ];
 
-// 登录用户
+// 用户
 const userItems = [
   {
     label: "用户中心",
@@ -94,9 +94,7 @@ export function Layout({ children }) {
           />
         </Sider>
         <AntdLayout
-          style={{
-            padding: "0 24px 24px",
-          }}
+        className={styles.layoutContent}
         >
           {/* 面包屑 */}
           {/* <Breadcrumb
@@ -107,13 +105,7 @@ export function Layout({ children }) {
             <Breadcrumb.Item>Home</Breadcrumb.Item>
           </Breadcrumb> */}
           <Content
-            style={{
-              padding: 24,
-              margin: 0,
-              minHeight: 280,
-              background: colorBgContainer,
-              borderRadius: borderRadiusLG,
-            }}
+            className={styles.content}
           >
             <div>{children}</div>
           </Content>
