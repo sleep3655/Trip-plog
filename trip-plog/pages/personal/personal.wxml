@@ -6,6 +6,6 @@
         <text class="username">{{username}}</text>
     </view>
     <view class="txt">
-        <ViewCard wx:for="{{ list }}" data="{{item}}" bindgetdelete="getDelete" bindgetupdate="getUpdate"/>
+        <ViewCard wx:for="{{ list }}" wx:key="_id" data="{{item}}" bindgetdelete="getDelete" bindgetupdate="getUpdate"/>
     </view>
 </view>

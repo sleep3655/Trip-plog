@@ -49,11 +49,9 @@ Page({
     // async onLoad(options) {
     async onShow(options) {
 
-        const login = wx.getStorageSync('login');
-        const userId = wx.getStorageSync('userId');
-        console.log(userId);
+        const login = wx.getStorageSync('login')
+        const userId = wx.getStorageSync('userId')
         if (login) {
-            console.log(userId);
             const result = await ajax('/getUserInfo', 'GET', {
                 userId: userId
             })
