@@ -58,7 +58,7 @@ Page({
                 title: '删除成功!',
                 icon: 'none',
                 success: () => {
-                    this.onLoad();
+                    this.onShow();
                 }
             })
         } else {
