@@ -26,7 +26,7 @@ const columns = [
       <>
         {tags.map((tag) => {
           let color = tag.length > 5 ? 'geekblue' : 'green';
-          if (tag === '院士') {
+          if (tag === '已删除') {
             color = 'volcano';
           }
           return (
@@ -56,7 +56,7 @@ const data = [
     name: '贝壳',
     title: '标题',
     content: 'XXXXXXXXXXXXXXXXXXXXXXXXX',
-    tags: ['已审核', ],
+    tags: ['已删除', ],
   },
 
 ];

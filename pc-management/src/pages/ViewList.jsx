@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Button, Form, Input, Select, Space, Row, Col, Table } from "antd";
+import { Button, Form, Input, Select, Space, Row, Col, Table,Tag } from "antd";
 import styles from "./index.module.css";
 import { Axios } from "axios";
-
 
 const dataSource = [
   {
@@ -12,7 +11,7 @@ const dataSource = [
     title: "西湖区湖底公园1号",
     content: "xxxxxxxxxxx",
     time: "2016-10-03",
-    state: "view",
+    state: ['待审核', ],
   },
   {
     key: "1",
@@ -21,7 +20,7 @@ const dataSource = [
     title: "西湖区湖底公园1号",
     content: "xxxxxxxxxxx",
     time: "2016-10-03",
-    state: "view",
+    state: ['待审核', ],
   },
   {
     key: "1",
@@ -30,7 +29,7 @@ const dataSource = [
     title: "西湖区湖底公园1号",
     content: "xxxxxxxxxxx",
     time: "2016-10-03",
-    state: "view",
+    state: ['待审核', ],
   },
   {
     key: "1",
@@ -39,7 +38,7 @@ const dataSource = [
     title: "西湖区湖底公园1号",
     content: "xxxxxxxxxxx",
     time: "2016-10-03",
-    state: "view",
+    state: ['待审核', ],
   },
   {
     key: "1",
@@ -48,7 +47,7 @@ const dataSource = [
     title: "西湖区湖底公园1号",
     content: "xxxxxxxxxxx",
     time: "2016-10-03",
-    state: "view",
+    state: ['待审核', ],
   },
   {
     key: "1",
@@ -57,99 +56,9 @@ const dataSource = [
     title: "西湖区湖底公园1号",
     content: "xxxxxxxxxxx",
     time: "2016-10-03",
-    state: "view",
+    state: ['待审核', ],
   },
-  {
-    key: "1",
-    name: "胡彦斌",
-    pic: 32,
-    title: "西湖区湖底公园1号",
-    content: "xxxxxxxxxxx",
-    time: "2016-10-03",
-    state: "view",
-  },
-  {
-    key: "1",
-    name: "胡彦斌",
-    pic: 32,
-    title: "西湖区湖底公园1号",
-    content: "xxxxxxxxxxx",
-    time: "2016-10-03",
-    state: "view",
-  },
-  {
-    key: "1",
-    name: "胡彦斌",
-    pic: 32,
-    title: "西湖区湖底公园1号",
-    content: "xxxxxxxxxxx",
-    time: "2016-10-03",
-    state: "view",
-  },
-  {
-    key: "1",
-    name: "胡彦斌",
-    pic: 32,
-    title: "西湖区湖底公园1号",
-    content: "xxxxxxxxxxx",
-    time: "2016-10-03",
-    state: "view",
-  },
-  {
-    key: "1",
-    name: "胡彦斌",
-    pic: 32,
-    title: "西湖区湖底公园1号",
-    content: "xxxxxxxxxxx",
-    time: "2016-10-03",
-    state: "view",
-  },
-  {
-    key: "1",
-    name: "胡彦斌",
-    pic: 32,
-    title: "西湖区湖底公园1号",
-    content: "xxxxxxxxxxx",
-    time: "2016-10-03",
-    state: "view",
-  },
-  {
-    key: "1",
-    name: "胡彦斌",
-    pic: 32,
-    title: "西湖区湖底公园1号",
-    content: "xxxxxxxxxxx",
-    time: "2016-10-03",
-    state: "view",
-  },
-  {
-    key: "1",
-    name: "胡彦斌",
-    pic: 32,
-    title: "西湖区湖底公园1号",
-    content: "xxxxxxxxxxx",
-    time: "2016-10-03",
-    state: "view",
-  },
-
-  {
-    key: "1",
-    name: "胡彦斌",
-    pic: 32,
-    title: "西湖区湖底公园1号",
-    content: "xxxxxxxxxxx",
-    time: "2016-10-03",
-    state: "view",
-  },
-  {
-    key: "1",
-    name: "胡彦斌",
-    pic: 32,
-    title: "西湖区湖底公园1号",
-    content: "xxxxxxxxxxx",
-    time: "2016-10-03",
-    state: "view",
-  },
+  
 ];
 
 // 游记表格
@@ -183,6 +92,21 @@ const Columns = [
     title: "状态",
     dataIndex: "state",
     key: "state",
+    render: (_, { state }) => (
+      <>
+        {state.map((tag) => {
+          let color = tag.length > 5 ? 'geekblue' : 'green';
+          if (tag === '已删除') {
+            color = 'volcano';
+          }
+          return (
+            <Tag color={color} key={tag}>
+              {tag.toUpperCase()}
+            </Tag>
+          );
+        })}
+      </>
+    ),
   },
 ];
 
@@ -246,7 +170,7 @@ const ViewList = () => {
           title: "",
           state: "",
         }}
-        style={{ margin: "0 0 0 150px"}}
+        style={{ margin: "0 0 0 150px" }}
       >
         <Row gutter={24}>
           <Col span={5}>

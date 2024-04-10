@@ -10,7 +10,7 @@ import {
 } from "antd";
 // 引入css样式
 import styles from "./index.module.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Outlet } from "react-router-dom";
 const { Header, Content, Sider } = AntdLayout;
 
 const Items = [
@@ -19,12 +19,12 @@ const Items = [
     icon: <UserOutlined />,
     label: "审核管理",
     children: [
-      // { key: "/management/list", label: "Plog合集" },
       { key: "/management/view", label: "待审核ing" },
       { key: "/management/delete", label: "回收站" },
     ],
   },
 ];
+
 
 // 用户
 const userItems = [
@@ -38,7 +38,7 @@ const userItems = [
   },
 ];
 
-export function Layout({ children }) {
+export function Layout() {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -107,7 +107,8 @@ export function Layout({ children }) {
           <Content
             className={styles.content}
           >
-            <div>{children}</div>
+            {/* 子页面 */}
+            <Outlet/>
           </Content>
         </AntdLayout>
       </AntdLayout>
