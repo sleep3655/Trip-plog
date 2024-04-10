@@ -21,6 +21,7 @@ const Items = [
     children: [
       { key: "/management/view", label: "待审核ing" },
       { key: "/management/delete", label: "回收站" },
+      { key: "/management/details", label: "游记详情" },
     ],
   },
 ];
@@ -72,7 +73,7 @@ export function Layout() {
           </Dropdown>
         </span>
       </Header>
-      <AntdLayout>
+      <AntdLayout  className={styles.sectionInner}>
         <Sider
           width={200}
           style={{

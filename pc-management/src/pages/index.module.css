@@ -9,14 +9,13 @@
   color: #fff;
   font-weight: 400;
 }
+.sectionInner{
+  height: 100vh;
+}
 .layoutContent{
   padding: 32px;
 }
-.content{
-  background-color: #fff;
-  border-radius: 16px;
-  padding: 24px;
-}
+
 .tableWrap{
   overflow: auto;
   height: 500px;

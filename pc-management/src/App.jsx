@@ -1,6 +1,7 @@
 import { Layout } from "./pages/Layout.jsx";
 import ViewList from "./pages/ViewList.jsx";
 import DeleteList from "./pages/DeleteList.jsx";
+import Details from "./pages/Details.jsx";
 import Login from "./pages/Login.jsx";
 import {
   BrowserRouter as Router,
@@ -9,14 +10,6 @@ import {
   Navigate,
 } from "react-router-dom";
 
-// // 移除哈希值的逻辑
-// if (window.location.hash) {
-//   history.replaceState(
-//     null,
-//     document.title,
-//     window.location.href.split("#")[0]
-//   );
-// }
 
 function App() {
   return (
@@ -26,6 +19,7 @@ function App() {
       <Route path="management" element={<Layout />}>
         <Route path="view" element={<ViewList />} />
         <Route path="delete" element={<DeleteList />} />
+        <Route path="details" element={<Details />} />
       </Route>
     </Routes>
     // <Layout>
