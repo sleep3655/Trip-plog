@@ -22,7 +22,7 @@ const Items = [
     icon: <UserOutlined />,
     label: "审核管理",
     children: [
-      { key: "/management/view", label: "待审核ing" },
+      { key: "/management/view", label: "Plog合集" },
       { key: "/management/delete", label: "回收站" },
       // { key: "/management/details", label: "游记详情" },
     ],

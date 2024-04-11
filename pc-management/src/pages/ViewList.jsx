@@ -27,14 +27,14 @@ const ViewList = () => {
         const response = await axios.get("http://localhost:3001/api/plog");
         const dataArray = Array.from(response.data);
         setDataSource(dataArray);
-        console.log(dataArray);
+        setupdatedDataSource(dataArray);
       } catch (error) {
         console.error("获取数据有误:", error);
       }
     };
     fetchData();
   }, []);
-  
+
   // 获取更新数据
   const [updatedDataSource, setupdatedDataSource] = useState([]);
   useEffect(() => {
@@ -48,21 +48,26 @@ const ViewList = () => {
         console.error("Error fetching data:", error);
       }
     };
-
     fetchData();
   }, []);
 
   // 获得搜索表单结果
   const handleSearchFinish = (values) => {
     const stateValue = values.state;
-    const filteredData = dataSource.filter(
-      (item) => item.status === stateValue
-    );
-    const updatedDataSource = [
-      ...filteredData,
-      ...dataSource.filter((item) => item.status !== stateValue),
-    ];
-    setupdatedDataSource(updatedDataSource);
+    if (!stateValue) {
+      setupdatedDataSource(dataSource);
+    } else {
+      const filteredData = dataSource.filter(
+        (item) => item.status.substring(0, 3) === stateValue
+      );
+      const updatedDataSource = filteredData;
+
+
+      setupdatedDataSource(updatedDataSource);
+    }
+
+
+
   };
   // 清空
   const handleSearchReset = () => {
@@ -92,14 +97,14 @@ const ViewList = () => {
       title: "日志内容",
       dataIndex: "content",
       key: "4",
-      width: 300, 
+      width: 300,
       ellipsis: true,
     },
     {
       title: "图片",
       dataIndex: "photourl",
       key: "photourl",
-      width: 160, 
+      width: 160,
       render: (photourl) => (
         <img
           src={photourl[0]}
@@ -112,40 +117,22 @@ const ViewList = () => {
       title: "发布时间",
       dataIndex: "time",
       key: "5",
-      width: 200, 
-      ellipsis: true, 
+      width: 200,
+      ellipsis: true,
       render: (time) => <span>{time.slice(0, 19)}</span>,
     },
     {
       title: "状态",
       dataIndex: "status",
       key: "6",
-      width: 100, 
-      ellipsis: true, 
-      //   render: (_, { status }) => (
-      //     <>
-      //       {status.map((tag) => {
-      //         let color = tag.length > 5 ? "geekblue" : "green";
-      //         if (tag === "已通过") {
-      //           color = "green";
-      //         } else if (tag === "待审核") {
-      //           color = "geekblue";
-      //         } else if (tag === "已拒绝") {
-      //           color = "magenta";
-      //         }
-      //         return (
-      //           <Tag color={color} key={tag}>
-      //             {tag.toUpperCase()}
-      //           </Tag>
-      //         );
-      //       })}
-      //     </>
-      //   ),
+      width: 100,
+      render: (text) => (
+        <span title={text}>{text.substring(0, 3)}</span>)
     },
   ];
 
   // 拒绝并填写理由
-  const handleViewReject = () => {};
+  const handleViewReject = () => { };
   // 管理员删除游记
   const confirm = (e) => {
     console.log(e);
@@ -171,6 +158,7 @@ const ViewList = () => {
 
   const handleTableChange = (pagination) => {
     setPagination(pagination);
+    setupdatedDataSource(dataSource);
   };
   const [total, setTotal] = useState(0);
 
@@ -258,7 +246,7 @@ const ViewList = () => {
                     搜索
                   </Button>
                   <Button htmlType="submit" onClick={handleSearchReset}>
-                    清空
+                    查看所有日志
                   </Button>
                 </Space>
               </Form.Item>
@@ -269,7 +257,7 @@ const ViewList = () => {
         <div className={styles.tableWrap}>
           <Table
             dataSource={
-              updatedDataSource.length > 0 ? updatedDataSource : dataSource
+              updatedDataSource
             }
             columns={columns}
             scroll={{ x: 1000 }}
