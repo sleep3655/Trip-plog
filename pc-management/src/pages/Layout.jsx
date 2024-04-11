@@ -1,6 +1,5 @@
 import { UserOutlined, DownOutlined } from "@ant-design/icons";
 import {
-  Breadcrumb,
   Layout as AntdLayout,
   Menu,
   theme,
@@ -45,7 +44,7 @@ export function Layout() {
   }, [navigate]);
 
   const {
-    token: { colorBgContainer, borderRadiusLG },
+    token: { colorBgContainer },
   } = theme.useToken();
 
   return (

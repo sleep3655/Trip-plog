@@ -1,5 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Button, Form, Input, Select, Space, Row, Col, Table, Tag, message, Popconfirm, Modal } from "antd";
+import {
+  Button,
+  Form,
+  Input,
+  Select,
+  Space,
+  Row,
+  Col,
+  Table,
+  Tag,
+  message,
+  Popconfirm,
+  Modal,
+} from "antd";
 import styles from "./index.module.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -26,11 +39,11 @@ const ViewList = () => {
 
   // 获取更新数据
   const [recordId, setRecordId] = useState("");
-  const [role, setRole] = useState('');
+  const [role, setRole] = useState("");
   const [updatedDataSource, setupdatedDataSource] = useState([]);
   useEffect(() => {
-    const storedRole = localStorage.getItem('role');
-    setRole(storedRole);//读取当前用户权限
+    const storedRole = localStorage.getItem("role");
+    setRole(storedRole); //读取当前用户权限
     const fetchData = async () => {
       try {
         const response = await axios.get("/api/plog");
@@ -39,13 +52,17 @@ const ViewList = () => {
         setDataSource(dataArray);
         setupdatedDataSource(dataArray);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("获取数据有误", error);
       }
     };
     fetchData();
   }, []);
 
-  // 获得搜索表单结果
+  const handleSearchReset = () => {
+    form.resetFields();
+    setupdatedDataSource(dataSource);
+  };
+  // 重置搜索表单结果
   const handleSearchFinish = (values) => {
     const stateValue = values.state;
     if (!stateValue) {
@@ -56,17 +73,8 @@ const ViewList = () => {
       );
       const updatedDataSource = filteredData;
 
-
       setupdatedDataSource(updatedDataSource);
     }
-
-
-
-  };
-  // 清空
-  const handleSearchReset = () => {
-    // console.log(form);
-    rejectForm.resetFields();
   };
 
   // 查看游记详情
@@ -95,7 +103,6 @@ const ViewList = () => {
       }),
     },
     {
-
       title: "图片",
       dataIndex: "photourl",
       key: "photourl",
@@ -127,17 +134,11 @@ const ViewList = () => {
         let color = "";
         if (status === "待审核") {
           color = "geekblue";
-          return (
-            <Tag color={color} key={status}>
-              {status.toUpperCase()}
-            </Tag>
-          );
-        }
-        if (status === "已通过") {
+        } else if (status === "已通过") {
           color = "green";
-        } else if (status.substring(0, 3) === "已拒绝") {
+        } else if (status.substring(0, 3) === "未通过") {
           color = "magenta";
-          status = "已拒绝";
+          status = "未通过";
         }
 
         return (
@@ -151,11 +152,10 @@ const ViewList = () => {
 
   // 拒绝并填写理由
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const handleViewReject = (recordId) => {
     setIsModalOpen(true);
     setRecordId(recordId);
-    console.log("recordId", recordId)
+    console.log("recordId", recordId);
   };
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -164,27 +164,32 @@ const ViewList = () => {
   const handleFinish = (values) => {
     //提交拒绝理由
     const { reason } = values;
-    console.log('拒绝理由:', values.reason);
+    console.log("拒绝理由:", values.reason);
     sendRejectRequest(recordId, reason);
     setIsModalOpen(false);
-
-
+    // 刷新页面
+    setTimeout(function () {
+      location.reload();
+    }, 500);
   };
   const sendRejectRequest = async (recordId, reason) => {
     try {
-      const response = await axios.post('/api/reject', { recordId, reason });
-      console.log('请求成功:', response.data);
-      console.error('请求出错:', recordId);
+      const response = await axios.post("/api/reject", { recordId, reason });
+      console.log("请求成功:", response.data);
+      console.error("请求出错:", recordId);
     } catch (error) {
-      console.error('请求出错:', error);
-      console.error('请求出错:', recordId);
+      console.error("请求出错:", error);
+      console.error("请求出错:", recordId);
     }
   };
 
   // 管理员删除游记
   const confirmDelete = (recordId) => {
     sendDeleteRequest(recordId);
-
+    // 刷新页面
+    setTimeout(function () {
+      location.reload();
+    }, 500);
   };
   const cancelDelete = (e) => {
     console.log(e);
@@ -194,16 +199,15 @@ const ViewList = () => {
   const handleViewDelete = () => {
     // 执行逻辑删除
     setIsDeleted(true);
-
   };
   const sendDeleteRequest = async (recordId) => {
     try {
-      const response = await axios.post('/api/delete', { recordId });
-      console.log('删除成功:', response.data);
-      message.success('删除成功');
+      const response = await axios.post("/api/delete", { recordId });
+      console.log("删除成功:", response.data);
+      message.success("删除成功");
     } catch (error) {
-      console.error('删除出错:', error);
-      console.error('删除出错:', recordId);
+      console.error("删除出错:", error);
+      console.error("删除出错:", recordId);
     }
   };
 
@@ -211,7 +215,6 @@ const ViewList = () => {
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 10,
-    // showSizeChanger: true,
   });
 
   const handleTableChange = (pagination) => {
@@ -220,19 +223,23 @@ const ViewList = () => {
   };
   const [total, setTotal] = useState(0);
 
-
   //审核通过
   const handleApprove = async (record) => {
     try {
       const response = await axios.post("/api/approve", { id: record._id });
       // 处理成功响应
       console.log("通过成功:", response.data);
+      // 刷新页面
+      setTimeout(function () {
+        location.reload();
+      }, 500);
     } catch (error) {
       // 处理错误
       console.error("通过失败:", error);
-      console
+      console;
     }
   };
+
   // 审核操作
   const columns = [
     ...Columns,
@@ -247,8 +254,18 @@ const ViewList = () => {
           <>
             <></>
             <Space>
-              <Button type="link" onClick={() => handleApprove(record)} disabled={isDisabled}>通过</Button>
-              <Button type="link" onClick={() => handleViewReject(record._id)} disabled={isDisabled}>
+              <Button
+                type="link"
+                onClick={() => handleApprove(record)}
+                disabled={isDisabled}
+              >
+                通过
+              </Button>
+              <Button
+                type="link"
+                onClick={() => handleViewReject(record._id)}
+                disabled={isDisabled}
+              >
                 拒绝
               </Button>
 
@@ -258,10 +275,14 @@ const ViewList = () => {
                 onCancel={handleCancel}
                 footer={null}
               >
-                <Form form={rejectForm} onFinish={handleFinish} initialValues="">
+                <Form
+                  form={rejectForm}
+                  onFinish={handleFinish}
+                  initialValues=""
+                >
                   <Form.Item
                     name="reason"
-                    rules={[{ required: true, message: '请填写拒绝理由' }]}
+                    rules={[{ required: true, message: "请填写拒绝理由" }]}
                   >
                     <Input.TextArea placeholder="请输入拒绝理由" rows={4} />
                   </Form.Item>
@@ -276,13 +297,17 @@ const ViewList = () => {
 
               <Popconfirm
                 title="删除该游记"
-                // description="确定删除?"
                 onConfirm={() => confirmDelete(record._id)}
                 onCancel={cancelDelete}
                 okText="确认"
                 cancelText="取消"
               >
-                <Button type="link" danger onClick={handleViewDelete} disabled={role === 'user'}>
+                <Button
+                  type="link"
+                  danger
+                  onClick={handleViewDelete}
+                  disabled={role === "audit"}
+                >
                   删除
                 </Button>
               </Popconfirm>
@@ -324,14 +349,9 @@ const ViewList = () => {
                       label: "已通过",
                     },
                     {
-                      value: "已拒绝",
-                      label: "已拒绝",
+                      value: "未通过",
+                      label: "未通过",
                     },
-                    // {
-                    //   value: "disabled",
-                    //   label: "Disabled",
-                    //   disabled: true,
-                    // },
                   ]}
                 />
               </Form.Item>
@@ -353,9 +373,7 @@ const ViewList = () => {
         {/* 游记列表 */}
         <div className={styles.tableWrap}>
           <Table
-            dataSource={
-              updatedDataSource
-            }
+            dataSource={updatedDataSource}
             columns={columns}
             scroll={{ x: 1000 }}
             pagination={{

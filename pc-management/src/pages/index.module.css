@@ -24,9 +24,9 @@
 }
 
 /* 详情 */
-.bgImg{
+.bgImg {
   width: 81vw;
-  height: 77vh; 
+  height: 77vh;
   margin-left: -3px;
   border-radius: 8px;
   position: fixed;
@@ -38,13 +38,12 @@
   width: 80%;
   height: 100%;
   display: flex;
-  /* flex-direction: column; */
   align-items: center;
   justify-content: space-between;
   position: relative;
   z-index: 2;
 }
-.rightBox{
+.rightBox {
   margin-left: 15px;
   width: 50%;
 }
@@ -53,7 +52,6 @@
   font-weight: 700;
   display: flex;
   align-items: center;
-  /* justify-content: space-between; */
 }
 .detailsTitleText {
   font-weight: 500;

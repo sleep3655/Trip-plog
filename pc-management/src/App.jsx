@@ -4,12 +4,7 @@ import DeleteList from "./pages/DeleteList.jsx";
 import Details from "./pages/Details.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
