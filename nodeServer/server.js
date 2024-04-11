@@ -104,71 +104,73 @@ app.post("/deletePlog", async (req, res) => {
 });
 
 // 上传游记_wqj
-app.post("/publish", upload.array("file"), async (req, res) => {
-  const { id, userId, title, content, location, cost, date, time, fileList } =
-    req.body;
-  const photoUrl_original = JSON.parse(fileList.replace(/'/g, '"'))
-    .filter((item) => item.url.startsWith("http://localhost:3001"))
-    .map((item) => item.url);
-  console.log("photoUrl_original", photoUrl_original);
+app.post('/publish', upload.array('file'), async (req, res) => {
+    const { id, userId, title, content, location, cost, date, time, fileList } = req.body;
+    const photoUrl_original = JSON.parse(fileList.replace(/'/g, "\""))
+        .filter(item => item.url.startsWith("http://localhost:3001"))
+        .map(item => item.url);
+    console.log("photoUrl_original", photoUrl_original);
 
-  const files = req.files; // 获取上传的文件
-  let photoUrls_new = [];
-  // 处理文件
-  if (files) {
-    photoUrls_new = files.map(
-      (file) => "http://localhost:3001/file/image/" + file.filename
-    );
-  }
-  const photoUrls = photoUrl_original.concat(photoUrls_new);
-  console.log("photoUrls", photoUrls);
-  if (id === "") {
-    // 检查数据库中是否存在相同userId和time的数据
-    const existingPlog = await Plog.findOne({ userId, time });
+    const files = req.files; // 获取上传的文件
+    let photoUrls_new = []
+    // 处理文件
+    if (files) {
+        photoUrls_new = files.map(file => "http://localhost:3001/file/image/" + file.filename);
 
-    if (existingPlog) {
-      // 如果存在相同userId和time的数据，则更新photourl
-      existingPlog.photourl.push(...photoUrls);
-      await existingPlog.save(); // 等待保存操作完成
-    } else {
-      // 如果不存在相同userId和time的数据，则创建新的游记对象
-      const newPlog = new Plog({
-        userId,
-        title,
-        content,
-        location,
-        cost,
-        date,
-        time,
-        photourl: photoUrls,
-        status: "待审核", // 设置审核状态为 '待审核'
-      });
-      await newPlog.save(); // 等待保存操作完成
     }
-  } else {
-    // 查找是否存在已有的游记对象
-    const existingPlog = await Plog.findById({ _id: id });
-    if (existingPlog) {
-      await Plog.updateOne(
-        { _id: existingPlog._id },
-        {
-          $set: {
-            title: title,
-            content: content,
-            location: location,
-            cost: cost,
-            date: date,
-            time: time,
-            photourl: photoUrls,
-            status: "待审核",
-          },
+    const photoUrls = photoUrl_original.concat(photoUrls_new);
+    console.log("photoUrls", photoUrls);
+    if (id === '') {
+        // 检查数据库中是否存在相同userId和time的数据
+        const existingPlog = await Plog.findOne({ userId, time });
+
+        if (existingPlog) {
+            // 如果存在相同userId和time的数据，则更新photourl
+            existingPlog.photourl.push(...photoUrls);
+            await existingPlog.save(); // 等待保存操作完成
+        } else {
+            // 如果不存在相同userId和time的数据，则创建新的游记对象
+            const newPlog = new Plog({
+                userId,
+                title,
+                content,
+                location,
+                cost,
+                date,
+                time,
+                photourl: photoUrls,
+                status: '待审核',
+                delete: false
+            });
+            await newPlog.save(); // 等待保存操作完成
         }
-      );
     }
-  }
+    else {
+        // 查找是否存在已有的游记对象
+        const existingPlog = await Plog.findById({ _id: id });
+        if (existingPlog) {
+            await Plog.updateOne(
+                { _id: existingPlog._id },
+                {
+                    $set: {
+                        title: title,
+                        content: content,
+                        location: location,
+                        cost: cost,
+                        date: date,
+                        time: time,
+                        photourl: photoUrls,
+                        status: '待审核',
+                        delete: false
+                    }
+                }
+            );
+        }
 
-  // 返回响应
-  res.send("文件上传成功");
+    }
+
+    // 返回响应
+    res.send('文件上传成功');
 });
 
 // pc获取游记列表_zqx
@@ -199,6 +201,19 @@ app.get("/api/plog/:id", async (req, res) => {
     res.status(500).json({ error: "获取游记失败" });
   }
 });
+
+app.get('/api/user', async (req, res) => {
+    try {
+        const users = await User.find();
+        res.json(users);
+    } catch (error) {
+        console.error('获取用户失败', error);
+        res.status(500).json({ error: '获取用户失败' });
+    }
+});
+
+
+
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);

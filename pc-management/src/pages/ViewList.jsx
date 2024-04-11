@@ -14,7 +14,6 @@ import {
 } from "antd";
 import styles from "./index.module.css";
 import axios from "axios";
-// import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar/NavBar";
 
@@ -33,13 +32,37 @@ const ViewList = () => {
         console.error("获取数据有误:", error);
       }
     };
+    fetchData();
+  }, []);
+  
+  // 获取更新数据
+  const [updatedDataSource, setupdatedDataSource] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("/api/plog");
+        const dArray = Array.from(response.data);
+        const dataArray = dArray.filter((item) => !item.delete);
+        setDataSource(dataArray);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
     fetchData();
   }, []);
 
   // 获得搜索表单结果
   const handleSearchFinish = (values) => {
-    console.log("搜索表单结果", values);
+    const stateValue = values.state;
+    const filteredData = dataSource.filter(
+      (item) => item.status === stateValue
+    );
+    const updatedDataSource = [
+      ...filteredData,
+      ...dataSource.filter((item) => item.status !== stateValue),
+    ];
+    setupdatedDataSource(updatedDataSource);
   };
   // 清空
   const handleSearchReset = () => {
@@ -55,8 +78,8 @@ const ViewList = () => {
       title: "标题",
       dataIndex: "title",
       key: "3",
-      width: 100, // 设置固定宽度
-      ellipsis: true, // 使用省略号显示多余文字
+      width: 120,
+      ellipsis: true,
       onCell: (dataSource) => ({
         // 跳转详情页
         onClick: () => {
@@ -76,14 +99,20 @@ const ViewList = () => {
       title: "图片",
       dataIndex: "photourl",
       key: "photourl",
-      width: 150, // 设置固定宽度
-      render: (photourl) => <img src={photourl} alt="图片" style={{ width: "100px", height: "100px" }} />,
+      width: 160, // 设置固定宽度
+      render: (photourl) => (
+        <img
+          src={photourl}
+          alt="图片"
+          style={{ width: "100px", height: "100px" }}
+        />
+      ),
     },
     {
       title: "发布时间",
       dataIndex: "time",
       key: "5",
-      width: 150, // 设置固定宽度
+      width: 200, // 设置固定宽度
       ellipsis: true, // 使用省略号显示多余文字
       render: (time) => <span>{time.slice(0, 19)}</span>,
     },
@@ -139,10 +168,11 @@ const ViewList = () => {
     pageSize: 10,
     // showSizeChanger: true,
   });
+
+  const handleTableChange = (pagination) => {
+    setPagination(pagination);
+  };
   const [total, setTotal] = useState(0);
-  // const handleTableChange = (pagination) => {
-  //   console.log(pagination);
-  // };
 
   // 审核操作
   const columns = [
@@ -185,7 +215,7 @@ const ViewList = () => {
 
   return (
     <>
-      <NavBar title="审核列表" >
+      <NavBar title="审核列表">
         <Form
           name="search"
           form={form}
@@ -197,17 +227,12 @@ const ViewList = () => {
           }}
           style={{ margin: "0 0 0 150px" }}
         >
-          <Row gutter={24}>
-            <Col span={5}>
-              <Form.Item name="name" label="昵称">
-                <Input placeholder="请输入昵称" allowClear />
-              </Form.Item>
-            </Col>
-            <Col span={5}>
+          <Row gutter={20}>
+            {/* <Col span={5}>
               <Form.Item name="title" label="标题">
                 <Input placeholder="请输入标题" allowClear />
               </Form.Item>
-            </Col>
+            </Col> */}
             <Col span={5}>
               <Form.Item name="state" label="状态">
                 <Select
@@ -216,15 +241,15 @@ const ViewList = () => {
                   showSearch
                   options={[
                     {
-                      value: "view",
+                      value: "待审核",
                       label: "待审核",
                     },
                     {
-                      value: "pass",
+                      value: "已通过",
                       label: "已通过",
                     },
                     {
-                      value: "reject",
+                      value: "已拒绝",
                       label: "已拒绝",
                     },
                     // {
@@ -236,7 +261,7 @@ const ViewList = () => {
                 />
               </Form.Item>
             </Col>
-            <Col span={9}>
+            <Col span={3}>
               <Form.Item>
                 <Space>
                   <Button type="primary" htmlType="submit">
@@ -253,14 +278,16 @@ const ViewList = () => {
         {/* 游记列表 */}
         <div className={styles.tableWrap}>
           <Table
-            dataSource={dataSource}
+            dataSource={
+              updatedDataSource.length > 0 ? updatedDataSource : dataSource
+            }
             columns={columns}
             scroll={{ x: 1000 }}
-            // onChange={handleTableChange}
             pagination={{
               ...pagination,
               total,
               showTotal: (total) => `共 ${total} 条`,
+              onChange: handleTableChange,
             }}
           />
         </div>

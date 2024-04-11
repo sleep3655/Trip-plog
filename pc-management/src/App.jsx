@@ -2,7 +2,8 @@ import { Layout } from "./pages/Layout.jsx";
 import ViewList from "./pages/ViewList.jsx";
 import DeleteList from "./pages/DeleteList.jsx";
 import Details from "./pages/Details.jsx";
-import Login from "./pages/Login.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
+
 import {
   BrowserRouter as Router,
   Routes,
@@ -13,8 +14,9 @@ import {
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/login" replace />} />
-      <Route path="login" element={<Login />} />
+
+      <Route path="" element={<LoginPage />} />
+
       <Route path="management" element={<Layout />}>
         <Route path="view" element={<ViewList />} />
         <Route path="delete" element={<DeleteList />} />
