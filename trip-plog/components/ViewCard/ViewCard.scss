@@ -2,11 +2,13 @@
     width: 780rpx;
     border-bottom: 0.5px solid rgb(245, 241, 241);
     padding-bottom: 10rpx;
+
     .item {
         width: 100%;
         display: flex;
         padding: 10rpx;
         margin: 20rpx;
+
         .image {
             width: 300rpx;
             height: 250rpx;
@@ -37,36 +39,36 @@
                 padding: 10rpx;
                 text-indent: 2em;
             }
+          
         }
     }
+
+
 
     .button {
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        margin-top: -30rpx;
-        margin-left: 50rpx;
-        margin-right: 50rpx;
-
+        margin: -15rpx 40rpx 15rpx;
         box-sizing: border-box;
-
+        width: 300rpx;
         .edit {
             margin: 5rpx;
             color: rgb(39, 109, 66);
         }
-
         .delete {
-            margin: 5px;
+            margin: 5rpx;
             color: rgb(161, 82, 82);
-        }
-
-        .review {
-            margin-bottom: 10rpx;
-            margin-left: auto;
-            color: #666;
-            font-size: 36rpx;
-
-
-        }
+        }  
+        
     }
+    .review {
+        max-width: 400rpx;
+        min-height: 60rpx; 
+        margin: -70rpx 5rpx 0 360rpx; 
+        font-size: 14px;
+      }
+
+  
+
 }
