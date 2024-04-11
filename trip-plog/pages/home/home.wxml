@@ -3,7 +3,7 @@
 	<view class="navBar">
 		<view class="nav">
 			<image src="/static/images/menu.png" />
-			<image src="/static/images/serch.png" bindtap="goToSearch"/>
+			<image src="/static/images/serch.png" bindtap="goToSearch" />
 		</view>
 	</view>
 	<!-- 列表 -->
@@ -42,19 +42,5 @@
 			</view>
 		</view>
 	</template>
-  <van-button round type="primary" color="linear-gradient(to right, #3acd39, #1aad19)" class="float-button" icon="plus" bindtap="goToRecord" />
-	<!-- 底部菜单 -->
-	<!-- <view class="tabBar">
-		<view class="tabBar-item">
-			<image src="/static/images/底部菜单图标/list.png" />
-			<text>游记列表</text>
-		</view>
-		<view class="tabBar-item">
-			<image src="/static/images/底部菜单图标/添加.png" />
-		</view>
-		<view class="tabBar-item">
-			<image src="/static/images/底部菜单图标/mine.png" />
-			<text>个人中心</text>
-		</view>
-	</view> -->
+	<van-button round type="primary" color="linear-gradient(to right, #3acd39, #1aad19)" class="float-button" icon="plus" bindtap="goToRecord" />
 </view>
