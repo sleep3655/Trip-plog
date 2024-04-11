@@ -23,7 +23,7 @@ const columns = [
     dataIndex: "photourl",
     key: "photourl",
     width: 200, // 设置固定宽度
-    render: (photourl) => <img src={photourl} alt="图片" style={{ width: "100px", height: "100px" }} />,
+    render: (photourl) => <img src={photourl[0]} alt="图片" style={{ width: "100px", height: "100px" }} />,
   },
   {
     title: "发布时间",
