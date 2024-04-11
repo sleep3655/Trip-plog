@@ -7,7 +7,9 @@
     "van-image": "@vant/weapp/image/index",
     "van-calendar": "@vant/weapp/calendar/index",
     "van-cell": "@vant/weapp/cell/index",
-    "van-cascader": "@vant/weapp/cascader/index"
+    "van-cascader": "@vant/weapp/cascader/index",
+    "tag":"../../components/tag/tag",
+    "van-popup": "@vant/weapp/popup/index"
     
   }
 
