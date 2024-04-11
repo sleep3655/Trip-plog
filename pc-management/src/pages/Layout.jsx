@@ -1,4 +1,3 @@
-
 import { UserOutlined, DownOutlined } from "@ant-design/icons";
 import {
   Breadcrumb,
@@ -12,7 +11,6 @@ import {
 import styles from "./index.module.css";
 import { useNavigate, Outlet } from "react-router-dom";
 import React, { useEffect } from "react";
-
 
 const { Header, Content, Sider } = AntdLayout;
 
@@ -29,20 +27,26 @@ const Items = [
   },
 ];
 
-
 export function Layout() {
   const navigate = useNavigate();
-  const role = localStorage.getItem('role');
+  const role = localStorage.getItem("role");
+  // 身份显示
+  let roleString;
+  if (role === "admin") {
+    roleString = "管理员";
+  } else {
+    roleString = "审核员";
+  }
+  console.log(roleString);
   useEffect(() => {
     if (!role) {
-      window.location.href = '/';  // 跳转到登录页面
+      window.location.href = "/"; // 跳转到登录页面
     }
   }, [navigate]);
 
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-
 
   return (
     // 铺满
@@ -63,16 +67,16 @@ export function Layout() {
                   label: "退出登录",
                   key: "1",
                   onClick: () => {
-                    localStorage.removeItem('role');
-                    window.location.href = '/'; // 跳转到登录页面并刷新
+                    localStorage.removeItem("role");
+                    window.location.href = "/"; // 跳转到登录页面并刷新
                   },
                 },
               ],
             }}
           >
-            <a onClick={(e) => e.preventDefault()} style={{ color: 'white', fontSize: '20px' }}>
-              <Space >
-                {role}
+            <a onClick={(e) => e.preventDefault()}>
+              <Space>
+                {roleString}
                 <DownOutlined />
               </Space>
             </a>
@@ -100,12 +104,8 @@ export function Layout() {
             }}
           />
         </Sider>
-        <AntdLayout
-          className={styles.layoutContent}
-        >
-          <Content
-            className={styles.content}
-          >
+        <AntdLayout className={styles.layoutContent}>
+          <Content className={styles.content}>
             <Outlet />
           </Content>
         </AntdLayout>

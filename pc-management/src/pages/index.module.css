@@ -8,7 +8,7 @@
 .user {
   font-size: 16px;
   color: #fff;
-  font-weight: 400;
+  font-weight: 600;
 }
 .sectionInner {
   height: 100vh;
@@ -24,21 +24,36 @@
 }
 
 /* 详情 */
+.bgImg{
+  width: 81vw;
+  height: 77vh; 
+  margin-left: -3px;
+  border-radius: 8px;
+  position: fixed;
+  opacity: 0.2;
+}
+
 .details {
   margin: auto;
-  width: 70%;
+  width: 80%;
   height: 100%;
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+}
+.rightBox{
+  margin-left: 15px;
+  width: 50%;
 }
 .detailsTitle {
   font-size: 16px;
   font-weight: 700;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 }
 .detailsTitleText {
   font-weight: 500;
@@ -47,13 +62,13 @@
   margin-top: 20px;
 }
 .detailsContent {
-  width: 90%;
+  width: 99%;
   margin-top: 20px;
   font-size: 16px;
   font-weight: 700;
 }
 .detailsContentText {
-  height: 150px;
+  height: 200px;
   font-weight: 500;
   text-indent: 2em;
   overflow: auto;

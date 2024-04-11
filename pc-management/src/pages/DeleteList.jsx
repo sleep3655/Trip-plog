@@ -23,7 +23,7 @@ const columns = [
     dataIndex: "photourl",
     key: "photourl",
     width: 200, // 设置固定宽度
-    render: (photourl) => <img src={photourl} alt="图片" style={{ width: "100px", height: "100px" }} />,
+    render: (photourl) => <img src={photourl[0]} alt="图片" style={{ width: "100px", height: "100px" }} />,
   },
   {
     title: "发布时间",
@@ -48,7 +48,7 @@ const DeleteList = () => {
         const response = await axios.get("/api/plog");
         const dArray = Array.from(response.data)
         const dataArray = dArray.filter(item => item.delete)
-        setdata(dataArray); // 更新状态变量
+        setdata(dataArray); 
       } catch (error) {
         console.error("Error fetching data:", error);
       }

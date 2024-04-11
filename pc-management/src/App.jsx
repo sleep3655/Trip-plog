@@ -14,23 +14,13 @@ import {
 function App() {
   return (
     <Routes>
-
       <Route path="" element={<LoginPage />} />
-
       <Route path="management" element={<Layout />}>
         <Route path="view" element={<ViewList />} />
         <Route path="delete" element={<DeleteList />} />
         <Route path="details/:id" element={<Details />} />
       </Route>
     </Routes>
-    // <Layout>
-    //   <Routes>
-    //     {/* 其他路由规则 */}
-    //     {/* <Route path="login" element={<Login />} /> */}
-    //     <Route path="/management/view" element={<ViewList />} />
-    //     <Route path="/management/delete" element={<DeleteList />} />
-    //   </Routes>
-    // </Layout>
   );
 }
 

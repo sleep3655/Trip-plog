@@ -34,7 +34,7 @@ const ViewList = () => {
     };
     fetchData();
   }, []);
-  
+
   // 获取更新数据
   const [updatedDataSource, setupdatedDataSource] = useState([]);
   useEffect(() => {
@@ -80,6 +80,13 @@ const ViewList = () => {
       key: "3",
       width: 120,
       ellipsis: true,
+    },
+    {
+      title: "日志内容",
+      dataIndex: "content",
+      key: "4",
+      width: 300,
+      ellipsis: true,
       onCell: (dataSource) => ({
         // 跳转详情页
         onClick: () => {
@@ -89,17 +96,10 @@ const ViewList = () => {
       }),
     },
     {
-      title: "日志内容",
-      dataIndex: "content",
-      key: "4",
-      width: 300, 
-      ellipsis: true,
-    },
-    {
       title: "图片",
       dataIndex: "photourl",
       key: "photourl",
-      width: 160, 
+      width: 160,
       render: (photourl) => (
         <img
           src={photourl[0]}
@@ -112,35 +112,40 @@ const ViewList = () => {
       title: "发布时间",
       dataIndex: "time",
       key: "5",
-      width: 200, 
-      ellipsis: true, 
+      width: 200,
+      ellipsis: true,
       render: (time) => <span>{time.slice(0, 19)}</span>,
     },
     {
       title: "状态",
       dataIndex: "status",
-      key: "6",
-      width: 100, 
-      ellipsis: true, 
-      //   render: (_, { status }) => (
-      //     <>
-      //       {status.map((tag) => {
-      //         let color = tag.length > 5 ? "geekblue" : "green";
-      //         if (tag === "已通过") {
-      //           color = "green";
-      //         } else if (tag === "待审核") {
-      //           color = "geekblue";
-      //         } else if (tag === "已拒绝") {
-      //           color = "magenta";
-      //         }
-      //         return (
-      //           <Tag color={color} key={tag}>
-      //             {tag.toUpperCase()}
-      //           </Tag>
-      //         );
-      //       })}
-      //     </>
-      //   ),
+      key: "status",
+      width: 100,
+      ellipsis: true,
+      // 定义状态列样式
+      render: (_, { status }) => {
+        let color = "";
+        if (status === "待审核") {
+          color = "geekblue";
+          return (
+            <Tag color={color} key={status}>
+              {status.toUpperCase()}
+            </Tag>
+          );
+        }
+        if (status === "已通过") {
+          color = "green";
+        } else if (status.substring(0, 3) === "已拒绝") {
+          color = "magenta";
+          status = "已拒绝";
+        }
+
+        return (
+          <Tag color={color} key={status}>
+            {status.toUpperCase()}
+          </Tag>
+        );
+      },
     },
   ];
 
