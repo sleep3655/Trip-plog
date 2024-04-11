@@ -156,6 +156,29 @@ app.post('/api/reject', async (req, res) => {
     await plog.save();
 
     // 返回成功的响应
+    return res.json({ message: '逻辑删除标记成功' });
+  } catch (error) {
+    console.error('逻辑删除标记失败:', error);
+    return res.status(500).json({ error: '逻辑删除标记失败' });
+  }
+});
+
+// 删除游记（逻辑删除）
+app.post('/api/delete', async (req, res) => {
+  const { recordId } = req.body;
+
+  try {
+    // 根据 recordId 查找对应的 Plog 数据
+    const plog = await Plog.findById(recordId);
+
+    if (!plog) {
+      return res.status(404).json({ error: '未找到匹配的记录' });
+    }
+
+    plog.delete = true;
+    await plog.save();
+
+    // 返回成功的响应
     return res.json({ message: '拒绝理由记录成功' });
   } catch (error) {
     console.error('拒绝理由记录失败:', error);
@@ -232,31 +255,6 @@ app.post('/publish', upload.array('file'), async (req, res) => {
     // 返回响应
     res.send('文件上传成功');
 });
-
-
-
-app.get('/api/plog', async (req, res) => {
-    try {
-        const plogs = await Plog.find();
-        console.log(plogs);
-        res.json(plogs);
-        console.log(plogs);
-    } catch (error) {
-        console.error('获取游记列表失败', error);
-        res.status(500).json({ error: '获取游记列表失败' });
-    }
-});
-app.get('/api/user', async (req, res) => {
-    try {
-        const users = await User.find();
-        res.json(users);
-    } catch (error) {
-        console.error('获取用户失败', error);
-        res.status(500).json({ error: '获取用户失败' });
-    }
-});
-
-
 
 
 app.listen(port, () => {

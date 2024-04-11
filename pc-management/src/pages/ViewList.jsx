@@ -24,7 +24,7 @@ const Columns = [
     dataIndex: "photourl",
     key: "photourl",
     width: 160, // 设置固定宽度
-    render: (photourl) => <img src={photourl} alt="图片" style={{ width: "100px", height: "100px" }} />,
+    render: (photourl) => <img src={photourl[0]} alt="图片" style={{ width: "100px", height: "100px" }} />,
   },
   {
     title: "发布时间",
@@ -48,12 +48,14 @@ const ViewList = () => {
   const [rejectForm] = Form.useForm();
   const [dataSource, setDataSource] = useState([]);
   const [recordId, setRecordId] = useState("");
- 
+  const [role, setRole] = useState('');
   const [updatedDataSource, setupdatedDataSource] = useState([]);
   useEffect(() => {
+    const storedRole = localStorage.getItem('role');
+    setRole(storedRole);//读取当前用户权限
     const fetchData = async () => {
       try {
-        const response = await axios.get("/api/plog"); // 替换为您的实际API端点
+        const response = await axios.get("/api/plog"); 
         const dArray = Array.from(response.data)
         const dataArray = dArray.filter(item => !item.delete)
         setDataSource(dataArray); // 更新状态变量
@@ -81,7 +83,7 @@ const ViewList = () => {
   };
   // 拒绝并填写理由
    const [isModalOpen, setIsModalOpen] = useState(false);
-   const [isRejected, setIsRejected] = useState(false);
+  
    const handleViewReject = (recordId) => {
     setIsModalOpen(true);
     setRecordId(recordId);
@@ -97,7 +99,7 @@ const ViewList = () => {
     console.log('拒绝理由:', values.reason);
     sendRejectRequest(recordId, reason);
     setIsModalOpen(false);
-    setIsRejected(true);
+  
  
   };
 const sendRejectRequest = async (recordId, reason) => {
@@ -112,11 +114,11 @@ const sendRejectRequest = async (recordId, reason) => {
 };
 
   // 管理员删除游记
-  const confirm = (e) => {
-    console.log(e);
-    message.success('删除成功');
+  const confirmDelete = (recordId) => {
+    sendDeleteRequest(recordId);
+   
   };
-  const cancel = (e) => {
+  const cancelDelete = (e) => {
     console.log(e);
     message.error('取消删除');
   };
@@ -124,8 +126,18 @@ const sendRejectRequest = async (recordId, reason) => {
   const handleViewDelete = () => {
     // 执行逻辑删除
     setIsDeleted(true);
-    console.log("执行逻辑删除操作");
+  
   };
+const sendDeleteRequest = async (recordId) => {
+  try {
+    const response = await axios.post('/api/delete', {recordId});
+    console.log('删除成功:', response.data);
+    message.success('删除成功');
+  } catch (error) {
+    console.error('删除出错:', error);
+    console.error('删除出错:', recordId);
+  }
+};
 
   // 设置分页
   const [pagination, setPagination] = useState({
@@ -160,7 +172,8 @@ const handleApprove = async (record) => {
       key: "action",
       render: (text, record) => {
         const isApproved = record.status === "已通过";
-         const isDisabled = isApproved || isRejected;
+        const isRejected = record.status.substring(0, 3) === "未通过";
+        const isDisabled = isApproved || isRejected;
         return (
           <>
             <></>
@@ -195,12 +208,12 @@ const handleApprove = async (record) => {
               <Popconfirm
                 title="删除该游记"
                 // description="确定删除?"
-                onConfirm={confirm}
-                onCancel={cancel}
+                onConfirm={() => confirmDelete(record._id)}
+                onCancel={cancelDelete}
                 okText="确认"
                 cancelText="取消"
               >
-                <Button type="link" danger onClick={handleViewDelete}>
+                <Button type="link" danger onClick={handleViewDelete} disabled={role === 'user'}> 
                   删除
                 </Button>
               </Popconfirm>
