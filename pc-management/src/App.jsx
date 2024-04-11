@@ -11,7 +11,6 @@ import {
   Navigate,
 } from "react-router-dom";
 
-
 function App() {
   return (
     <Routes>
@@ -21,7 +20,7 @@ function App() {
       <Route path="management" element={<Layout />}>
         <Route path="view" element={<ViewList />} />
         <Route path="delete" element={<DeleteList />} />
-        <Route path="details" element={<Details />} />
+        <Route path="details/:id" element={<Details />} />
       </Route>
     </Routes>
     // <Layout>

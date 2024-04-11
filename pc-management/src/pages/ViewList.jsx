@@ -1,89 +1,49 @@
 import React, { useState, useEffect } from "react";
-import { Button, Form, Input, Select, Space, Row, Col, Table, Tag, message, Popconfirm } from "antd";
+import {
+  Button,
+  Form,
+  Input,
+  Select,
+  Space,
+  Row,
+  Col,
+  Table,
+  Tag,
+  message,
+  Popconfirm,
+} from "antd";
 import styles from "./index.module.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar/NavBar";
-// import { useHistory } from 'react-router-dom';
-// 游记表格
-// const Columns = [
-//   {
-//     title: "标题",
-//     dataIndex: "title",
-//     key: "3",
-//   },
-//   {
-//     title: "日志内容",
-//     dataIndex: "content",
-//     key: "4",
-//   },
-//   {
-//     title: "图片",
-//     dataIndex: "photourl",
-//     key: "photourl",
-//     render: (photourl) => <img src={photourl} alt="图片" style={{ width: "100px", height: "100px" }} />,
-//   },
-//   {
-//     title: "发布时间",
-//     dataIndex: "time",
-//     key: "5",
-//     render: (time) => <span>{time.slice(0, 19)}</span>,
-//   },
-//   {
-//     title: "状态",
-//     dataIndex: "status",
-//     key: "6",
-//   },
-// ];
-const Columns = [
-  {
-    title: "标题",
-    dataIndex: "title",
-    key: "3",
-    width: 120, // 设置固定宽度
-    ellipsis: true, // 使用省略号显示多余文字
-  },
-  {
-    title: "日志内容",
-    dataIndex: "content",
-    key: "4",
-    width: 300, // 设置固定宽度
-    ellipsis: true, // 使用省略号显示多余文字
-  },
-  {
-    title: "图片",
-    dataIndex: "photourl",
-    key: "photourl",
-    width: 160, // 设置固定宽度
-    render: (photourl) => <img src={photourl} alt="图片" style={{ width: "100px", height: "100px" }} />,
-  },
-  {
-    title: "发布时间",
-    dataIndex: "time",
-    key: "5",
-    width: 200, // 设置固定宽度
-    ellipsis: true, // 使用省略号显示多余文字
-    render: (time) => <span>{time.slice(0, 19)}</span>,
-  },
-  {
-    title: "状态",
-    dataIndex: "status",
-    key: "6",
-    width: 100, // 设置固定宽度
-    ellipsis: true, // 使用省略号显示多余文字
-  },
-];
 
 const ViewList = () => {
   const [form] = Form.useForm();
   const [dataSource, setDataSource] = useState([]);
+  // 获取Plog数据
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/api/plog");
+        const dataArray = Array.from(response.data);
+        setDataSource(dataArray);
+        console.log(dataArray);
+      } catch (error) {
+        console.error("获取数据有误:", error);
+      }
+    };
+    fetchData();
+  }, []);
+  
+  // 获取更新数据
   const [updatedDataSource, setupdatedDataSource] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("/api/plog"); // 替换为您的实际API端点
-        const dArray = Array.from(response.data)
-        const dataArray = dArray.filter(item => !item.delete)
-        setDataSource(dataArray); // 更新状态变量
+        const response = await axios.get("/api/plog");
+        const dArray = Array.from(response.data);
+        const dataArray = dArray.filter((item) => !item.delete);
+        setDataSource(dataArray);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -92,14 +52,16 @@ const ViewList = () => {
     fetchData();
   }, []);
 
-
-
-
   // 获得搜索表单结果
   const handleSearchFinish = (values) => {
-    const stateValue = values.state
-    const filteredData = dataSource.filter((item) => item.status === stateValue);
-    const updatedDataSource = [...filteredData, ...dataSource.filter((item) => item.status !== stateValue)];
+    const stateValue = values.state;
+    const filteredData = dataSource.filter(
+      (item) => item.status === stateValue
+    );
+    const updatedDataSource = [
+      ...filteredData,
+      ...dataSource.filter((item) => item.status !== stateValue),
+    ];
     setupdatedDataSource(updatedDataSource);
   };
   // 清空
@@ -107,16 +69,91 @@ const ViewList = () => {
     // console.log(form);
     form.resetFields();
   };
+
+  // 查看游记详情
+  const navigate = useNavigate();
+  // 游记表格列配置
+  const Columns = [
+    {
+      title: "标题",
+      dataIndex: "title",
+      key: "3",
+      width: 120,
+      ellipsis: true,
+      onCell: (dataSource) => ({
+        // 跳转详情页
+        onClick: () => {
+          navigate(`/management/details/${dataSource._id}`);
+          console.log(dataSource._id);
+        },
+      }),
+    },
+    {
+      title: "日志内容",
+      dataIndex: "content",
+      key: "4",
+      width: 300, // 设置固定宽度
+      ellipsis: true, // 使用省略号显示多余文字
+    },
+    {
+      title: "图片",
+      dataIndex: "photourl",
+      key: "photourl",
+      width: 160, // 设置固定宽度
+      render: (photourl) => (
+        <img
+          src={photourl}
+          alt="图片"
+          style={{ width: "100px", height: "100px" }}
+        />
+      ),
+    },
+    {
+      title: "发布时间",
+      dataIndex: "time",
+      key: "5",
+      width: 200, // 设置固定宽度
+      ellipsis: true, // 使用省略号显示多余文字
+      render: (time) => <span>{time.slice(0, 19)}</span>,
+    },
+    {
+      title: "状态",
+      dataIndex: "status",
+      key: "6",
+      width: 100, // 设置固定宽度
+      ellipsis: true, // 使用省略号显示多余文字
+      //   render: (_, { status }) => (
+      //     <>
+      //       {status.map((tag) => {
+      //         let color = tag.length > 5 ? "geekblue" : "green";
+      //         if (tag === "已通过") {
+      //           color = "green";
+      //         } else if (tag === "待审核") {
+      //           color = "geekblue";
+      //         } else if (tag === "已拒绝") {
+      //           color = "magenta";
+      //         }
+      //         return (
+      //           <Tag color={color} key={tag}>
+      //             {tag.toUpperCase()}
+      //           </Tag>
+      //         );
+      //       })}
+      //     </>
+      //   ),
+    },
+  ];
+
   // 拒绝并填写理由
-  const handleViewReject = () => { };
+  const handleViewReject = () => {};
   // 管理员删除游记
   const confirm = (e) => {
     console.log(e);
-    message.success('删除成功');
+    message.success("删除成功");
   };
   const cancel = (e) => {
     console.log(e);
-    message.error('取消删除');
+    message.error("取消删除");
   };
   const [isDeleted, setIsDeleted] = useState(false);
   const handleViewDelete = () => {
@@ -136,7 +173,6 @@ const ViewList = () => {
     setPagination(pagination);
   };
   const [total, setTotal] = useState(0);
-
 
   // 审核操作
   const columns = [
@@ -172,9 +208,14 @@ const ViewList = () => {
     },
   ];
 
+  // // 跳转到回收站
+  // const handleDeleteClick = () => {
+  //   navigate('/management/delete');
+  // };
+
   return (
     <>
-      <NavBar title="审核列表" operation={<Button>回收站</Button>}>
+      <NavBar title="审核列表">
         <Form
           name="search"
           form={form}
@@ -237,7 +278,9 @@ const ViewList = () => {
         {/* 游记列表 */}
         <div className={styles.tableWrap}>
           <Table
-            dataSource={updatedDataSource.length > 0 ? updatedDataSource : dataSource}
+            dataSource={
+              updatedDataSource.length > 0 ? updatedDataSource : dataSource
+            }
             columns={columns}
             scroll={{ x: 1000 }}
             pagination={{
