@@ -7,8 +7,11 @@
         </view>
     </view>
     <view class="button">
-        <button class="edit" size="mini" catchtap="toUpdate" data-info="{{ data }}"disabled="{{ data.status === '已通过' }}"> 编辑 </button>
+        <button class="edit" size="mini" catchtap="toUpdate" data-info="{{ data }}" disabled="{{ data.status === '已通过' }}"> 编辑 </button>
         <button class="delete" size="mini" catchtap="toDelete" data-id="{{ data._id }}"> 删除 </button>
-        <text class="review">{{ data.status }}</text>
     </view>
+    <view class="review">
+        {{ data.status }}
+    </view>
+
 </view>
