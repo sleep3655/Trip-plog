@@ -48,7 +48,7 @@ const DeleteList = () => {
         const response = await axios.get("/api/plog");
         const dArray = Array.from(response.data)
         const dataArray = dArray.filter(item => item.delete)
-        setdata(dataArray); // 更新状态变量
+        setdata(dataArray); 
       } catch (error) {
         console.error("Error fetching data:", error);
       }

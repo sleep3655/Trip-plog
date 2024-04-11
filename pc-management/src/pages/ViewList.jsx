@@ -9,6 +9,22 @@ const ViewList = () => {
   const [form] = Form.useForm();
   const [rejectForm] = Form.useForm();
   const [dataSource, setDataSource] = useState([]);
+  // 获取Plog数据
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/api/plog");
+        const dataArray = Array.from(response.data);
+        setDataSource(dataArray);
+        console.log(dataArray);
+      } catch (error) {
+        console.error("获取数据有误:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  // 获取更新数据
   const [recordId, setRecordId] = useState("");
   const [role, setRole] = useState('');
   const [updatedDataSource, setupdatedDataSource] = useState([]);
@@ -63,6 +79,13 @@ const ViewList = () => {
       key: "3",
       width: 120,
       ellipsis: true,
+    },
+    {
+      title: "日志内容",
+      dataIndex: "content",
+      key: "4",
+      width: 300,
+      ellipsis: true,
       onCell: (dataSource) => ({
         // 跳转详情页
         onClick: () => {
@@ -72,13 +95,7 @@ const ViewList = () => {
       }),
     },
     {
-      title: "日志内容",
-      dataIndex: "content",
-      key: "4",
-      width: 300,
-      ellipsis: true,
-    },
-    {
+
       title: "图片",
       dataIndex: "photourl",
       key: "photourl",
@@ -102,10 +119,33 @@ const ViewList = () => {
     {
       title: "状态",
       dataIndex: "status",
-      key: "6",
+      key: "status",
       width: 100,
-      render: (text) => (
-        <span title={text}>{text.substring(0, 3)}</span>)
+      ellipsis: true,
+      // 定义状态列样式
+      render: (_, { status }) => {
+        let color = "";
+        if (status === "待审核") {
+          color = "geekblue";
+          return (
+            <Tag color={color} key={status}>
+              {status.toUpperCase()}
+            </Tag>
+          );
+        }
+        if (status === "已通过") {
+          color = "green";
+        } else if (status.substring(0, 3) === "已拒绝") {
+          color = "magenta";
+          status = "已拒绝";
+        }
+
+        return (
+          <Tag color={color} key={status}>
+            {status.toUpperCase()}
+          </Tag>
+        );
+      },
     },
   ];
 
