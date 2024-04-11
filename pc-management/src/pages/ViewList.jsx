@@ -2,46 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Button, Form, Input, Select, Space, Row, Col, Table, Tag, message, Popconfirm,Modal } from "antd";
 import styles from "./index.module.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar/NavBar";
-
-const Columns = [
-  {
-    title: "标题",
-    dataIndex: "title",
-    key: "3",
-    width: 120, // 设置固定宽度
-    ellipsis: true, // 使用省略号显示多余文字
-  },
-  {
-    title: "日志内容",
-    dataIndex: "content",
-    key: "4",
-    width: 300, // 设置固定宽度
-    ellipsis: true, // 使用省略号显示多余文字
-  },
-  {
-    title: "图片",
-    dataIndex: "photourl",
-    key: "photourl",
-    width: 160, // 设置固定宽度
-    render: (photourl) => <img src={photourl[0]} alt="图片" style={{ width: "100px", height: "100px" }} />,
-  },
-  {
-    title: "发布时间",
-    dataIndex: "time",
-    key: "5",
-    width: 200, // 设置固定宽度
-    ellipsis: true, // 使用省略号显示多余文字
-    render: (time) => <span>{time.slice(0, 19)}</span>,
-  },
-  {
-    title: "状态",
-    dataIndex: "status",
-    key: "6",
-    width: 100, // 设置固定宽度
-    ellipsis: true, // 使用省略号显示多余文字
-  },
-];
 
 const ViewList = () => {
   const [form] = Form.useForm();
@@ -55,10 +17,10 @@ const ViewList = () => {
     setRole(storedRole);//读取当前用户权限
     const fetchData = async () => {
       try {
-        const response = await axios.get("/api/plog"); 
-        const dArray = Array.from(response.data)
-        const dataArray = dArray.filter(item => !item.delete)
-        setDataSource(dataArray); // 更新状态变量
+        const response = await axios.get("/api/plog");
+        const dArray = Array.from(response.data);
+        const dataArray = dArray.filter((item) => !item.delete);
+        setDataSource(dataArray);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -67,13 +29,16 @@ const ViewList = () => {
     fetchData();
   }, []);
 
-
-
   // 获得搜索表单结果
   const handleSearchFinish = (values) => {
-    const stateValue = values.state
-    const filteredData = dataSource.filter((item) => item.status === stateValue);
-    const updatedDataSource = [...filteredData, ...dataSource.filter((item) => item.status !== stateValue)];
+    const stateValue = values.state;
+    const filteredData = dataSource.filter(
+      (item) => item.status === stateValue
+    );
+    const updatedDataSource = [
+      ...filteredData,
+      ...dataSource.filter((item) => item.status !== stateValue),
+    ];
     setupdatedDataSource(updatedDataSource);
   };
   // 清空
@@ -81,6 +46,81 @@ const ViewList = () => {
     // console.log(form);
     rejectForm.resetFields();
   };
+
+  // 查看游记详情
+  const navigate = useNavigate();
+  // 游记表格列配置
+  const Columns = [
+    {
+      title: "标题",
+      dataIndex: "title",
+      key: "3",
+      width: 120,
+      ellipsis: true,
+      onCell: (dataSource) => ({
+        // 跳转详情页
+        onClick: () => {
+          navigate(`/management/details/${dataSource._id}`);
+          console.log(dataSource._id);
+        },
+      }),
+    },
+    {
+      title: "日志内容",
+      dataIndex: "content",
+      key: "4",
+      width: 300, 
+      ellipsis: true,
+    },
+    {
+      title: "图片",
+      dataIndex: "photourl",
+      key: "photourl",
+      width: 160, 
+      render: (photourl) => (
+        <img
+          src={photourl[0]}
+          alt="图片"
+          style={{ width: "100px", height: "100px" }}
+        />
+      ),
+    },
+    {
+      title: "发布时间",
+      dataIndex: "time",
+      key: "5",
+      width: 200, 
+      ellipsis: true, 
+      render: (time) => <span>{time.slice(0, 19)}</span>,
+    },
+    {
+      title: "状态",
+      dataIndex: "status",
+      key: "6",
+      width: 100, 
+      ellipsis: true, 
+      //   render: (_, { status }) => (
+      //     <>
+      //       {status.map((tag) => {
+      //         let color = tag.length > 5 ? "geekblue" : "green";
+      //         if (tag === "已通过") {
+      //           color = "green";
+      //         } else if (tag === "待审核") {
+      //           color = "geekblue";
+      //         } else if (tag === "已拒绝") {
+      //           color = "magenta";
+      //         }
+      //         return (
+      //           <Tag color={color} key={tag}>
+      //             {tag.toUpperCase()}
+      //           </Tag>
+      //         );
+      //       })}
+      //     </>
+      //   ),
+    },
+  ];
+
   // 拒绝并填写理由
    const [isModalOpen, setIsModalOpen] = useState(false);
   
@@ -120,7 +160,7 @@ const sendRejectRequest = async (recordId, reason) => {
   };
   const cancelDelete = (e) => {
     console.log(e);
-    message.error('取消删除');
+    message.error("取消删除");
   };
   const [isDeleted, setIsDeleted] = useState(false);
   const handleViewDelete = () => {
@@ -226,7 +266,7 @@ const handleApprove = async (record) => {
 
   return (
     <>
-      <NavBar title="审核列表" operation={<Button>回收站</Button>}>
+      <NavBar title="审核列表">
         <Form
           name="search"
           form={form}
@@ -236,15 +276,10 @@ const handleApprove = async (record) => {
             title: "",
             state: "",
           }}
-          style={{ margin: "0 0 0 150px" }}
+          style={{ margin: "0 0 0 400px" }}
         >
-          <Row gutter={20}>
-            {/* <Col span={5}>
-              <Form.Item name="title" label="标题">
-                <Input placeholder="请输入标题" allowClear />
-              </Form.Item>
-            </Col> */}
-            <Col span={5}>
+          <Row gutter={10}>
+            <Col span={6}>
               <Form.Item name="state" label="状态">
                 <Select
                   placeholder="请选择状态"
@@ -272,7 +307,7 @@ const handleApprove = async (record) => {
                 />
               </Form.Item>
             </Col>
-            <Col span={3}>
+            <Col span={4}>
               <Form.Item>
                 <Space>
                   <Button type="primary" htmlType="submit">
@@ -289,7 +324,9 @@ const handleApprove = async (record) => {
         {/* 游记列表 */}
         <div className={styles.tableWrap}>
           <Table
-            dataSource={updatedDataSource.length > 0 ? updatedDataSource : dataSource}
+            dataSource={
+              updatedDataSource.length > 0 ? updatedDataSource : dataSource
+            }
             columns={columns}
             scroll={{ x: 1000 }}
             pagination={{

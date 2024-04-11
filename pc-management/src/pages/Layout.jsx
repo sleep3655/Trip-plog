@@ -1,4 +1,4 @@
-import React from "react";
+
 import { UserOutlined, DownOutlined } from "@ant-design/icons";
 import {
   Breadcrumb,
@@ -10,7 +10,10 @@ import {
 } from "antd";
 // 引入css样式
 import styles from "./index.module.css";
-import { useNavigate,Outlet } from "react-router-dom";
+import { useNavigate, Outlet } from "react-router-dom";
+import React, { useEffect } from "react";
+
+
 const { Header, Content, Sider } = AntdLayout;
 
 const Items = [
@@ -21,31 +24,25 @@ const Items = [
     children: [
       { key: "/management/view", label: "待审核ing" },
       { key: "/management/delete", label: "回收站" },
-      { key: "/management/details", label: "游记详情" },
+      // { key: "/management/details", label: "游记详情" },
     ],
   },
 ];
 
 
-// 用户
-const userItems = [
-  {
-    label: "用户中心",
-    key: "0",
-  },
-  {
-    label: "退出登录",
-    key: "1",
-  },
-];
-
 export function Layout() {
+  const navigate = useNavigate();
+  const role = localStorage.getItem('role');
+  useEffect(() => {
+    if (!role) {
+      window.location.href = '/';  // 跳转到登录页面
+    }
+  }, [navigate]);
+
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  //   跳转
-  const navigate = useNavigate();
 
   return (
     // 铺满
@@ -61,19 +58,28 @@ export function Layout() {
         <span className={styles.user}>
           <Dropdown
             menu={{
-              items: userItems,
+              items: [
+                {
+                  label: "退出登录",
+                  key: "1",
+                  onClick: () => {
+                    localStorage.removeItem('role');
+                    window.location.href = '/'; // 跳转到登录页面并刷新
+                  },
+                },
+              ],
             }}
           >
-            <a onClick={(e) => e.preventDefault()}>
-              <Space>
-                用户名
+            <a onClick={(e) => e.preventDefault()} style={{ color: 'white', fontSize: '20px' }}>
+              <Space >
+                {role}
                 <DownOutlined />
               </Space>
             </a>
           </Dropdown>
         </span>
       </Header>
-      <AntdLayout  className={styles.sectionInner}>
+      <AntdLayout className={styles.sectionInner}>
         <Sider
           width={200}
           style={{
@@ -82,8 +88,8 @@ export function Layout() {
         >
           <Menu
             mode="inline"
-            defaultSelectedKeys={["/management/list"]}
-            defaultOpenKeys={["management"]}
+            defaultSelectedKeys={["/management/view"]}
+            defaultOpenKeys={["/management"]}
             style={{
               height: "100%",
               borderRight: 0,
@@ -95,21 +101,12 @@ export function Layout() {
           />
         </Sider>
         <AntdLayout
-        className={styles.layoutContent}
+          className={styles.layoutContent}
         >
-          {/* 面包屑 */}
-          {/* <Breadcrumb
-            style={{
-              margin: "16px 0",
-            }}
-          >
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-          </Breadcrumb> */}
           <Content
             className={styles.content}
           >
-            {/* 子页面 */}
-            <Outlet/>
+            <Outlet />
           </Content>
         </AntdLayout>
       </AntdLayout>

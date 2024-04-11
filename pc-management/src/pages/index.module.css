@@ -1,3 +1,4 @@
+/* 整体布局 */
 .logo {
   font-size: 18px;
   color: #fff;
@@ -9,14 +10,56 @@
   color: #fff;
   font-weight: 400;
 }
-.sectionInner{
+.sectionInner {
   height: 100vh;
 }
-.layoutContent{
+.layoutContent {
   padding: 32px;
 }
-
-.tableWrap{
+/* 审核列表 */
+.tableWrap {
+  margin-top: 8px;
   overflow: auto;
   height: 500px;
+}
+
+/* 详情 */
+.details {
+  margin: auto;
+  width: 70%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.detailsTitle {
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.detailsTitleText {
+  font-weight: 500;
+}
+.detailsImg {
+  margin-top: 20px;
+}
+.detailsContent {
+  width: 90%;
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: 700;
+}
+.detailsContentText {
+  height: 150px;
+  font-weight: 500;
+  text-indent: 2em;
+  overflow: auto;
+  margin-top: 20px;
+  max-height: 400px;
+  text-align: justify;
+  border: 1px solid #e6dada;
+  border-radius: 5px;
 }

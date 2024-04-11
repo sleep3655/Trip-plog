@@ -7,11 +7,11 @@
     {
         "username": "audit1",
         "password": "audit1",
-        "role": "user"
+        "role": "audit"
     },
     {
         "username": "audit2",
         "password": "audit2",
-        "role": "user"
+        "role": "audit"
     }
 ]

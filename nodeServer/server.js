@@ -1,11 +1,11 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const multer = require('multer');
-const { v4 } = require('uuid');
-const axios = require('axios');
-const { User, Plog } = require('./model')
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const multer = require("multer");
+const { v4 } = require("uuid");
+const axios = require("axios");
+const { User, Plog } = require("./model");
 const { ObjectId } = mongoose.Types;
 
 port = 3001
@@ -59,54 +59,69 @@ app.post('/register', async (req, res) => {
 
 
 
+// 注册_zqx
+app.post("/register", async (req, res) => {
+  const { username, password, avatarUrl } = req.body;
+  const existingUser = await User.findOne({ username });
+  if (existingUser) {
+    console.log("用户名已存在");
+    return res.send("Registered");
+  }
+  const uniqueId = v4();
+  // 创建新用户，将唯一ID分配给用户_zqx
+  const newUser = new User({ userId: uniqueId, username, password, avatarUrl });
+  await newUser.save();
+  console.log("用户注册成功！");
+  res.send("success");
+});
+
 // 登录_zqx
-app.post('/toLogin', async (req, res) => {
-    const { username, password } = req.body;
-    const user = await User.findOne({ username, password });
-    if (user) {
-        console.log('用户登录成功！');
-        const userId = user.userId;
-        res.status(200).json({ userId });
-    } else {
-        console.error('用户名或密码不正确。');
-        send("false")
-        res.status(401);
-    }
+app.post("/toLogin", async (req, res) => {
+  const { username, password } = req.body;
+  const user = await User.findOne({ username, password });
+  if (user) {
+    console.log("用户登录成功！");
+    const userId = user.userId;
+    res.status(200).json({ userId });
+  } else {
+    console.error("用户名或密码不正确。");
+    send("false");
+    res.status(401);
+  }
 });
 
 // 获取头像昵称_zqx
-app.get('/getUserInfo', async (req, res) => {
-    const userId = req.query.userId;
-    // console.log("userId",userId);
-    const result = await User.find({ userId: userId })
-    const username = result[0].username;
-    const avatarUrl = result[0].avatarUrl;
-    res.send({ username, avatarUrl });
+app.get("/getUserInfo", async (req, res) => {
+  const userId = req.query.userId;
+  // console.log("userId",userId);
+  const result = await User.find({ userId: userId });
+  const username = result[0].username;
+  const avatarUrl = result[0].avatarUrl;
+  res.send({ username, avatarUrl });
 });
-
 
 // 获取我的发布的数据_zqx
 app.get("/getMyPublish", async (req, res) => {
-    const userId = req.query.userId;
-    const result = await Plog.find({
-        userId
-    });
+  const userId = req.query.userId;
+  const result = await Plog.find({
+    userId,
+  });
 
-    res.send(result);
-})
+  res.send(result);
+});
 
 // 删除_zqx
 app.post("/deletePlog", async (req, res) => {
-    const { _id } = req.body
-    console.log(_id);
-    try {
-        await Plog.findByIdAndDelete(_id);
-        res.send("success")
-    } catch (error) {
-        res.send("error")
-        console.error(error)
-    }
-})
+  const { _id } = req.body;
+  console.log(_id);
+  try {
+    await Plog.findByIdAndDelete(_id);
+    res.send("success");
+  } catch (error) {
+    res.send("error");
+    console.error(error);
+  }
+});
 
 app.get('/api/plog', async (req, res) => {
    try {
@@ -118,7 +133,7 @@ app.get('/api/plog', async (req, res) => {
  }
 });
 
-//审核通过
+//审核通过_wqj
 app.post('/api/approve', async (req, res) => {
   try {
     const { id } = req.body;
@@ -139,7 +154,7 @@ app.post('/api/approve', async (req, res) => {
   }
 });
 
-// 审核未通过
+// 审核未通过_wqj
 app.post('/api/reject', async (req, res) => {
   const { recordId, reason } = req.body;
 
@@ -163,7 +178,7 @@ app.post('/api/reject', async (req, res) => {
   }
 });
 
-// 删除游记（逻辑删除）
+// 删除游记（逻辑删除）_wqj
 app.post('/api/delete', async (req, res) => {
   const { recordId } = req.body;
 
@@ -256,7 +271,36 @@ app.post('/publish', upload.array('file'), async (req, res) => {
     res.send('文件上传成功');
 });
 
+// pc获取游记列表_zqx
+app.get("/api/plog", async (req, res) => {
+  try {
+    const plogs = await Plog.find();
+    console.log(plogs);
+    res.json(plogs);
+    console.log(plogs);
+  } catch (error) {
+    console.error("获取游记列表失败", error);
+    res.status(500).json({ error: "获取游记列表失败" });
+  }
+});
+
+// pc获取游记详情_lhl
+app.get("/api/plog/:id", async (req, res) => {
+  try {
+    const plogId = req.params.id;
+    const plog = await Plog.findById(plogId);
+    console.log(plog);
+    if (!plog) {
+      return res.status(404).json({ error: "游记不存在" });
+    }
+    res.json(plog);
+  } catch (error) {
+    console.error("获取游记失败", error);
+    res.status(500).json({ error: "获取游记失败" });
+  }
+});
+
 
 app.listen(port, () => {
-    console.log(`Server listening on port ${port}`);
-})
+  console.log(`Server listening on port ${port}`);
+});
