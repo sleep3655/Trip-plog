@@ -12,13 +12,16 @@
   .cell-value {
     text-align: left;
   }
+  .text {
+    text-align: right !important;
+  }
   .calendar {
     margin-bottom: 20px;
   }
 
   .option-input {
     margin-bottom: 20px;
-
+    text-align: left;
   }
 
   .image-container {
@@ -64,14 +67,6 @@
     font-size: 14px; /* 调整字体大小 */
     background-color: #4dc24d
   }
-  // .publish-button {
-  //   position: fixed;
-  //   left: 50%;
-  //   transform: translateX(-50%);
-  //   bottom: 20px;
-  //   border-radius: 31rpx;
-  //   }
-
   
 
 }

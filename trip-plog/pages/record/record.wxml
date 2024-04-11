@@ -1,4 +1,5 @@
 <!--pages/record/record.wxml-->
+
 <view class="container">
   <view class="image-container">
     <van-uploader
@@ -28,8 +29,10 @@
     bind:input="handleContentInput"
     value="{{content}}"
   />
-
-
+  <van-cell  >
+    <tag bindtopicclick="handleTopicSelect" />
+</van-cell>
+  
   <van-cell title="出游时间" bind:tap="showDatePicker">
   <view class="cell-value">{{ date }}</view>
 </van-cell>
@@ -40,13 +43,13 @@
     color="#4dc24d"
   />
 
-  <van-field
+  <!-- <van-field
     value="{{ location }}"
     readonly
     label="出游地点"
     bind:tap="showLocationPicker"
-  /> 
-  <van-popup show="{{ showLocationPicker }}" round position="bottom">
+  />  -->
+  <!-- <van-popup show="{{ showLocationPicker }}" round position="bottom">
     <van-cascader
       wx:if="{{ showLocationPicker }}"
       value="{{ cascaderValue }}"
@@ -58,7 +61,7 @@
       active-color="#4dc24d"
       
     />
-  </van-popup>
+  </van-popup> -->
 
   <van-field class="option-input" label="人均花费" bind:input="handleCostInput" value="{{cost}}">
   <view class="cell-value">{{ cost }}</view>

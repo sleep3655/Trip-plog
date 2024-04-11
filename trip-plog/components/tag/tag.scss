@@ -1,0 +1,44 @@
+/* components/Tag/tag.wxss */
+
+.topic-button-container {
+  text-align: left; 
+}
+
+.topic-button {
+  background: linear-gradient(to right, #9cd1a6, #4dc24d);
+  color: #fff;
+  padding: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.topic-text {
+  margin-left: 5px;
+}
+
+.topic-icon {
+  font-size: 14px;
+  margin-left: 5px;
+}
+
+.van-popup {
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+}
+
+.van-cell-group {
+  padding: 10px;
+}
+
+.title {
+  color: #11a011 !important;
+}
+.van-cell {
+  padding: 10px 0;
+
+}

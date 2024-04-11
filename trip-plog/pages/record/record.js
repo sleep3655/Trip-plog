@@ -15,10 +15,11 @@ const options = [{
       value: '320100'
   }, {
       text: '苏州市',
-      value: '320111'
+      value: '320101'
   }],
 },
 ];
+
 Page({
 /**
 * 页面的初始数据
@@ -45,8 +46,28 @@ data: {
   login: '',
   Pinfo: [],
   id:"",
+  showTag: false, // 控制话题选择弹出层显示
+  selectedTopic: '' // 选择的话题
 },
-     
+
+  // 处理游记文本框内容变化
+  handleContentInput(e) {
+    this.setData({
+      content: e.detail.value
+    });
+  },
+
+  // 处理选择的话题
+  handleTopicSelect(e) {
+    const topic = e.detail.topic;
+    const newContent = `${this.data.content}#${topic} `;
+    this.setData({
+      content: newContent,
+      selectedTopic: topic,
+      showTag: false // 关闭话题选择弹出层
+    });
+  }
+,
 showDatePicker() {
   this.setData({
       showDatePicker: true
@@ -162,6 +183,8 @@ handleContentInput(event) {
       contentError: false // 清除内容错误提示
   });
 },
+
+
 handleLocationInput(event) {
   const value = event.detail.value;
   this.setData({
@@ -216,24 +239,24 @@ handlePublish() {
       });
       hasError = true;
   }
-  if (!location.trim()) {
-      this.setData({
-          locationError: true
-      });
-      hasError = true;
-  }
-  if (!cost) {
-      this.setData({
-          costError: true
-      });
-      hasError = true;
-  }
-  if (!date) {
-      this.setData({
-          dateError: true
-      });
-      hasError = true;
-  }
+  // if (!location.trim()) {
+  //     this.setData({
+  //         locationError: true
+  //     });
+  //     hasError = true;
+  // }
+  // if (!cost) {
+  //     this.setData({
+  //         costError: true
+  //     });
+  //     hasError = true;
+  // }
+  // if (!date) {
+  //     this.setData({
+  //         dateError: true
+  //     });
+  //     hasError = true;
+  // }
   if (Array.isArray(fileList) && fileList.length === 0) {
       this.setData({
           dateError: true
@@ -374,54 +397,4 @@ async onLoad(options) {
   }
 
 },
-
-/**
-* 生命周期函数--监听页面初次渲染完成
-*/
-onReady() {
-
-},
-
-/**
-* 生命周期函数--监听页面显示
-*/
-onShow() {
-
-
-},
-
-/**
-* 生命周期函数--监听页面隐藏
-*/
-onHide() {
-
-},
-
-/**
-* 生命周期函数--监听页面卸载
-*/
-onUnload() {
-
-},
-
-/**
-* 页面相关事件处理函数--监听用户下拉动作
-*/
-onPullDownRefresh() {
-
-},
-
-/**
-* 页面上拉触底事件的处理函数
-*/
-onReachBottom() {
-
-},
-
-/**
-* 用户点击右上角分享
-*/
-onShareAppMessage() {
-
-}
 })
