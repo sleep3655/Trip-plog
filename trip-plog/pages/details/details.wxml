@@ -23,7 +23,7 @@
 					<view class="user-info">
 						<view class="name">{{article.name}}
 						</view>
-						<view class="slogon">{{article.slogon}}</view>
+						<view class="slogan">{{article.slogan}}</view>
 					</view>
 				</view>
 				<!-- 分享 -->
