@@ -253,7 +253,7 @@ const handleApprove = async (record) => {
                 okText="确认"
                 cancelText="取消"
               >
-                <Button type="link" danger onClick={handleViewDelete} disabled={role === 'user'}> 
+                <Button type="link" danger onClick={handleViewDelete} disabled={role === 'audit'}> 
                   删除
                 </Button>
               </Popconfirm>
