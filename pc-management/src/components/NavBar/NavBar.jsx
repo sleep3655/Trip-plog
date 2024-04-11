@@ -4,7 +4,7 @@ export default function NavBar({ children, title, operation }) {
     <div>
       <div className={styles.title}>
         {title}
-        {/* <span className={styles.operation}>{operation}</span> */}
+        <span className={styles.operation}>{operation}</span>
       </div>
       <div className={styles.content}>{children}</div>
     </div>

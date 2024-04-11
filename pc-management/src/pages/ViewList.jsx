@@ -1,122 +1,41 @@
-import React, { useState } from "react";
-import { Button, Form, Input, Select, Space, Row, Col, Table, Tag ,message, Popconfirm} from "antd";
+import React, { useState, useEffect } from "react";
+import {
+  Button,
+  Form,
+  Input,
+  Select,
+  Space,
+  Row,
+  Col,
+  Table,
+  Tag,
+  message,
+  Popconfirm,
+} from "antd";
 import styles from "./index.module.css";
-import { Axios } from "axios";
+import axios from "axios";
+// import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar/NavBar";
-// import { useHistory } from 'react-router-dom';
-
-const dataSource = [
-  {
-    key: "1",
-    name: "胡彦斌",
-    pic: 32,
-    title: "西湖区湖底公园1号",
-    content: "xxxxxxxxxxx",
-    time: "2016-10-03",
-    state: ["已通过"],
-  },
-  {
-    key: "1",
-    name: "胡彦斌",
-    pic: 32,
-    title: "西湖区湖底公园1号",
-    content: "xxxxxxxxxxx",
-    time: "2016-10-03",
-    state: ["待审核"],
-  },
-  {
-    key: "1",
-    name: "胡彦斌",
-    pic: 32,
-    title: "西湖区湖底公园1号",
-    content: "xxxxxxxxxxx",
-    time: "2016-10-03",
-    state: ["待审核"],
-  },
-  {
-    key: "1",
-    name: "胡彦斌",
-    pic: 32,
-    title: "西湖区湖底公园1号",
-    content: "xxxxxxxxxxx",
-    time: "2016-10-03",
-    state: ["已拒绝"],
-  },
-  {
-    key: "1",
-    name: "胡彦斌",
-    pic: 32,
-    title: "西湖区湖底公园1号",
-    content: "xxxxxxxxxxx",
-    time: "2016-10-03",
-    state: ["待审核"],
-  },
-  {
-    key: "1",
-    name: "胡彦斌",
-    pic: 32,
-    title: "西湖区湖底公园1号",
-    content: "xxxxxxxxxxx",
-    time: "2016-10-03",
-    state: ["已通过"],
-  },
-];
-
-// 游记表格
-const Columns = [
-  {
-    title: "昵称",
-    dataIndex: "name",
-    key: "name",
-  },
-  {
-    title: "图片",
-    dataIndex: "picture",
-    key: "picture",
-  },
-  {
-    title: "标题",
-    dataIndex: "title",
-    key: "title",
-  },
-  {
-    title: "日志内容",
-    dataIndex: "content",
-    key: "content",
-  },
-  {
-    title: "发布时间",
-    dataIndex: "time",
-    key: "time",
-  },
-  {
-    title: "状态",
-    dataIndex: "state",
-    key: "state",
-    render: (_, { state }) => (
-      <>
-        {state.map((tag) => {
-          let color = tag.length > 5 ? "geekblue" : "green";
-          if (tag === "已通过") {
-            color = "green";
-          } else if (tag === "待审核") {
-            color = "geekblue";
-          } else if (tag === "已拒绝") {
-            color = "magenta";
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
-    ),
-  },
-];
 
 const ViewList = () => {
   const [form] = Form.useForm();
+  const [dataSource, setDataSource] = useState([]);
+  // 获取Plog数据
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/api/plog");
+        const dataArray = Array.from(response.data);
+        setDataSource(dataArray);
+        console.log(dataArray);
+      } catch (error) {
+        console.error("获取数据有误:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   // 获得搜索表单结果
   const handleSearchFinish = (values) => {
@@ -127,16 +46,85 @@ const ViewList = () => {
     // console.log(form);
     form.resetFields();
   };
+
+  // 查看游记详情
+  const navigate = useNavigate();
+  // 游记表格列配置
+  const Columns = [
+    {
+      title: "标题",
+      dataIndex: "title",
+      key: "3",
+      width: 100, // 设置固定宽度
+      ellipsis: true, // 使用省略号显示多余文字
+      onCell: (dataSource) => ({
+        // 跳转详情页
+        onClick: () => {
+          navigate(`/management/details/${dataSource._id}`);
+          console.log(dataSource._id);
+        },
+      }),
+    },
+    {
+      title: "日志内容",
+      dataIndex: "content",
+      key: "4",
+      width: 300, // 设置固定宽度
+      ellipsis: true, // 使用省略号显示多余文字
+    },
+    {
+      title: "图片",
+      dataIndex: "photourl",
+      key: "photourl",
+      width: 150, // 设置固定宽度
+      render: (photourl) => <img src={photourl} alt="图片" style={{ width: "100px", height: "100px" }} />,
+    },
+    {
+      title: "发布时间",
+      dataIndex: "time",
+      key: "5",
+      width: 150, // 设置固定宽度
+      ellipsis: true, // 使用省略号显示多余文字
+      render: (time) => <span>{time.slice(0, 19)}</span>,
+    },
+    {
+      title: "状态",
+      dataIndex: "status",
+      key: "6",
+      width: 100, // 设置固定宽度
+      ellipsis: true, // 使用省略号显示多余文字
+      //   render: (_, { status }) => (
+      //     <>
+      //       {status.map((tag) => {
+      //         let color = tag.length > 5 ? "geekblue" : "green";
+      //         if (tag === "已通过") {
+      //           color = "green";
+      //         } else if (tag === "待审核") {
+      //           color = "geekblue";
+      //         } else if (tag === "已拒绝") {
+      //           color = "magenta";
+      //         }
+      //         return (
+      //           <Tag color={color} key={tag}>
+      //             {tag.toUpperCase()}
+      //           </Tag>
+      //         );
+      //       })}
+      //     </>
+      //   ),
+    },
+  ];
+
   // 拒绝并填写理由
   const handleViewReject = () => {};
   // 管理员删除游记
   const confirm = (e) => {
     console.log(e);
-    message.success('删除成功');
+    message.success("删除成功");
   };
   const cancel = (e) => {
     console.log(e);
-    message.error('取消删除');
+    message.error("取消删除");
   };
   const [isDeleted, setIsDeleted] = useState(false);
   const handleViewDelete = () => {
@@ -189,15 +177,15 @@ const ViewList = () => {
       },
     },
   ];
-  // 跳转到回收站
-  // const history = useHistory();
+
+  // // 跳转到回收站
   // const handleDeleteClick = () => {
-  //   history.push('/management/delete');
+  //   navigate('/management/delete');
   // };
 
   return (
     <>
-      <NavBar title="审核列表" operation={<Button>回收站</Button>}>
+      <NavBar title="审核列表" >
         <Form
           name="search"
           form={form}

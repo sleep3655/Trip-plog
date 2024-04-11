@@ -21,7 +21,7 @@ const Items = [
     children: [
       { key: "/management/view", label: "待审核ing" },
       { key: "/management/delete", label: "回收站" },
-      { key: "/management/details", label: "游记详情" },
+      // { key: "/management/details", label: "游记详情" },
     ],
   },
 ];
@@ -82,8 +82,8 @@ export function Layout() {
         >
           <Menu
             mode="inline"
-            defaultSelectedKeys={["/management/list"]}
-            defaultOpenKeys={["management"]}
+            defaultSelectedKeys={["/management/view"]}
+            defaultOpenKeys={["/management"]}
             style={{
               height: "100%",
               borderRight: 0,
@@ -97,14 +97,6 @@ export function Layout() {
         <AntdLayout
         className={styles.layoutContent}
         >
-          {/* 面包屑 */}
-          {/* <Breadcrumb
-            style={{
-              margin: "16px 0",
-            }}
-          >
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-          </Breadcrumb> */}
           <Content
             className={styles.content}
           >
