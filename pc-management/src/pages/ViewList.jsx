@@ -92,17 +92,17 @@ const ViewList = () => {
       title: "日志内容",
       dataIndex: "content",
       key: "4",
-      width: 300, // 设置固定宽度
-      ellipsis: true, // 使用省略号显示多余文字
+      width: 300, 
+      ellipsis: true,
     },
     {
       title: "图片",
       dataIndex: "photourl",
       key: "photourl",
-      width: 160, // 设置固定宽度
+      width: 160, 
       render: (photourl) => (
         <img
-          src={photourl}
+          src={photourl[0]}
           alt="图片"
           style={{ width: "100px", height: "100px" }}
         />
@@ -112,16 +112,16 @@ const ViewList = () => {
       title: "发布时间",
       dataIndex: "time",
       key: "5",
-      width: 200, // 设置固定宽度
-      ellipsis: true, // 使用省略号显示多余文字
+      width: 200, 
+      ellipsis: true, 
       render: (time) => <span>{time.slice(0, 19)}</span>,
     },
     {
       title: "状态",
       dataIndex: "status",
       key: "6",
-      width: 100, // 设置固定宽度
-      ellipsis: true, // 使用省略号显示多余文字
+      width: 100, 
+      ellipsis: true, 
       //   render: (_, { status }) => (
       //     <>
       //       {status.map((tag) => {
@@ -208,11 +208,6 @@ const ViewList = () => {
     },
   ];
 
-  // // 跳转到回收站
-  // const handleDeleteClick = () => {
-  //   navigate('/management/delete');
-  // };
-
   return (
     <>
       <NavBar title="审核列表">
@@ -225,15 +220,10 @@ const ViewList = () => {
             title: "",
             state: "",
           }}
-          style={{ margin: "0 0 0 150px" }}
+          style={{ margin: "0 0 0 400px" }}
         >
-          <Row gutter={20}>
-            {/* <Col span={5}>
-              <Form.Item name="title" label="标题">
-                <Input placeholder="请输入标题" allowClear />
-              </Form.Item>
-            </Col> */}
-            <Col span={5}>
+          <Row gutter={10}>
+            <Col span={6}>
               <Form.Item name="state" label="状态">
                 <Select
                   placeholder="请选择状态"
@@ -261,7 +251,7 @@ const ViewList = () => {
                 />
               </Form.Item>
             </Col>
-            <Col span={3}>
+            <Col span={4}>
               <Form.Item>
                 <Space>
                   <Button type="primary" htmlType="submit">
