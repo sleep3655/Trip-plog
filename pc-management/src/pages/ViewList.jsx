@@ -1,126 +1,106 @@
-import React, { useState } from "react";
-import { Button, Form, Input, Select, Space, Row, Col, Table, Tag ,message, Popconfirm} from "antd";
+import React, { useState, useEffect } from "react";
+import { Button, Form, Input, Select, Space, Row, Col, Table, Tag, message, Popconfirm } from "antd";
 import styles from "./index.module.css";
-import { Axios } from "axios";
+import axios from "axios";
 import NavBar from "../components/NavBar/NavBar";
 // import { useHistory } from 'react-router-dom';
-
-const dataSource = [
-  {
-    key: "1",
-    name: "胡彦斌",
-    pic: 32,
-    title: "西湖区湖底公园1号",
-    content: "xxxxxxxxxxx",
-    time: "2016-10-03",
-    state: ["已通过"],
-  },
-  {
-    key: "1",
-    name: "胡彦斌",
-    pic: 32,
-    title: "西湖区湖底公园1号",
-    content: "xxxxxxxxxxx",
-    time: "2016-10-03",
-    state: ["待审核"],
-  },
-  {
-    key: "1",
-    name: "胡彦斌",
-    pic: 32,
-    title: "西湖区湖底公园1号",
-    content: "xxxxxxxxxxx",
-    time: "2016-10-03",
-    state: ["待审核"],
-  },
-  {
-    key: "1",
-    name: "胡彦斌",
-    pic: 32,
-    title: "西湖区湖底公园1号",
-    content: "xxxxxxxxxxx",
-    time: "2016-10-03",
-    state: ["已拒绝"],
-  },
-  {
-    key: "1",
-    name: "胡彦斌",
-    pic: 32,
-    title: "西湖区湖底公园1号",
-    content: "xxxxxxxxxxx",
-    time: "2016-10-03",
-    state: ["待审核"],
-  },
-  {
-    key: "1",
-    name: "胡彦斌",
-    pic: 32,
-    title: "西湖区湖底公园1号",
-    content: "xxxxxxxxxxx",
-    time: "2016-10-03",
-    state: ["已通过"],
-  },
-];
-
 // 游记表格
+// const Columns = [
+//   {
+//     title: "标题",
+//     dataIndex: "title",
+//     key: "3",
+//   },
+//   {
+//     title: "日志内容",
+//     dataIndex: "content",
+//     key: "4",
+//   },
+//   {
+//     title: "图片",
+//     dataIndex: "photourl",
+//     key: "photourl",
+//     render: (photourl) => <img src={photourl} alt="图片" style={{ width: "100px", height: "100px" }} />,
+//   },
+//   {
+//     title: "发布时间",
+//     dataIndex: "time",
+//     key: "5",
+//     render: (time) => <span>{time.slice(0, 19)}</span>,
+//   },
+//   {
+//     title: "状态",
+//     dataIndex: "status",
+//     key: "6",
+//   },
+// ];
 const Columns = [
-  {
-    title: "昵称",
-    dataIndex: "name",
-    key: "name",
-  },
-  {
-    title: "图片",
-    dataIndex: "picture",
-    key: "picture",
-  },
   {
     title: "标题",
     dataIndex: "title",
-    key: "title",
+    key: "3",
+    width: 120, // 设置固定宽度
+    ellipsis: true, // 使用省略号显示多余文字
   },
   {
     title: "日志内容",
     dataIndex: "content",
-    key: "content",
+    key: "4",
+    width: 300, // 设置固定宽度
+    ellipsis: true, // 使用省略号显示多余文字
+  },
+  {
+    title: "图片",
+    dataIndex: "photourl",
+    key: "photourl",
+    width: 160, // 设置固定宽度
+    render: (photourl) => <img src={photourl} alt="图片" style={{ width: "100px", height: "100px" }} />,
   },
   {
     title: "发布时间",
     dataIndex: "time",
-    key: "time",
+    key: "5",
+    width: 200, // 设置固定宽度
+    ellipsis: true, // 使用省略号显示多余文字
+    render: (time) => <span>{time.slice(0, 19)}</span>,
   },
   {
     title: "状态",
-    dataIndex: "state",
-    key: "state",
-    render: (_, { state }) => (
-      <>
-        {state.map((tag) => {
-          let color = tag.length > 5 ? "geekblue" : "green";
-          if (tag === "已通过") {
-            color = "green";
-          } else if (tag === "待审核") {
-            color = "geekblue";
-          } else if (tag === "已拒绝") {
-            color = "magenta";
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
-    ),
+    dataIndex: "status",
+    key: "6",
+    width: 100, // 设置固定宽度
+    ellipsis: true, // 使用省略号显示多余文字
   },
 ];
 
 const ViewList = () => {
   const [form] = Form.useForm();
+  const [dataSource, setDataSource] = useState([]);
+  const [updatedDataSource, setupdatedDataSource] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("/api/plog"); // 替换为您的实际API端点
+        const dArray = Array.from(response.data)
+        const dataArray = dArray.filter(item => !item.delete)
+        setDataSource(dataArray); // 更新状态变量
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+
+
 
   // 获得搜索表单结果
   const handleSearchFinish = (values) => {
-    console.log("搜索表单结果", values);
+    const stateValue = values.state
+    const filteredData = dataSource.filter((item) => item.status === stateValue);
+    const updatedDataSource = [...filteredData, ...dataSource.filter((item) => item.status !== stateValue)];
+    setupdatedDataSource(updatedDataSource);
   };
   // 清空
   const handleSearchReset = () => {
@@ -128,7 +108,7 @@ const ViewList = () => {
     form.resetFields();
   };
   // 拒绝并填写理由
-  const handleViewReject = () => {};
+  const handleViewReject = () => { };
   // 管理员删除游记
   const confirm = (e) => {
     console.log(e);
@@ -151,10 +131,12 @@ const ViewList = () => {
     pageSize: 10,
     // showSizeChanger: true,
   });
+
+  const handleTableChange = (pagination) => {
+    setPagination(pagination);
+  };
   const [total, setTotal] = useState(0);
-  // const handleTableChange = (pagination) => {
-  //   console.log(pagination);
-  // };
+
 
   // 审核操作
   const columns = [
@@ -189,11 +171,6 @@ const ViewList = () => {
       },
     },
   ];
-  // 跳转到回收站
-  // const history = useHistory();
-  // const handleDeleteClick = () => {
-  //   history.push('/management/delete');
-  // };
 
   return (
     <>
@@ -209,17 +186,12 @@ const ViewList = () => {
           }}
           style={{ margin: "0 0 0 150px" }}
         >
-          <Row gutter={24}>
-            <Col span={5}>
-              <Form.Item name="name" label="昵称">
-                <Input placeholder="请输入昵称" allowClear />
-              </Form.Item>
-            </Col>
-            <Col span={5}>
+          <Row gutter={20}>
+            {/* <Col span={5}>
               <Form.Item name="title" label="标题">
                 <Input placeholder="请输入标题" allowClear />
               </Form.Item>
-            </Col>
+            </Col> */}
             <Col span={5}>
               <Form.Item name="state" label="状态">
                 <Select
@@ -228,15 +200,15 @@ const ViewList = () => {
                   showSearch
                   options={[
                     {
-                      value: "view",
+                      value: "待审核",
                       label: "待审核",
                     },
                     {
-                      value: "pass",
+                      value: "已通过",
                       label: "已通过",
                     },
                     {
-                      value: "reject",
+                      value: "已拒绝",
                       label: "已拒绝",
                     },
                     // {
@@ -248,7 +220,7 @@ const ViewList = () => {
                 />
               </Form.Item>
             </Col>
-            <Col span={9}>
+            <Col span={3}>
               <Form.Item>
                 <Space>
                   <Button type="primary" htmlType="submit">
@@ -265,14 +237,14 @@ const ViewList = () => {
         {/* 游记列表 */}
         <div className={styles.tableWrap}>
           <Table
-            dataSource={dataSource}
+            dataSource={updatedDataSource.length > 0 ? updatedDataSource : dataSource}
             columns={columns}
             scroll={{ x: 1000 }}
-            // onChange={handleTableChange}
             pagination={{
               ...pagination,
               total,
               showTotal: (total) => `共 ${total} 条`,
+              onChange: handleTableChange,
             }}
           />
         </div>

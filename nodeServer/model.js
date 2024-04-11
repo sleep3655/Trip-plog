@@ -65,6 +65,10 @@ const plogSchema = new mongoose.Schema({
     status: {
         type: String,
         default: '待审核'
+    },
+    delete: {
+        type: Boolean,
+        default: false
     }
 }, { collection: 'Plog' });  // 指定集合名称为 'Users'
 
