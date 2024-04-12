@@ -23,11 +23,11 @@ https://b23.tv/xyylBEm
 ##### 连接数据库nodeServer
 
 ```js
-
 npm run start
 显示：
 	Server listening on port 3001
 	数据库连接成功
+MongoDB Compass连接本地27017端口，会显示trip数据库，包含Users和Plog表，分别存放小程序用户名/密码和发布的游记内容。
 ```
 
 ##### 小程序trip-plog
