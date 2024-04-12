@@ -38,7 +38,6 @@ npm run start
      <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/发布.gif" width="200px">
      <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/拒绝%2B返修.gif" width="200px">
 </p>
-
 ##### PC端
 
 ```js
@@ -50,7 +49,8 @@ npm run dev
     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/pc/审核人员登录%2B查看详情.gif"width="400px">
      <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/pc/删除.gif"width="400px">
      <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/pc/拒绝%2B理由.gif"width="400px">
-     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/pc/状态搜索.gif"width="400px">
+     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/pc/状态搜索.gif"width="400px"> 
+</p>
 
 
 
