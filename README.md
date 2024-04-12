@@ -32,12 +32,12 @@ npm run start
 ##### 小程序
 
 <p align = "center">
-    <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/详情%2B搜索.gif" width="300px">
-     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/注册%2B登录.gif" width="300px">
-     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/发布.gif" width="300px">
-     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/重新编辑.gif" width="300px">
-     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/拒绝%2B返修.gif" width="300px">
-     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/退出登录.gif" width="300px">
+    <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/详情%2B搜索.gif" width="200px">
+     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/注册%2B登录.gif" width="200px">
+     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/发布.gif" width="200px">
+     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/重新编辑.gif" width="200px">
+     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/拒绝%2B返修.gif" width="200px">
+     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/退出登录.gif" width="200px">
 </p>
 
 ##### PC端
