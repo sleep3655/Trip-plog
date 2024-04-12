@@ -20,16 +20,17 @@ https://b23.tv/xyylBEm
 
 #### 使用说明
 
-##### 数据库
+##### 连接数据库nodeServer
 
 ```js
+
 npm run start
 显示：
 	Server listening on port 3001
 	数据库连接成功
 ```
 
-##### 小程序
+##### 小程序trip-plog
 
 <p align = "center">
     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/详情%2B搜索.gif" width="200px">
