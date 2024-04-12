@@ -6,10 +6,12 @@
 	border-radius: 50rpx;
 	background-color: #fff;
 }
+
 view,
 text {
 	box-sizing: border-box;
 }
+
 page {
 	--themeColor: #1aad19;
 	--globalColor: #333333;

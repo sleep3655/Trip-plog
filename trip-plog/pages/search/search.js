@@ -2,7 +2,7 @@ const db = wx.cloud.database()
 const _ = db.command
 Page({
 	data: {
-		hot_list: ['嘉兴', '南京', '上海', '璇77', '罡酱贝壳儿','打卡'],
+		hot_list: ['嘉兴', '南京', '上海', '璇77', '罡酱贝壳儿', '打卡'],
 		his_list: [],
 		search: '',//当前搜索内容
 		article: [],
@@ -71,13 +71,11 @@ Page({
 	// 搜索内容
 	searchCon(e) {
 		console.log("当前输入为", e.detail.value);
-		let msg = e.detail.value//获取当前输入值
+		let msg = e.detail.value
 		if (msg.trim() !== '') {
 			this.setData({
 				search: msg
 			});
-			// 将标签存入历史搜索
-			// this.handleData(msg)
 		}
 	},
 

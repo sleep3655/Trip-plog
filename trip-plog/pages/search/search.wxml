@@ -1,8 +1,4 @@
 <view class="outer">
-	<!-- <van-search value="{{ value }}" shape="round" background="var(--themeColor)" placeholder="请输入昵称或关键词" use-action-slot bind:change="onChange" bind:search="onSearch" bind:clear="onClear">
-	<view slot="action" bind:tap="onClick" style="padding: 0 30rpx;">搜索</view>
-</van-search> -->
-
 	<!-- 搜索框 -->
 	<view class="head flex-row">
 		<view class="head-input">

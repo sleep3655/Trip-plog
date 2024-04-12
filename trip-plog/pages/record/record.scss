@@ -1,72 +1,80 @@
 /* pages/record/record.wxss */
 .container {
-  padding: 2vw;
-  position: relative;
-  .title-input {
-    margin-bottom: 2vw;
-  }
+	padding: 2vw;
+	position: relative;
 
- .content-input {
-    height: 150px !important;
-  }
-  .cell-value {
-    text-align: left;
-  }
-  .text {
-    text-align: right !important;
-  }
-  .calendar {
-    margin-bottom: 20px;
-  }
+	.title-input {
+		margin-bottom: 2vw;
+	}
 
-  .option-input {
-    margin-bottom: 20px;
-    text-align: left;
-  }
+	.content-input {
+		height: 150px !important;
+	}
 
-  .image-container {
-    padding: 2vw 9vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+	.cell-value {
+		text-align: left;
+	}
 
-  .upload-button {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
+	.text {
+		text-align: right !important;
+	}
 
-  .image-uploader {
-    padding: 1vw 3.5vw;
-    background-color: #f7f8fa;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    color: #999;
-    cursor: pointer;
-  }
+	.calendar {
+		margin-bottom: 20px;
+	}
 
-  .fixed-box {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 10px;
-    border-top: 1px solid #D3D3D3; /* 灰色线条 */
-    background-color: #FFFFFF;
-    
-  }
-  .publish-button {
-    width: 50%;
-    height: 5%;
-    border-radius: 10px; /* 调整边框圆角 */
-    font-size: 14px; /* 调整字体大小 */
-    background-color: #4dc24d
-  }
-  
+	.option-input {
+		margin-bottom: 20px;
+		text-align: left;
+	}
+
+	.image-container {
+		padding: 2vw 9vw;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.upload-button {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.image-uploader {
+		padding: 1vw 3.5vw;
+		background-color: #f7f8fa;
+		border-radius: 8px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 14px;
+		color: #999;
+		cursor: pointer;
+	}
+
+	.fixed-box {
+		position: fixed;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		padding: 10px;
+		border-top: 1px solid #D3D3D3;
+		/* 灰色线条 */
+		background-color: #FFFFFF;
+
+	}
+
+	.publish-button {
+		width: 50%;
+		height: 5%;
+		border-radius: 10px;
+		/* 调整边框圆角 */
+		font-size: 14px;
+		/* 调整字体大小 */
+		background-color: #4dc24d
+	}
+
 
 }

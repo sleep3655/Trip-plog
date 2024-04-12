@@ -5,7 +5,7 @@ Page({
 		article: ''
 	},
 	onLoad(options) {
-		// 获取云数据库资源
+		// 获取云开发数据
 		db.collection('article').get().then(res => {
 			this.setData({
 				article: res.data

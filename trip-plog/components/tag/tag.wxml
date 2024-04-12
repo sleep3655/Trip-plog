@@ -1,20 +1,19 @@
 <!--components/Tag/tag.wxml-->
 <view class="topic-button-container">
-  <view class="topic-button" bindtap="showTopicList">
-    <text class="topic-text">#话题 </text>
-    <van-icon name="arrow" class="topic-icon" />
-  </view>
-  <van-popup show="{{ showTag }}" position="bottom" bindclose="closeTag" custom-style="height: 50%;" >
-    <van-cell-group>
-      <van-cell custom-class="title" title="#广西三月三" bindtap="handleTopicClick" data-topic="广西三月三"  />
-      <van-cell custom-class="title" title="#清明上河园" bindtap="handleTopicClick" data-topic="清明上河园"/>
-      <van-cell custom-class="title" title="#南京鸡鸣寺" bindtap="handleTopicClick" data-topic="南京鸡鸣寺"/>
-      <van-cell custom-class="title" title="#留住春天的美好" bindtap="handleTopicClick" data-topic="留住春天的美好"/>
-      <van-cell custom-class="title" title="#开往春天的地铁" bindtap="handleTopicClick" data-topic="开往春天的地铁"/>
-      <van-cell custom-class="title" title="#鸡鸣寺樱花盛开" bindtap="handleTopicClick" data-topic="鸡鸣寺樱花盛开" />
-      <van-cell custom-class="title" title="#天水麻辣烫爆火出圈" bindtap="handleTopicClick" data-topic="天水麻辣烫爆火出圈" />  
-      <van-cell custom-class="title" title="#在桂林拍到了日月同辉" bindtap="handleTopicClick" data-topic="在桂林拍到了日月同辉"/>
-    </van-cell-group>
-  </van-popup>
+	<view class="topic-button" bindtap="showTopicList">
+		<text class="topic-text">#话题 </text>
+		<van-icon name="arrow" class="topic-icon" />
+	</view>
+	<van-popup show="{{ showTag }}" position="bottom" bindclose="closeTag" custom-style="height: 50%;">
+		<van-cell-group>
+			<van-cell custom-class="title" title="#广西三月三" bindtap="handleTopicClick" data-topic="广西三月三" />
+			<van-cell custom-class="title" title="#清明上河园" bindtap="handleTopicClick" data-topic="清明上河园" />
+			<van-cell custom-class="title" title="#南京鸡鸣寺" bindtap="handleTopicClick" data-topic="南京鸡鸣寺" />
+			<van-cell custom-class="title" title="#留住春天的美好" bindtap="handleTopicClick" data-topic="留住春天的美好" />
+			<van-cell custom-class="title" title="#开往春天的地铁" bindtap="handleTopicClick" data-topic="开往春天的地铁" />
+			<van-cell custom-class="title" title="#鸡鸣寺樱花盛开" bindtap="handleTopicClick" data-topic="鸡鸣寺樱花盛开" />
+			<van-cell custom-class="title" title="#天水麻辣烫爆火出圈" bindtap="handleTopicClick" data-topic="天水麻辣烫爆火出圈" />
+			<van-cell custom-class="title" title="#在桂林拍到了日月同辉" bindtap="handleTopicClick" data-topic="在桂林拍到了日月同辉" />
+		</van-cell-group>
+	</van-popup>
 </view>
-

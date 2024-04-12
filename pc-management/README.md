@@ -14,6 +14,7 @@
 "react-router-dom": "^6.22.3"
 
 目录结构描述
+├── dist // vite打包后的文件
 ├── node_modules
 ├── src
 │ ├── components // 组件

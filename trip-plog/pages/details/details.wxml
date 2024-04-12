@@ -1,8 +1,5 @@
 <view class="outer">
 	<!-- 轮播图 -->
-	<!-- <view class="carousel">
-		<image src="/static/images/嘉兴5.jpg" mode="aspectFill" />
-	</view> -->
 	<swiper class="carousel" indicator-dots="{{true}}" indicator-active-color="#BDA066" autoplay interval="1500" circular="{{true}}">
 		<swiper-item wx:for="{{article.thumbnail}}" wx:key="index">
 			<image src="{{item}}" mode="aspectFill" />

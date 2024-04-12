@@ -1,4 +1,3 @@
-/* pages/search-list/search-list.wxss */
 // 列表
 .container {
 	display: flex;
@@ -51,8 +50,8 @@
 			// 头像、昵称
 			.flex-row {
 				display: flex;
-				align-items: center; //垂直居中
-				justify-content: flex-start; //对齐方式
+				align-items: center;
+				justify-content: flex-start;
 
 				.item-content-avatar {
 					width: 40rpx;
@@ -65,7 +64,6 @@
 			// 浏览量
 			.item-views {
 				color: #c4c4c4;
-				// text-decoration: underline;
 				font-size: 26rpx;
 			}
 		}

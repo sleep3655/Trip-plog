@@ -30,10 +30,11 @@
     "tabIndent": "auto",
     "tabSize": 2
   },
+  "appid": "wx4985ac88a0d4a834",
+  "projectname": "trip-plog",
+  "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",
   "packOptions": {
     "ignore": [],
     "include": []
-  },
-  "appid": "wx4985ac88a0d4a834",
-  "projectname": "trip-plog"
+  }
 }
