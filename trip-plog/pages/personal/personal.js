@@ -36,12 +36,15 @@ Page({
             }
         })
     },
-
-
+    getDetail(e) {
+        const info = e.detail;
+        wx.navigateTo({
+            url: `../toDetail/toDetail?info=${JSON.stringify(info)}`,
+        });
+    },
 
     getUpdate(e) {
         const info = e.detail;
-        console.log(info);
         wx.navigateTo({
             url: `../record/record?info=${JSON.stringify(info)}`,
         });
