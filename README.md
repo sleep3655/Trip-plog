@@ -31,7 +31,13 @@ npm run start
 
 ##### 小程序
 
-![image](https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/详情%2B搜索.gif)
+<img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/详情%2B搜索.gif" width="100px">
+
+<img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/详情%2B搜索.gif" width="100px">
+
+<img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/详情%2B搜索.gif" width="100px">
+
+<img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/详情%2B搜索.gif" width="100px">
 
 <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/详情%2B搜索.gif" width="100px">
 
