@@ -16,45 +16,45 @@ app.use(express.static(__dirname));
 
 // 配置文件存储_zqx
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, "./file/image")
-    },
-    filename: (req, file, cb) => {
-        let type = file.originalname.replace(/.+\./, ".");
-        console.log(type);
-        cb(null, `${v4()}${type}`)
-    }
+  destination: (req, file, cb) => {
+    cb(null, "./file/image")
+  },
+  filename: (req, file, cb) => {
+    let type = file.originalname.replace(/.+\./, ".");
+    console.log(type);
+    cb(null, `${v4()}${type}`)
+  }
 })
 
 //图片上传_zqx
 const upload = multer({ storage })
 app.post("/uploadImg", upload.array("file", 10), (req, res) => {
-    res.send(req.files);
+  res.send(req.files);
 })
 
 
 app.all("*", (req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", '*');
-    res.setHeader("Access-Control-Allow-Headers", '*');
+  res.setHeader("Access-Control-Allow-Origin", '*');
+  res.setHeader("Access-Control-Allow-Headers", '*');
 
-    next();
+  next();
 })
 
 
 // 注册_zqx
 app.post('/register', async (req, res) => {
-    const { username, password, avatarUrl } = req.body;
-    const existingUser = await User.findOne({ username });
-    if (existingUser) {
-        console.log('用户名已存在');
-        return res.send("Registered");
-    }
-    const uniqueId = v4();
-    // 创建新用户，将唯一ID分配给用户_zqx
-    const newUser = new User({ userId: uniqueId, username, password, avatarUrl });
-    await newUser.save();
-    console.log('用户注册成功！');
-    res.send("success");
+  const { username, password, avatarUrl } = req.body;
+  const existingUser = await User.findOne({ username });
+  if (existingUser) {
+    console.log('用户名已存在');
+    return res.send("Registered");
+  }
+  const uniqueId = v4();
+  // 创建新用户，将唯一ID分配给用户_zqx
+  const newUser = new User({ userId: uniqueId, username, password, avatarUrl });
+  await newUser.save();
+  console.log('用户注册成功！');
+  res.send("success");
 });
 
 
@@ -123,14 +123,15 @@ app.post("/deletePlog", async (req, res) => {
   }
 });
 
+// pc获取游记列表_zqx
 app.get('/api/plog', async (req, res) => {
-   try {
+  try {
     const plogs = await Plog.find();
-     res.json(plogs);
- } catch (error) {
-     console.error('获取游记列表失败', error);
-     res.status(500).json({ error: '获取游记列表失败' });
- }
+    res.json(plogs);
+  } catch (error) {
+    console.error('获取游记列表失败', error);
+    res.status(500).json({ error: '获取游记列表失败' });
+  }
 });
 
 //审核通过_wqj
@@ -203,86 +204,75 @@ app.post('/api/delete', async (req, res) => {
 
 // 上传游记_wqj
 app.post('/publish', upload.array('file'), async (req, res) => {
-    const { id, userId, title, content, location, cost, date, time, fileList } = req.body;
-    const photoUrl_original = JSON.parse(fileList.replace(/'/g, "\""))
-        .filter(item => item.url.startsWith("http://localhost:3001"))
-        .map(item => item.url);
-    console.log("photoUrl_original", photoUrl_original);
+  const { id, userId, title, content, location, cost, date, time, fileList } = req.body;
+  const photoUrl_original = JSON.parse(fileList.replace(/'/g, "\""))
+    .filter(item => item.url.startsWith("http://localhost:3001"))
+    .map(item => item.url);
+  console.log("photoUrl_original", photoUrl_original);
 
-    const files = req.files; // 获取上传的文件
-    let photoUrls_new = []
-    // 处理文件
-    if (files) {
-        photoUrls_new = files.map(file => "http://localhost:3001/file/image/" + file.filename);
+  const files = req.files; // 获取上传的文件
+  let photoUrls_new = []
+  // 处理文件
+  if (files) {
+    photoUrls_new = files.map(file => "http://localhost:3001/file/image/" + file.filename);
 
-    }
-    const photoUrls = photoUrl_original.concat(photoUrls_new);
-    console.log("photoUrls", photoUrls);
-    if (id === '') {
-        // 检查数据库中是否存在相同userId和time的数据
-        const existingPlog = await Plog.findOne({ userId, time });
-
-        if (existingPlog) {
-            // 如果存在相同userId和time的数据，则更新photourl
-            existingPlog.photourl.push(...photoUrls);
-            await existingPlog.save(); // 等待保存操作完成
-        } else {
-            // 如果不存在相同userId和time的数据，则创建新的游记对象
-            const newPlog = new Plog({
-                userId,
-                title,
-                content,
-                location,
-                cost,
-                date,
-                time,
-                photourl: photoUrls,
-                status: '待审核',
-                delete: false
-            });
-            await newPlog.save(); // 等待保存操作完成
-        }
-    }
-    else {
-        // 查找是否存在已有的游记对象
-        const existingPlog = await Plog.findById({ _id: id });
-        if (existingPlog) {
-            await Plog.updateOne(
-                { _id: existingPlog._id },
-                {
-                    $set: {
-                        title: title,
-                        content: content,
-                        location: location,
-                        cost: cost,
-                        date: date,
-                        time: time,
-                        photourl: photoUrls,
-                        status: '待审核',
-                        delete: false
-                    }
-                }
-            );
-        }
-
-    }
-
-    // 返回响应
-    res.send('文件上传成功');
-});
-
-// pc获取游记列表_zqx
-app.get("/api/plog", async (req, res) => {
-  try {
-    const plogs = await Plog.find();
-    console.log(plogs);
-    res.json(plogs);
-    console.log(plogs);
-  } catch (error) {
-    console.error("获取游记列表失败", error);
-    res.status(500).json({ error: "获取游记列表失败" });
   }
+  const photoUrls = photoUrl_original.concat(photoUrls_new);
+  console.log("photoUrls", photoUrls);
+  if (id === '') {
+    // 检查数据库中是否存在相同userId和time的数据
+    const existingPlog = await Plog.findOne({ userId, time });
+
+    if (existingPlog) {
+      // 如果存在相同userId和time的数据，则更新photourl
+      existingPlog.photourl.push(...photoUrls);
+      await existingPlog.save(); // 等待保存操作完成
+    } else {
+      // 如果不存在相同userId和time的数据，则创建新的游记对象
+      const newPlog = new Plog({
+        userId,
+        title,
+        content,
+        location,
+        cost,
+        date,
+        time,
+        photourl: photoUrls,
+        status: '待审核',
+        delete: false
+      });
+      await newPlog.save(); // 等待保存操作完成
+    }
+  }
+  else {
+    // 查找是否存在已有的游记对象
+    const existingPlog = await Plog.findById({ _id: id });
+    if (existingPlog) {
+      await Plog.updateOne(
+        { _id: existingPlog._id },
+        {
+          $set: {
+            title: title,
+            content: content,
+            location: location,
+            cost: cost,
+            date: date,
+            time: time,
+            photourl: photoUrls,
+            status: '待审核',
+            delete: false
+          }
+        }
+      );
+    }
+
+  }
+
+  // 返回响应
+  res.send('文件上传成功');
 });
+
+
 
 // pc获取游记详情_lhl
 app.get("/api/plog/:id", async (req, res) => {
