@@ -23,12 +23,13 @@ https://b23.tv/xyylBEm
 ##### 连接数据库nodeServer
 
 ```js
-
 npm run start
 显示：
 	Server listening on port 3001
 	数据库连接成功
 ```
+
+MongoDB Compass连接本地27017端口，会显示trip数据库，包含Users和Plog表，分别存放小程序用户名/密码和发布的游记内容。
 
 ##### 小程序trip-plog
 
@@ -38,7 +39,6 @@ npm run start
      <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/发布.gif" width="200px">
      <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/拒绝%2B返修.gif" width="200px">
 </p>
-
 ##### PC端
 
 ```js
@@ -50,7 +50,8 @@ npm run dev
     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/pc/审核人员登录%2B查看详情.gif"width="400px">
      <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/pc/删除.gif"width="400px">
      <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/pc/拒绝%2B理由.gif"width="400px">
-     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/pc/状态搜索.gif"width="400px">
+     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/pc/状态搜索.gif"width="400px"> 
+</p>
 
 
 
