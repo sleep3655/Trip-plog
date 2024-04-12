@@ -7,7 +7,8 @@
 		"pages/search-list/search-list",
 		"pages/details/details",
 		"pages/login/login",
-		"pages/register/register"
+        "pages/register/register",
+        "pages/toDetail/toDetail"
 	],
 	"window": {
 		"navigationBarTextStyle": "black",

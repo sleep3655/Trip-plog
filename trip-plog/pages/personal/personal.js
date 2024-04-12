@@ -37,17 +37,18 @@ Page({
 			}
 		})
 	},
-	getDetail(e) {
-		const info = e.detail;
-		wx.navigateTo({
-			url: `../toDetail/toDetail?info=${JSON.stringify(info)}`,
-		})
-	},
 
 	getUpdate(e) {
 		const info = e.detail;
 		wx.navigateTo({
 			url: `../record/record?info=${JSON.stringify(info)}`,
+		})
+    },
+    getDetail(e) {
+        const info = e.detail;
+        const { username, avatarUrl } = this.data;
+		wx.navigateTo({
+			url: `../toDetail/toDetail?info=${JSON.stringify(info)}&username=${username}&avatarUrl=${avatarUrl}`,
 		})
 	},
 	async getDelete(e) {

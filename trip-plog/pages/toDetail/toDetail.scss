@@ -1,0 +1,37 @@
+.swiper {
+    width: 100% !important;
+    height: 500rpx;
+
+    .swiper-image {
+        width: 100%;
+    }
+}
+.container {
+    display: flex;
+    width: 90%;
+    flex-direction: column;
+    margin-left: 20rpx;
+    justify-content: flex-start;
+
+    .title {
+        font-size: 20px;
+        padding: 10rpx;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .content {
+        color: #666;
+        font-size: 18px;
+        line-height: 1.5;
+        display: -webkit-box;
+        padding: 10rpx;
+        text-indent: 2em;
+    }
+    .status {
+        margin-left: auto;
+        margin-bottom: 5rpx;
+    }
+  
+}
