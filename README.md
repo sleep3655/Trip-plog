@@ -16,7 +16,7 @@ https://github.com/sleep3655/Trip-plog
 
 ###### 视频演示链接
 
-https://b23.tv/xyylBEm
+https://www.bilibili.com/video/BV1tt42177Rp/
 
 #### 使用说明
 
