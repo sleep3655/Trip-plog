@@ -1,51 +1,52 @@
 .body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 100rpx;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 100rpx;
 
-    .container0 {
-        margin-top: 80rpx;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        .change-avatar {
-            font-size: 15px;
-            color: #aaaaaa;
-        }
+	.container0 {
+		margin-top: 80rpx;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
 
-        .avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-        }
-    }
+		.change-avatar {
+			font-size: 15px;
+			color: #aaaaaa;
+		}
+
+		.avatar {
+			width: 100px;
+			height: 100px;
+			border-radius: 50%;
+		}
+	}
 
 
-    .container {
-        margin-top: 100rpx;
-        display: flex;
-        width: 80%;
-        flex-direction: column;
+	.container {
+		margin-top: 100rpx;
+		display: flex;
+		width: 80%;
+		flex-direction: column;
 
-        .input {
-            width: 100%;
-            border-bottom: 2rpx solid #aaaaaa;
-            margin-top: 80rpx;
-            margin-bottom: -30rpx;
-        }
+		.input {
+			width: 100%;
+			border-bottom: 2rpx solid #aaaaaa;
+			margin-top: 80rpx;
+			margin-bottom: -30rpx;
+		}
 
-        .toregister {
-            margin-right: auto;
-            color: rgb(25, 137, 250);
-            margin-top: 50rpx;
-        }
+		.toregister {
+			margin-right: auto;
+			color: rgb(25, 137, 250);
+			margin-top: 50rpx;
+		}
 
-        .login-btn {
-            width: 80%;
-            margin-top: 80rpx;
-            border-radius: 40rpx;
-        }
+		.login-btn {
+			width: 80%;
+			margin-top: 80rpx;
+			border-radius: 40rpx;
+		}
 
-    }
+	}
 }

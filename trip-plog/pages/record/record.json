@@ -1,16 +1,12 @@
 {
-  "navigationBarTitleText": "游记发布",
-
-  "usingComponents": {
-    "van-field": "@vant/weapp/field/index",
-    "van-uploader": "@vant/weapp/uploader/index",
-    "van-image": "@vant/weapp/image/index",
-    "van-calendar": "@vant/weapp/calendar/index",
-    "van-cell": "@vant/weapp/cell/index",
-    "van-cascader": "@vant/weapp/cascader/index",
-    "tag":"../../components/tag/tag",
-    "van-popup": "@vant/weapp/popup/index"
-    
-  }
-
+	"navigationBarTitleText": "游记发布",
+	"usingComponents": {
+		"van-field": "@vant/weapp/field/index",
+		"van-uploader": "@vant/weapp/uploader/index",
+		"van-image": "@vant/weapp/image/index",
+		"van-calendar": "@vant/weapp/calendar/index",
+		"van-cell": "@vant/weapp/cell/index",
+		"van-cascader": "@vant/weapp/cascader/index",
+		"van-popup": "@vant/weapp/popup/index"
+	}
 }

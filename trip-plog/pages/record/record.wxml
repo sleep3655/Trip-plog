@@ -43,26 +43,6 @@
     color="#4dc24d"
   />
 
-  <!-- <van-field
-    value="{{ location }}"
-    readonly
-    label="出游地点"
-    bind:tap="showLocationPicker"
-  />  -->
-  <!-- <van-popup show="{{ showLocationPicker }}" round position="bottom">
-    <van-cascader
-      wx:if="{{ showLocationPicker }}"
-      value="{{ cascaderValue }}"
-      title="请选择出游地点"
-      options="{{ options }}"
-      bind:change="handleLocationInput"
-      bind:close="closeLocationPicker"
-      bind:finish="finishLocationPicker"
-      active-color="#4dc24d"
-      
-    />
-  </van-popup> -->
-
   <van-field class="option-input" label="人均花费" bind:input="handleCostInput" value="{{cost}}">
   <view class="cell-value">{{ cost }}</view>
 </van-field>

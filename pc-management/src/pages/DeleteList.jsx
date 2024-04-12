@@ -2,21 +2,22 @@ import { Table, Tag } from "antd";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import NavBar from "../components/NavBar/NavBar";
+import styles from "./index.module.css";
 
 const columns = [
   {
     title: "标题",
     dataIndex: "title",
     key: "title",
-    width: 120, 
-    ellipsis: true, 
+    width: 120,
+    ellipsis: true,
   },
   {
     title: "日志内容",
     dataIndex: "content",
     key: "content",
-    width: 300, 
-    ellipsis: true, 
+    width: 300,
+    ellipsis: true,
   },
   {
     title: "图片",
@@ -77,16 +78,18 @@ const DeleteList = () => {
   return (
     <>
       <NavBar title="回收站">
-        <Table
-          columns={columns}
-          dataSource={data}
-          pagination={{
-            ...pagination,
-            total,
-            showTotal: (total) => `共 ${total} 条`,
-            onChange: handleTableChange,
-          }}
-        />
+        <div className={styles.tableWrap}>
+          <Table
+            columns={columns}
+            dataSource={data}
+            pagination={{
+              ...pagination,
+              total,
+              showTotal: (total) => `共 ${total} 条`,
+              onChange: handleTableChange,
+            }}
+          />
+        </div>
       </NavBar>
     </>
   );
