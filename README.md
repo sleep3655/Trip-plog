@@ -33,14 +33,12 @@ npm run start
 
 <p align = "center">
     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/详情%2B搜索.gif" width="100px">
-     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/详情%2B搜索.gif" width="100px">
-     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/详情%2B搜索.gif" width="100px">
-     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/详情%2B搜索.gif" width="100px">
-     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/详情%2B搜索.gif" width="100px">
-     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/详情%2B搜索.gif" width="100px">
+     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/注册%2B登录.gif" width="100px">
+     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/发布.gif" width="100px">
+     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/重新编辑.gif" width="100px">
+     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/拒绝%2B返修.gif" width="100px">
+     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/退出登录.gif" width="100px">
 </p>
-
-​    
 
 ##### PC端
 
@@ -48,4 +46,16 @@ npm run start
 npm run dev
 运行在：http://localhost:3010/
 ```
+
+<p align = "center">
+    <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/pc/审核人员登录%2B查看详情.gif"width="400px">
+     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/pc/删除.gif"width="400px">
+     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/pc/拒绝%2B理由.gif"width="400px">
+     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/pc/状态搜索.gif"width="400px">
+
+
+
+##### 合作
+
+@[**Laulx**](https://github.com/Laulx)@[**sleep3655**](https://github.com/sleep3655)@[**harumi1107**](https://github.com/harumi1107)
 
