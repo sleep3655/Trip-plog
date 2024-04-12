@@ -31,15 +31,16 @@ npm run start
 
 ##### 小程序
 
-<img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/详情%2B搜索.gif" width="100px">
+<p align = "center">
+    <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/详情%2B搜索.gif" width="100px">
+     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/详情%2B搜索.gif" width="100px">
+     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/详情%2B搜索.gif" width="100px">
+     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/详情%2B搜索.gif" width="100px">
+     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/详情%2B搜索.gif" width="100px">
+     <img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/详情%2B搜索.gif" width="100px">
+</p>
 
-<img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/详情%2B搜索.gif" width="100px">
-
-<img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/详情%2B搜索.gif" width="100px">
-
-<img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/详情%2B搜索.gif" width="100px">
-
-<img src="https://github.com/sleep3655/Trip-plog/blob/main/gif/小程序/详情%2B搜索.gif" width="100px">
+​    
 
 ##### PC端
 
