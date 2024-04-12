@@ -7,6 +7,6 @@
         <van-icon class="out" bindtap="logout" name="close" bindtap="logout" size="80rpx" color="gray"/>
     </view>
     <view class="txt">
-        <ViewCard wx:for="{{ list }}" wx:key="_id" data="{{item}}" bindgetdelete="getDelete" bindgetupdate="getUpdate"/>
+        <ViewCard wx:for="{{ list }}" wx:key="_id" data="{{item}}" bindgetdetail="getDetail" bindgetdelete="getDelete" bindgetupdate="getUpdate"/>
     </view>
 </view>

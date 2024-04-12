@@ -18,6 +18,7 @@
 
         .content {
             display: flex;
+            max-width: 400rpx;
             flex-direction: column;
             margin-left: 10rpx;
             justify-content: flex-start;
@@ -25,6 +26,9 @@
             .title {
                 font-size: 20px;
                 padding: 10rpx;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
             }
 
             .desc {
@@ -53,7 +57,7 @@
         box-sizing: border-box;
         width: 300rpx;
         .edit {
-            margin: 5rpx;
+            margin: 5rpx 8rpx 5rpx 2rpx;
             color: rgb(39, 109, 66);
         }
         .delete {

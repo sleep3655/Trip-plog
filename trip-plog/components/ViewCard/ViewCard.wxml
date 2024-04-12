@@ -1,7 +1,7 @@
 <view class="body">
-    <view class="item">
+    <view class="item" catchtap="toDetail" data-info="{{ data }}">
         <image class="image" src="{{ data.photourl[0] ? data.photourl[0] : 'https://img.tukuppt.com/png_preview/00/04/81/SYZxWQlAr9.jpg!/fw/780' }}"></image>
-        <view class="content">
+        <view class="content" >
             <text class="title">{{ data.title }}</text>
             <text class="desc">{{ data.content }}</text>
         </view>
